@@ -57,11 +57,8 @@ export default function CategoriesMenu({}: Props) {
                     {job.dsNhomChiTietLoai?.map(
                       (detail: DsNhomChiTietLoai, index: number) => {
                         return (
-                          <div className="container-fluid">
-                            <h1
-                              className="categoriesmenu_li_jobdetail_detail"
-                              key={index}
-                            >
+                          <div className="container-fluid" key={index}>
+                            <h1 className="categoriesmenu_li_jobdetail_detail">
                               {detail.tenNhom}
                             </h1>
                             {detail.dsChiTietLoai?.map(
