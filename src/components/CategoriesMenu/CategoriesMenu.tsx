@@ -53,14 +53,17 @@ export default function CategoriesMenu({}: Props) {
                   <a className="links" href="#">
                     {job.tenLoaiCongViec}
                   </a>
-                  <ul className="categoriesmenu_li_jobdetail">
+                  <ul
+                    className={`categoriesmenu_li_jobdetail categoriesmenu_li_jobdetail_${job.id}`}
+                  >
+                    {/* <ul className="categoriesmenu_li_jobdetail"> */}
                     {job.dsNhomChiTietLoai?.map(
                       (detail: DsNhomChiTietLoai, index: number) => {
                         return (
-                          <div className="container-fluid" key={index}>
-                            <h1 className="categoriesmenu_li_jobdetail_detail">
+                          <div className="container-fluid mb-3" key={index}>
+                            <p className="categoriesmenu_li_jobdetail_detail">
                               {detail.tenNhom}
-                            </h1>
+                            </p>
                             {detail.dsChiTietLoai?.map(
                               (job: DsChiTietLoai, index: number) => {
                                 return (
