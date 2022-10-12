@@ -1,7 +1,5 @@
 .CategoriesMenu {
   border-bottom: 1px solid #e4e5e7;
-  margin-bottom: 10px;
-
   .categoriesmenu {
     &_wrapper {
       width: 100%;
@@ -22,17 +20,12 @@
         margin: 0 auto;
         max-width: 1400px;
       }
-      @media only screen and (min-width: 1160px) {
-        margin: 0 auto;
-        max-width: 1400px;
-      }
     }
     &_ul {
       display: flex;
       justify-content: space-between;
       margin: 0 auto;
       padding: 0;
-      //   max-width: 1375px;
       overflow: hidden;
       .categoriesmenu_li {
         .links {
@@ -45,9 +38,9 @@
           text-decoration: none;
           width: max-content;
           &::after {
+            content: "";
             background: #1dbf73;
             bottom: 0;
-            content: "";
             height: 3px;
             left: 0;
             position: absolute;
@@ -59,16 +52,6 @@
             &::after {
               width: 100%;
             }
-          }
-          &:hover + .categoriesmenu_li_jobdetail {
-            display: block;
-            position: absolute;
-            width: max-content;
-            padding: 20px 32px;
-            border: 1px solid #e4e5e7;
-            box-shadow: 0px 1px 3px #dadbdd;
-
-            z-index: 999;
           }
           //   &.active {
           //     &::after {
@@ -88,6 +71,14 @@
         }
         .categoriesmenu_li_jobdetail {
           display: none;
+
+          background-color: #fff;
+          position: absolute;
+          width: max-content;
+          padding: 20px 32px;
+          border: 1px solid #e4e5e7;
+          box-shadow: 0px 1px 3px #dadbdd;
+          z-index: 999;
           .categoriesmenu_li_jobdetail_detail {
             font-size: 16px;
             color: #404145;
@@ -102,6 +93,9 @@
             margin: 0;
             font-weight: 300;
           }
+        }
+        &:hover .categoriesmenu_li_jobdetail {
+          display: block;
         }
       }
     }
