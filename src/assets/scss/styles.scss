@@ -19,12 +19,13 @@
 /// userDetail
 @import "./pages/userDetail/userDetail.scss";
 @import "./pages/userDetail/userDetailMobile.scss";
-
 //---components---
 @import "./components/header/header.scss";
 @import "./components/categoriesmenu/categoriesmenu.scss";
 @import "./components/footer/footer.scss";
-
+//---themes---
+@import "../scss/themes/minxi";
+@import "../scss//themes/responsive";
 //---templates---
 @import "./templates/headerTemplateMobile.scss";
 @import "./templates/admin/adminTemplate.scss";

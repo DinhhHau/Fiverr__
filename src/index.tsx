@@ -28,11 +28,11 @@ root.render(
         <Route path="" element={<HeaderHomeTemplate />}>
           <Route index element={<Index />} />
           <Route path="profile" element={<UserDetail />} />
+          <Route path="login" element={<Login />} />
 
           <Route path="*" element={<Navigate to="" />} />
           <Route path="userdetail" element={<UserDetail />}></Route>
         </Route>
-        <Route path="login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   </Provider>
