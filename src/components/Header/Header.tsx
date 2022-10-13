@@ -32,7 +32,7 @@ export default function Header({}: Props) {
                     />
                   </span>
                 </div>
-                <button className="btn btn-success text-light">SEARCH</button>
+                <button className="btn">Search</button>
               </form>
             </div>
           </div>

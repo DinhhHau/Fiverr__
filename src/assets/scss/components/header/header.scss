@@ -51,7 +51,13 @@
               }
             }
             .btn {
+              border: none;
+              color: #fff;
+              background: #1dbf73;
               border-radius: 0 4px 4px 0;
+              &:hover {
+                background: #19a463;
+              }
             }
           }
         }
