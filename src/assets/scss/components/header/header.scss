@@ -76,6 +76,17 @@
               &:hover {
                 color: #1dbf37;
               }
+              a {
+                margin: 0;
+                transition: 0.3s;
+                font-weight: 600;
+                font-size: 16px;
+                color: #74767e;
+                cursor: pointer;
+                &:hover {
+                  color: #1dbf37;
+                }
+              }
             }
             .join {
               padding: 5px 15px;

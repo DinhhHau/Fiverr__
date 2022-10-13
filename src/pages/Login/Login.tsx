@@ -51,7 +51,7 @@ export default function Login({}: Props) {
             </figure>
           </div>
           <div className="signin-form">
-            <h2 className="form-title">Login</h2>
+            <h2 className="form-title mb-5">Sign In to Fiverr</h2>
             <form
               className="register-form"
               id="register-form"
@@ -122,7 +122,7 @@ export default function Login({}: Props) {
                 <button className="btn btn-success login" type="submit">
                   Login
                 </button>
-                <a className="" href="/registerfrm">
+                <a className="text_register" href="/registerfrm">
                   Register now ?
                 </a>
               </div>

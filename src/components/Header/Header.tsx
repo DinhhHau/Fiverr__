@@ -44,7 +44,10 @@ export default function Header({}: Props) {
                 <li>Messages</li>
                 <li>List</li>
                 <li>Orders</li>
-                <li>Sign in</li>
+                {/* <li>Sign in</li> */}
+                <li>
+                  <NavLink to={"/login"}>Login</NavLink>
+                </li>
                 <li className="join">
                   <a
                     className="FW1syM7 L1yjt43 xaFER3a p9qU5Ka co-green-700 js-open-popup-join fiverr-header-join"

@@ -11,38 +11,18 @@ import { getMenuLoaiCv } from "../../redux/reducers/jobReducer";
 type Props = {};
 
 export default function CategoriesMenu({}: Props) {
+  //
   const { arrLoaiCV } = useSelector((state: RootState) => state.jobReducer);
   console.log(arrLoaiCV);
   const dispatch: AppDispatch = useDispatch();
 
+  //
   useEffect(() => {
     const actionApi = getMenuLoaiCv();
     dispatch(actionApi);
   }, []);
 
-  //
-  //   const renderMenuLoaiCV = () => {
-  //     return arrLoaiCV.map((job: JobModel, index: number) => {
-  //       return (
-  //         <li className="categoriesmenu_li" key={index}>
-  //           <a href="#">{job.tenLoaiCongViec}</a>
-  //         </li>
-  //       );
-  //     });
-  //   };
-
-  //   const renderJobDetial = () => {
-  //     return job.map(())
-  //   }
-
   return (
-    // <section className="CategoriesMenu">
-    //   <div className="categoriesmenu_wrapper">
-    //     <nav className="categoriesmenu_row container">
-    //       <ul className="categoriesmenu_ul ">{renderMenuLoaiCV()}</ul>
-    //     </nav>
-    //   </div>
-    // </section>
     <section className="CategoriesMenu">
       <div className="categoriesmenu_wrapper">
         <nav className="categoriesmenu_row">
