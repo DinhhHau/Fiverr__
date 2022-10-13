@@ -15,6 +15,7 @@ import "./assets/scss/styles.scss";
 import Index from "./pages/Index/Index";
 import UserDetail from "./pages/UserDetail/UserDetail";
 import HeaderHomeTemplate from "./templates/HeaderHomeTemplate";
+import Login from "./pages/Login/Login";
 //
 
 const root = ReactDOM.createRoot(
@@ -25,12 +26,13 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="" element={<HeaderHomeTemplate />}>
-          {/* <Route index element={<Index />} /> */}
-          <Route index element={<UserDetail />} />
+          <Route index element={<Index />} />
+          <Route path="profile" element={<UserDetail />} />
 
           <Route path="*" element={<Navigate to="" />} />
           <Route path="userdetail" element={<UserDetail />}></Route>
         </Route>
+        <Route path="login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   </Provider>
