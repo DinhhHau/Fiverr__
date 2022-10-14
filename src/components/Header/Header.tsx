@@ -21,9 +21,6 @@ export default function Header({}: Props) {
             <div className="header_search">
               <form className="search_form">
                 <div className="search">
-                  <span className="icon mx-1">
-                    <i className="fa-solid fa-magnifying-glass" />
-                  </span>
                   <span>
                     <input
                       type="search"

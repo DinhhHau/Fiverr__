@@ -27,7 +27,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="" element={<HeaderHomeTemplate />}>
-          <Route index element={<Index />} />
+          {/* <Route index element={<Index />} /> */}
+          <Route index element={<UserDetail />} />
           <Route path="profile" element={<UserDetail />} />
 
           <Route path="*" element={<Navigate to="" />} />

@@ -15,7 +15,6 @@ export default function CategoriesMenu({}: Props) {
   const { arrLoaiCV } = useSelector((state: RootState) => state.jobReducer);
   console.log(arrLoaiCV);
   const dispatch: AppDispatch = useDispatch();
-
   //
   useEffect(() => {
     const actionApi = getMenuLoaiCv();

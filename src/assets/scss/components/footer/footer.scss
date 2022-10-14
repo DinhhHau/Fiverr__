@@ -24,7 +24,7 @@
             .title {
               padding: 0 0 20px 0;
               h6 {
-                font-size: 16px;
+                // font-size: 16px;
                 font-weight: 700;
                 color: #404145;
                 cursor: default;
@@ -37,7 +37,7 @@
                   width: max-content;
                   a {
                     position: relative;
-                    font-size: 16px;
+                    // font-size: 16px;
                     color: #74767e;
                     &::after {
                       content: "";
@@ -54,7 +54,7 @@
                   p {
                     display: block;
                     position: relative;
-                    font-size: 14px;
+                    // font-size: 14px;
                     color: #b5b6ba;
                     width: max-content;
                     &::after {
@@ -107,7 +107,7 @@
         .right {
           display: flex;
           align-items: center;
-          flex-wrap: wrap;
+
           .social {
             display: flex;
             padding-right: 32px !important;
