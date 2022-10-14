@@ -1,11 +1,11 @@
 @import "../../base/base";
 @import "../../themes/variables";
 
+//
 .main-form {
   background: white;
   padding: 50px 0 0 0;
 }
-
 .container_form {
   width: 900px;
   background: #fff;
@@ -37,9 +37,12 @@
   padding: 30px;
 }
 .signin-form {
+  width: 40%;
   padding: 0 30px;
   h2 {
     font-weight: 700;
+    color: #1dbf73;
+    margin-left: 50px;
   }
 }
 .socials {
@@ -86,14 +89,21 @@
   color: #fff;
   transition: all 0.3s ease-in-out;
   &:hover {
-    color: #1dbf73 !important;
-    background: #fff !important;
-    // border: 1px solid #1dbf73;
-    box-shadow: 2px 2px 4px 2px #1dbf73;
+    color: #fff !important;
+    background: #188652 !important;
+    transform: translateY(-0.25em);
+    box-shadow: 2px 2px 4px 2px #d3d6d4;
     transform: translateY(-0.25em);
   }
 }
 .text_register {
   font-size: 14px;
   color: #1dbf73;
+}
+.form-control:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: #1dbf73;
+  outline: none;
+  box-shadow: none;
 }

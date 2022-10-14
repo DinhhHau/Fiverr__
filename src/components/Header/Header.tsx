@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import CustomLogo from "../../assets/CustomLogo/CustomLogo";
 //
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
 const logo: string = require("../../assets/img/logo.png");
 //
 export default function Header({}: Props) {
+  const navigate = useNavigate();
   return (
     <header className="header">
       <div className="header_wrapper">
@@ -39,23 +40,21 @@ export default function Header({}: Props) {
           <div className="right">
             <nav className="header_navbar">
               <ul className="ul">
-                <li>Fiverr Pro</li>
-                <li>Explore</li>
-                <li>Messages</li>
-                <li>List</li>
-                <li>Orders</li>
-                {/* <li>Sign in</li> */}
+                <li className="li_1">Fiverr Pro</li>
+                <li className="li_1">Explore</li>
+                <li className="li_1">Messages</li>
+                <li className="li_1">List</li>
+                <li className="li_1">Orders</li>
                 <li>
                   <NavLink to={"/login"}>Login</NavLink>
                 </li>
-                <li className="join">
-                  <a
-                    className="FW1syM7 L1yjt43 xaFER3a p9qU5Ka co-green-700 js-open-popup-join fiverr-header-join"
-                    rel="nofollow"
-                    href="/join?source=top_nav"
-                  >
-                    Join
-                  </a>
+                <li
+                  className="join"
+                  onClick={() => {
+                    navigate("/register");
+                  }}
+                >
+                  <NavLink to={"/register"}>Join</NavLink>
                 </li>
               </ul>
             </nav>

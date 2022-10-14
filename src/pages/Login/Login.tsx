@@ -8,7 +8,8 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 type Props = {};
 
-const logo: string = require("../../assets/img/signin-image.jpg");
+//
+const signin: string = require("../../assets/img/signin.jpg");
 const eye = <FontAwesomeIcon icon={faEye} />;
 export default function Login({}: Props) {
   const dispatch = useDispatch();
@@ -47,14 +48,14 @@ export default function Login({}: Props) {
         <div className="signin-content">
           <div className="signin-image">
             <figure>
-              <img src={logo} alt="sing up image" />
+              <img src={signin} alt="sing up image" />
             </figure>
           </div>
           <div className="signin-form">
             <h2 className="form-title mb-5">Sign In to Fiverr</h2>
             <form
-              className="register-form"
-              id="register-form"
+              className="login-form"
+              id="login-form"
               onSubmit={frm.handleSubmit}
             >
               <div className="d-flex flex-row align-items-center mb-4">
@@ -122,9 +123,9 @@ export default function Login({}: Props) {
                 <button className="btn btn-success login" type="submit">
                   Login
                 </button>
-                <a className="text_register" href="/registerfrm">
+                <NavLink className="text_register" to={"/register"}>
                   Register now ?
-                </a>
+                </NavLink>
               </div>
             </form>
           </div>
