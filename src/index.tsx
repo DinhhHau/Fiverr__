@@ -30,7 +30,6 @@ root.render(
           {/* <Route index element={<Index />} /> */}
           <Route index element={<UserDetail />} />
           <Route path="profile" element={<UserDetail />} />
-
           <Route path="*" element={<Navigate to="" />} />
           <Route path="userdetail" element={<UserDetail />}></Route>
         </Route>
