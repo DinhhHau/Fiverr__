@@ -4,7 +4,7 @@ type Props = {};
 
 export default function UserDetail({}: Props) {
   return (
-    <div className="main_content my-5">
+    <div className="main_content my-3">
       <div className="main_wrapper">
         <div className="main_row row">
           <div className="info">

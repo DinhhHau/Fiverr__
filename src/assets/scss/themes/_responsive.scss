@@ -154,6 +154,11 @@
 
 //end 576px
 @media screen and (max-width: 576px) {
+  //header
+  .header .header_wrapper .header_row {
+    height: auto;
+    margin-bottom: 20px;
+  }
   //footer
   .footer .footer_warpper .footer_row .footer_bottom {
     justify-content: center;
@@ -192,6 +197,27 @@
   .header .header_wrapper .header_row {
     height: auto;
     margin-bottom: 20px;
+  }
+  .header .header_wrapper .header_row .left {
+    margin-left: 0;
+    width: 100%;
+  }
+  .header .header_wrapper .header_row .left .header_search {
+    width: 100%;
+  }
+  .header
+    .header_wrapper
+    .header_row
+    .left
+    .header_search
+    .search_form
+    .search {
+    border-right-style: solid;
+    border-radius: 4px;
+    width: 100%;
+  }
+  .header .header_wrapper .header_row .left .header_search .search_form .btn {
+    display: none;
   }
   .header .header_wrapper .header_row .right {
     display: none;
