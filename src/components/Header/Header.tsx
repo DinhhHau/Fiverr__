@@ -3,7 +3,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import CustomLogo from "../../assets/CustomLogo/CustomLogo";
 //
 type Props = {
-  // logo?: string;
   fill?: string;
 };
 const logo: string = require("../../assets/img/logo.png");

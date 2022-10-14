@@ -17,6 +17,7 @@ import UserDetail from "./pages/UserDetail/UserDetail";
 import HeaderHomeTemplate from "./templates/HeaderHomeTemplate";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import VerifyAuth from "./guard/VerifyAuth";
 //
 
 const root = ReactDOM.createRoot(
@@ -27,14 +28,23 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="" element={<HeaderHomeTemplate />}>
-          {/* <Route index element={<Index />} /> */}
-          <Route index element={<UserDetail />} />
-          <Route path="profile" element={<UserDetail />} />
+          <Route index element={<Index />} />
+          {/* <Route index element={<UserDetail />} /> */}
+          {/* <Route path="profile" element={<UserDetail />} /> */}
           <Route path="*" element={<Navigate to="" />} />
-          <Route path="userdetail" element={<UserDetail />}></Route>
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route
+          path=""
+          element={
+            <VerifyAuth>
+              <HeaderHomeTemplate />
+            </VerifyAuth>
+          }
+        >
+          <Route path="profile" element={<UserDetail />}></Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   </Provider>

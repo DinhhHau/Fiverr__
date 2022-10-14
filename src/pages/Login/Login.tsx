@@ -1,18 +1,21 @@
 import React from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useState } from "react";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { loginApi } from "../../redux/reducers/userReducer";
+import { AppDispatch } from "../../redux/configStore";
 type Props = {};
 
 //
 const signin: string = require("../../assets/img/signin.jpg");
 const eye = <FontAwesomeIcon icon={faEye} />;
 export default function Login({}: Props) {
-  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
   // show pass
   const [passwordShow, setPasswordShow] = useState(false);
   const togglePassword = () => {
@@ -39,7 +42,7 @@ export default function Login({}: Props) {
     }),
     onSubmit: (values) => {
       console.log(values);
-      // dispatch(loginApi(values));
+      dispatch(loginApi(values));
     },
   });
   return (
