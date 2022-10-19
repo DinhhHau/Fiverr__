@@ -1,6 +1,8 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import CustomLogo from "../../assets/CustomLogo/CustomLogo";
+import { AppDispatch, RootState } from "../../redux/configStore";
 //
 type Props = {
   fill?: string;
@@ -8,7 +10,48 @@ type Props = {
 const logo: string = require("../../assets/img/logo.png");
 //
 export default function Header({}: Props) {
+  //
   const navigate = useNavigate();
+  const { userLogin } = useSelector((state: RootState) => state.userReducer);
+  console.log(userLogin);
+  //
+  const renderItem = () => {
+    if (userLogin == null) {
+      return <NavLink to={"/login"}>Login</NavLink>;
+    } else {
+      return (
+        <NavLink to={"/profile"}>
+          <i className="fa-regular fa-user" /> {userLogin.name}
+        </NavLink>
+      );
+    }
+  };
+  const renderItem2 = () => {
+    if (userLogin == null) {
+      return (
+        <li
+          className="join"
+          onClick={() => {
+            navigate("/register");
+          }}
+        >
+          <NavLink to={"/register"}>Join</NavLink>
+        </li>
+      );
+    } else {
+      return (
+        <li
+          className="join d-none"
+          onClick={() => {
+            navigate("/register");
+          }}
+        >
+          <NavLink to={"/register"}>Join</NavLink>
+        </li>
+      );
+    }
+  };
+  //
   return (
     <header className="header">
       <div className="header_wrapper">
@@ -41,17 +84,8 @@ export default function Header({}: Props) {
                 <li className="li_1">Messages</li>
                 <li className="li_1">List</li>
                 <li className="li_1">Orders</li>
-                <li>
-                  <NavLink to={"/login"}>Login</NavLink>
-                </li>
-                <li
-                  className="join"
-                  onClick={() => {
-                    navigate("/register");
-                  }}
-                >
-                  <NavLink to={"/register"}>Join</NavLink>
-                </li>
+                <li>{renderItem()}</li>
+                {renderItem2()}
               </ul>
             </nav>
           </div>

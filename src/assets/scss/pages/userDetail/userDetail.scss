@@ -96,7 +96,14 @@
                     border-radius: 50%;
                   }
                   &:hover .d-flex {
-                    opacity: 0;
+                    opacity: 0.5;
+                  }
+                  .image {
+                    .avatar {
+                      width: 150px !important;
+                      height: 150px !important;
+                      border-radius: 50% !important;
+                    }
                   }
                 }
               }
@@ -178,6 +185,7 @@
               .inner_row {
                 display: flex;
                 justify-content: space-between;
+                margin-bottom: 10px;
                 h3 {
                   margin: 0;
                   padding: 0;
@@ -190,6 +198,10 @@
                   font-size: 14px;
                   font-weight: 400;
                 }
+              }
+              h6 {
+                width: 40%;
+                font-weight: 400;
               }
               .lorem {
                 font-size: 14px;

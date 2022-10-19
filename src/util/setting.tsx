@@ -47,6 +47,7 @@ export const config = {
   },
   ACCESS_TOKEN: "access_token",
   USER_LOGIN: "userLogin",
+  ID_LOGIN: "id_login",
 };
 
 export const {
@@ -58,6 +59,7 @@ export const {
   getStoreJson,
   ACCESS_TOKEN,
   USER_LOGIN,
+  ID_LOGIN,
 } = config;
 
 /**Cấu hình request cho tất cả api cũng như response cho tất cả kết quả từ api trả về */
@@ -96,13 +98,12 @@ http.interceptors.response.use(
     console.log(err.response.status);
     //bắt lỗi không hợp lệ
     if (err.response.status === 400 || err.response.status === 404) {
-      // console.log(err.response.data.content);
-      alert(err.response.data.content);
+      console.log(err.response.data.content);
       //   history.push("/");
       return Promise.reject(err);
     }
     if (err.response.status === 401 || err.response.status === 403) {
-      alert("Token không hợp lệ ! vui lòng đăng nhập lại. ");
+      // alert("Token không hợp lệ ! vui lòng đăng nhập lại. ");
       //   history.push("/login");
       return Promise.reject(err);
     }

@@ -18,14 +18,17 @@ import HeaderHomeTemplate from "./templates/HeaderHomeTemplate";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import VerifyAuth from "./guard/VerifyAuth";
+import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
+import { createBrowserHistory } from "history";
 //
+export const history = createBrowserHistory({ window });
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HistoryRouter history={history}>
       <Routes>
         <Route path="" element={<HeaderHomeTemplate />}>
           <Route index element={<Index />} />
@@ -46,7 +49,7 @@ root.render(
           <Route path="profile" element={<UserDetail />}></Route>
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   </Provider>
 );
 

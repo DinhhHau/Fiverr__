@@ -1,8 +1,18 @@
 import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/configStore";
+import { getProfileApi } from "../../redux/reducers/userReducer";
 
 type Props = {};
 
 export default function UserDetail({}: Props) {
+  const dispatch: AppDispatch = useDispatch();
+  const { userLogin } = useSelector((state: RootState) => state.userReducer);
+  console.log(userLogin);
+  useEffect(() => {
+    dispatch(getProfileApi());
+  }, []);
   return (
     <div className="main_content my-3">
       <div className="main_wrapper">
@@ -24,13 +34,21 @@ export default function UserDetail({}: Props) {
                         </span>
                       </div>
                       <input className="label_inp" type="file" />
-                      <span className="d-flex">
-                        <p className="text my-0">H</p>
-                      </span>
+                      <div className="image d-flex">
+                        {userLogin?.avatar ? (
+                          <img
+                            src={userLogin?.avatar}
+                            alt="avatar"
+                            className="w-100 avatar"
+                          />
+                        ) : (
+                          <p className="text my-0">{userLogin?.name}</p>
+                        )}
+                      </div>
                     </label>
                   </div>
                   <div className="info_profile_label">
-                    <p>User</p>
+                    <p>{userLogin?.email}</p>
                     <div className="btn_update">
                       <button
                         className="edit"
@@ -92,7 +110,18 @@ export default function UserDetail({}: Props) {
                       Edit Description
                     </a>
                   </div>
-                  <p className="lorem"> mô tả thông tin api ở dây</p>
+                  <div className="d-flex align-items-center gap-5">
+                    <h6>Name:</h6>
+                    <p className="lorem">{userLogin?.name}</p>
+                  </div>
+                  <div className="d-flex align-items-center gap-5">
+                    <h6>Phone:</h6>
+                    <p className="lorem">{userLogin?.phone}</p>
+                  </div>
+                  <div className="d-flex align-items-center gap-5">
+                    <h6>Birthday:</h6>
+                    <p className="lorem">{userLogin?.birthday}</p>
+                  </div>
                 </div>
                 <div className="inner_item">
                   <div className="inner_row">
@@ -115,7 +144,15 @@ export default function UserDetail({}: Props) {
                       Add New
                     </a>
                   </div>
-                  <p className="lorem"> Add your Skills.</p>
+                  <div className="d-flex flex-row flex-wrap">
+                    {userLogin?.skill.map((item: string, index: number) => {
+                      return (
+                        <p className="lorem mx-1" key={index}>
+                          {item}
+                        </p>
+                      );
+                    })}
+                  </div>
                 </div>
                 <div className="inner_item">
                   <div className="inner_row">
@@ -133,7 +170,17 @@ export default function UserDetail({}: Props) {
                       Add New
                     </a>
                   </div>
-                  <p className="lorem"> Add your Certification.</p>
+                  <div className="d-flex flex-row flex-wrap">
+                    {userLogin?.certification.map(
+                      (item: string, index: number) => {
+                        return (
+                          <p className="lorem mx-1" key={index}>
+                            {item}
+                          </p>
+                        );
+                      }
+                    )}
+                  </div>
                 </div>
                 <div className="inner_item" style={{ border: "none" }}>
                   <div className="inner_row">
