@@ -16,7 +16,7 @@ import { DangNhapView, ThongTinNguoiDung } from "../models/AuthModel";
 
 const initialState: any = {
   userLogin: getStoreJson(USER_LOGIN),
-  // userLogin: {},
+  //   userRegister: {},
 };
 
 const userReducer = createSlice({
@@ -34,7 +34,19 @@ export const { getProfileAction } = userReducer.actions;
 export default userReducer.reducer;
 
 // -------------------------- action api ----------------------- //
-
+//register
+export const registerApi = (user: ThongTinNguoiDung) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.post(`/auth/signup`, user);
+      console.log(result);
+    } catch (err: any) {
+      console.log(err);
+      //   alert(err.response.data.content);
+    }
+  };
+};
+//login
 export const loginApi = (userLogin: DangNhapView) => {
   return async (dispatch: AppDispatch) => {
     try {
@@ -55,7 +67,7 @@ export const loginApi = (userLogin: DangNhapView) => {
     }
   };
 };
-
+// profile
 export const getProfileApi = (id_login = getStore(ID_LOGIN)) => {
   return async (dispatch: AppDispatch) => {
     try {

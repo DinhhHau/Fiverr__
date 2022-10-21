@@ -2,17 +2,35 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/configStore";
+import {
+  CongViecViewModel,
+  ThueCongViecViewModel,
+} from "../../redux/models/JobModel";
+import { getCongViecApi } from "../../redux/reducers/jobReducer";
 import { getProfileApi } from "../../redux/reducers/userReducer";
 
 type Props = {};
-
+//
+const img: string = require("../../assets/img/signup.jpg");
+//
 export default function UserDetail({}: Props) {
+  //
   const dispatch: AppDispatch = useDispatch();
   const { userLogin } = useSelector((state: RootState) => state.userReducer);
-  console.log(userLogin);
+  const { congViecDaThue } = useSelector(
+    (state: RootState) => state.jobReducer
+  );
+  console.log(congViecDaThue);
+  //
   useEffect(() => {
     dispatch(getProfileApi());
   }, []);
+
+  useEffect(() => {
+    dispatch(getCongViecApi());
+  }, []);
+
+  //
   return (
     <div className="main_content my-3">
       <div className="main_wrapper">
@@ -194,14 +212,60 @@ export default function UserDetail({}: Props) {
           <div className="gigs">
             <div className="gigs_card_top">
               <div className="gigs_card">
-                <span>It seems that you don't have any active Gigs.</span>
-                <button className="btn"> Create a new Gig</button>
+                <span className="col-lg-8 col-xl-6 col-8 col-sm-6">
+                  It seems that you don't have any active Gigs.
+                </span>
+                <button className="btn col-lg-3 col-xl-3 col-4 col-sm-4">
+                  {" "}
+                  Create a new Gig
+                </button>
               </div>
             </div>
             <div className="gigs_card_bottom">
-              <div className="gigs_card">
-                <span>2</span>
-              </div>
+              {congViecDaThue.map(
+                (congViecThue: ThueCongViecViewModel, index: number) => {
+                  return (
+                    <div className="gigs_card" key={index}>
+                      <div className="row">
+                        <div className="gigs_card_img">
+                          <img
+                            className="w-100"
+                            src={congViecThue.congViec.hinhAnh}
+                            alt="..."
+                          />
+                        </div>
+                        <div className="gigs_card_content">
+                          <h1>{congViecThue.congViec.tenCongViec}</h1>
+                          <p>{congViecThue.congViec.moTaNgan}</p>
+                          <div className="d-flex justify-content-between danhgia">
+                            <div className="left">
+                              <i className="fa-solid fa-star" />
+                              <span className="saoCV">
+                                {congViecThue.congViec?.saoCongViec}
+                              </span>{" "}
+                              <span className="danhGia">
+                                ( {congViecThue.congViec?.danhGia} )
+                              </span>{" "}
+                            </div>
+                            <div className="right">
+                              <p className="giaTien">
+                                ${congViecThue.congViec?.giaTien}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="btn_edit">
+                        <button className="viewdetail">View detail</button>
+                        <div className="right">
+                          <button className="edit">Edit</button>
+                          <button className="delete">DEL</button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+              )}
             </div>
           </div>
         </div>

@@ -45,6 +45,9 @@ export const config = {
     }
     return null;
   },
+  clearStore: (name: string) => {
+    localStorage.removeItem(name);
+  },
   ACCESS_TOKEN: "access_token",
   USER_LOGIN: "userLogin",
   ID_LOGIN: "id_login",
@@ -77,7 +80,7 @@ http.interceptors.request.use(
     const token = getStore(ACCESS_TOKEN);
     config.headers = {
       ...config.headers,
-      ["Authorization"]: `Bearer ${token}`,
+      ["token"]: `${token}`,
       ["TokenCybersoft"]: TOKEN_CYBERSOFT,
     };
     // config.headers['Content-Type'] = 'application/json';
@@ -111,12 +114,21 @@ http.interceptors.response.use(
 );
 
 /**
+ * 
  * status code
- * 400: Tham số gửi lên không hợp lệ => kết quả không tìm được (Badrequest)
- * 404: Tham số gửi lên hợp lệ nhưng không tìm thấy => có thể bị xóa rồi (Not found)...
+ * 400: Tham số gởi lên không hợp lệ => kết quả không tìm được ( Badrequest )
+ * 
+ * 404: Tham số gởi lên hợp lệ nhưng không tìm thấy => Có thể bị xoá rồi ( Not found )...
+ * 
  * 200: Thành công, OK
- * 201: Đã được tạo thành công => (Mình đã tạo rồi sau đó request tiếp thì sẽ trả 201) (Created)
- * 401:
- * 403:
- * 500:
+ * 
+ * 201: Đã được tạo thành công => ( Mình đã tạo ra rồi sau đó request tiếp thì sẽ trả 201 ) (Created)
+ * 
+ * 401: Không có quyền truy cập vào api đó ( Unathorize - có thể do token không hợp lệ họăc bị admin chặn )
+ * 
+ * 403: Chưa đủ quyền truy cập api đó ( Forbiden - token hợp lệ tuy nhiên token đó chưa đủ quyền truy cập vào api )
+ * 
+ * 500: Lỗi xảy ra tại sever ( Nguyên nhân có thể fondtend gửi dữ liệu không hợp lệ => backend trong quá trình xử lý code gây ra lỗi
+        hoặc do backend code bị lỗi => Eror in sever)
+        
  */

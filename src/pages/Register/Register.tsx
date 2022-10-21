@@ -5,6 +5,9 @@ import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
+import { registerApi } from "../../redux/reducers/userReducer";
+import { AppDispatch } from "../../redux/configStore";
+import { boolean } from "yup/lib/locale";
 
 type Props = {};
 
@@ -18,7 +21,8 @@ export default function Register({}: Props) {
     setPasswordShow(!passwordShow);
   };
   //
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
+  //
   const frm = useFormik({
     initialValues: {
       email: "",
@@ -27,7 +31,7 @@ export default function Register({}: Props) {
       name: "",
       phone: "",
       birthday: "",
-      selector: "male",
+      gender: "",
     },
     validationSchema: Yup.object().shape({
       email: Yup.string()
@@ -54,11 +58,13 @@ export default function Register({}: Props) {
         .required(" Phone không được bỏ trống "),
       birthday: Yup.string().required("Birthday không được bỏ trống"),
     }),
-    onSubmit: (values) => {
-      console.log(values);
-      // dispatch(registeApi(values));
+    onSubmit: (values: any) => {
+      // console.log(values);
+      const action = registerApi(values);
+      dispatch(action);
     },
   });
+  //
   return (
     <section className="signup" id="register">
       <div className="container_form">
@@ -246,14 +252,14 @@ export default function Register({}: Props) {
               </div>
               {/* gender */}
               <div id="gender" className="gender">
-                {/* <span>Gender</span> */}
                 <i className="fas fa-venus-mars fa-lg me-3 fa-fw" />
                 <div className="radio gender_inp">
                   <input
                     id="male"
                     type="radio"
-                    name="selector"
-                    defaultValue="male"
+                    name="gender"
+                    // value={true}
+                    defaultValue="true"
                     defaultChecked
                     onChange={frm.handleChange}
                   />
@@ -263,8 +269,9 @@ export default function Register({}: Props) {
                   <input
                     id="female"
                     type="radio"
-                    name="selector"
-                    defaultValue="female"
+                    name="gender"
+                    // value={false}
+                    defaultValue="false"
                     onChange={frm.handleChange}
                   />
                   <label className="radio-label" htmlFor="female">
@@ -291,7 +298,9 @@ export default function Register({}: Props) {
                 </label>
               </div>
               <div className="form-group form-button">
-                <button className="btn btn-primary">Submit</button>
+                <button className="btn btn-primary" type="submit">
+                  Submit
+                </button>
               </div>
             </form>
           </div>

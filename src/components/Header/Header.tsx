@@ -21,7 +21,19 @@ export default function Header({}: Props) {
     } else {
       return (
         <NavLink to={"/profile"}>
-          <i className="fa-regular fa-user" /> {userLogin.name}
+          {/* <i className="fa-regular fa-user" /> {userLogin.name} */}
+          {userLogin?.avatar ? (
+            <img
+              src={userLogin?.avatar}
+              alt="avatar"
+              className="avatar"
+              style={{ borderRadius: 50, width: 50, height: 50 }}
+            />
+          ) : (
+            <p className="text my-0">
+              <i className="fa-regular fa-user" /> {userLogin?.name}
+            </p>
+          )}
         </NavLink>
       );
     }
