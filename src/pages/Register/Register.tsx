@@ -31,7 +31,7 @@ export default function Register({}: Props) {
       name: "",
       phone: "",
       birthday: "",
-      gender: "",
+      gender: true,
     },
     validationSchema: Yup.object().shape({
       email: Yup.string()
@@ -58,7 +58,7 @@ export default function Register({}: Props) {
         .required(" Phone không được bỏ trống "),
       birthday: Yup.string().required("Birthday không được bỏ trống"),
     }),
-    onSubmit: (values: any) => {
+    onSubmit: (values) => {
       // console.log(values);
       const action = registerApi(values);
       dispatch(action);

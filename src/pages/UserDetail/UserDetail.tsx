@@ -1,13 +1,17 @@
-import React from "react";
+import axios from "axios";
+import _ from "lodash";
+import React, { useRef } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import UserUpdate from "../../HOC/UserUpdate/UserUpdate";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import {
   CongViecViewModel,
   ThueCongViecViewModel,
 } from "../../redux/models/JobModel";
-import { getCongViecApi } from "../../redux/reducers/jobReducer";
-import { getProfileApi } from "../../redux/reducers/userReducer";
+import { delCVThueApi, getCongViecApi } from "../../redux/reducers/jobReducer";
+import { ToastContainer, toast } from "react-toastify";
+import { getProfileApi, updateAvatar } from "../../redux/reducers/userReducer";
 
 type Props = {};
 //
@@ -15,6 +19,7 @@ const img: string = require("../../assets/img/signup.jpg");
 //
 export default function UserDetail({}: Props) {
   //
+  const refUpdateUserDialog = useRef<any>(null);
   const dispatch: AppDispatch = useDispatch();
   const { userLogin } = useSelector((state: RootState) => state.userReducer);
   const { congViecDaThue } = useSelector(
@@ -51,7 +56,20 @@ export default function UserDetail({}: Props) {
                           <i className="las la-camera icon" />
                         </span>
                       </div>
-                      <input className="label_inp" type="file" />
+                      <input
+                        className="label_inp"
+                        type="file"
+                        onChange={(e) => {
+                          const file = _.head(e.target.files);
+                          dispatch(updateAvatar(file))
+                            .then((res) => {
+                              toast.success("Updated Avatar Successfully !");
+                            })
+                            .catch((err) => {
+                              toast.success("Error");
+                            });
+                        }}
+                      />
                       <div className="image d-flex">
                         {userLogin?.avatar ? (
                           <img
@@ -60,7 +78,9 @@ export default function UserDetail({}: Props) {
                             className="w-100 avatar"
                           />
                         ) : (
-                          <p className="text my-0">{userLogin?.name}</p>
+                          <p className="text my-0 text-center">
+                            {userLogin?.name}
+                          </p>
                         )}
                       </div>
                     </label>
@@ -68,32 +88,15 @@ export default function UserDetail({}: Props) {
                   <div className="info_profile_label">
                     <p>{userLogin?.email}</p>
                     <div className="btn_update">
+                      <UserUpdate ref={refUpdateUserDialog} />
                       <button
                         className="edit"
                         onClick={() => {
-                          alert("hi");
+                          refUpdateUserDialog.current.open();
                         }}
                       >
                         <i className="fa-solid fa-pen icon" />
                       </button>
-                      {/* <form className="form">
-                        <input
-                          type="text"
-                          maxLength={70}
-                          className="one-liner"
-                          placeholder="What's your story in one line?"
-                          autoComplete="off"
-                          defaultValue
-                        />
-                        <div className="controls">
-                          <button className="ORLWF8p _0MkXbqi L9EM07f i6NB5Ls co-green-700 m-r-16 one-liner-button">
-                            Cancel
-                          </button>
-                          <button className="ORLWF8p _0MkXbqi i6NB5Ls co-white one-liner-button bg-co-green-700">
-                            Update
-                          </button>
-                        </div>
-                      </form> */}
                     </div>
                   </div>
                 </div>
@@ -124,9 +127,6 @@ export default function UserDetail({}: Props) {
                 <div className="inner_item">
                   <div className="inner_row">
                     <h3>Description</h3>
-                    <a href="#" className="add">
-                      Edit Description
-                    </a>
                   </div>
                   <div className="d-flex align-items-center gap-5">
                     <h6>Name:</h6>
@@ -144,9 +144,6 @@ export default function UserDetail({}: Props) {
                 <div className="inner_item">
                   <div className="inner_row">
                     <h3>Languages</h3>
-                    <a href="#" className="add">
-                      Add New
-                    </a>
                   </div>
                   <p className="lorem">
                     English - <span>Basic</span>
@@ -158,9 +155,6 @@ export default function UserDetail({}: Props) {
                 <div className="inner_item">
                   <div className="inner_row">
                     <h3>Skills</h3>
-                    <a href="#" className="add">
-                      Add New
-                    </a>
                   </div>
                   <div className="d-flex flex-row flex-wrap">
                     {userLogin?.skill.map((item: string, index: number) => {
@@ -175,18 +169,12 @@ export default function UserDetail({}: Props) {
                 <div className="inner_item">
                   <div className="inner_row">
                     <h3>Education</h3>
-                    <a href="#" className="add">
-                      Add New
-                    </a>
                   </div>
-                  <p className="lorem"> Add your Education.</p>
+                  <p className="lorem"> CYBERSOFT</p>
                 </div>
                 <div className="inner_item">
                   <div className="inner_row">
                     <h3>Certification</h3>
-                    <a href="#" className="add">
-                      Add New
-                    </a>
                   </div>
                   <div className="d-flex flex-row flex-wrap">
                     {userLogin?.certification.map(
@@ -259,7 +247,16 @@ export default function UserDetail({}: Props) {
                         <button className="viewdetail">View detail</button>
                         <div className="right">
                           <button className="edit">Edit</button>
-                          <button className="delete">DEL</button>
+                          <button
+                            className="delete"
+                            onClick={() => {
+                              const action = congViecThue.id;
+                              // console.log(action);
+                              dispatch(delCVThueApi(action));
+                            }}
+                          >
+                            DEL
+                          </button>
                         </div>
                       </div>
                     </div>

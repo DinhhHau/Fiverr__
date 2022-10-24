@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import CustomLogo from "../../assets/CustomLogo/CustomLogo";
 import { AppDispatch, RootState } from "../../redux/configStore";
+import { FaBars } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
+
 //
 type Props = {
   fill?: string;
@@ -10,10 +13,11 @@ type Props = {
 const logo: string = require("../../assets/img/logo.png");
 //
 export default function Header({}: Props) {
+  const [Mobile, setMobile] = useState(false);
   //
   const navigate = useNavigate();
   const { userLogin } = useSelector((state: RootState) => state.userReducer);
-  console.log(userLogin);
+  // console.log(userLogin);
   //
   const renderItem = () => {
     if (userLogin == null) {
@@ -23,12 +27,14 @@ export default function Header({}: Props) {
         <NavLink to={"/profile"}>
           {/* <i className="fa-regular fa-user" /> {userLogin.name} */}
           {userLogin?.avatar ? (
-            <img
-              src={userLogin?.avatar}
-              alt="avatar"
-              className="avatar"
-              style={{ borderRadius: 50, width: 50, height: 50 }}
-            />
+            <figure className="mb-0">
+              <img
+                src={userLogin?.avatar}
+                alt="avatar"
+                className="avatar"
+                style={{ borderRadius: 50, width: 50, height: 50 }}
+              />
+            </figure>
           ) : (
             <p className="text my-0">
               <i className="fa-regular fa-user" /> {userLogin?.name}
@@ -69,6 +75,12 @@ export default function Header({}: Props) {
       <div className="header_wrapper">
         <div className="header_row">
           <div className="left">
+            <button
+              className="mobile_menu_icon btn_nav"
+              onClick={() => setMobile(!Mobile)}
+            >
+              {Mobile ? <ImCross /> : <FaBars />}
+            </button>
             <NavLink to={""} className="logo">
               <CustomLogo />
             </NavLink>
@@ -80,7 +92,6 @@ export default function Header({}: Props) {
                       type="search"
                       className="inp"
                       placeholder="Find Services"
-                      // value=""
                     />
                   </span>
                 </div>

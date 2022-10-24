@@ -15,3 +15,12 @@ export interface ThongTinNguoiDung {
   skill: string[];
   certification: string[];
 }
+
+export interface ThongTinNguoiDung1 {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  birthday: string;
+  gender: boolean;
+}

@@ -12,7 +12,11 @@ import {
   USER_LOGIN,
 } from "../../util/setting";
 import { AppDispatch } from "../configStore";
-import { DangNhapView, ThongTinNguoiDung } from "../models/AuthModel";
+import {
+  DangNhapView,
+  ThongTinNguoiDung,
+  ThongTinNguoiDung1,
+} from "../models/AuthModel";
 
 const initialState: any = {
   userLogin: getStoreJson(USER_LOGIN),
@@ -35,14 +39,14 @@ export default userReducer.reducer;
 
 // -------------------------- action api ----------------------- //
 //register
-export const registerApi = (user: ThongTinNguoiDung) => {
+export const registerApi = (user: ThongTinNguoiDung1) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.post(`/auth/signup`, user);
       console.log(result);
     } catch (err: any) {
       console.log(err);
-      //   alert(err.response.data.content);
+      alert(err.response.data.content);
     }
   };
 };
@@ -76,6 +80,36 @@ export const getProfileApi = (id_login = getStore(ID_LOGIN)) => {
       const action = getProfileAction(result.data.content);
       dispatch(action);
       setStoreJson(USER_LOGIN, result.data.content);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+// update profile
+export const updateProfile = (data) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      http
+        .put(`/users/${getStore(ID_LOGIN)}`, data)
+        .finally(() => dispatch(getProfileApi()));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+// update avatar
+export const updateAvatar = (file) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      http
+        .post(
+          `/users/upload-avatar`,
+          { formFile: file },
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
+        .finally(() => dispatch(getProfileApi()));
     } catch (err) {
       console.log(err);
     }

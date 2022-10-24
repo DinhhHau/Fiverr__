@@ -52,33 +52,38 @@
             &::after {
               width: 100%;
             }
+            color: #1dbf73;
           }
-          //   &.active {
-          //     &::after {
-          //       width: 100%;
-          //       background: #1dbf73;
-          //     }
-          //   }
+          &:focus {
+            &::after {
+              width: 100%;
+              background: #1dbf73;
+            }
+            color: #1dbf73;
+          }
         }
-        .categoriesmenu_li_jobdetail_3 {
-          // right: 530px;
-        }
-        .categoriesmenu_li_jobdetail_4 {
-          right: 300px;
-        }
-        .categoriesmenu_li_jobdetail_5 {
-          right: 30px;
-        }
+        // .categoriesmenu_li_jobdetail_3 {
+        //   // right: 530px;
+        // }
+        // .categoriesmenu_li_jobdetail_4 {
+        //   right: 300px;
+        // }
+        // .categoriesmenu_li_jobdetail_5 {
+        //   right: 30px;
+        // }
         .categoriesmenu_li_jobdetail {
           display: none;
 
           background-color: #fff;
           position: absolute;
           width: max-content;
+          width: 100%;
+          left: 0;
           padding: 20px 30px;
           border: 1px solid #e4e5e7;
           box-shadow: 0px 1px 3px #dadbdd;
           z-index: 999;
+          text-align: center;
           .categoriesmenu_li_jobdetail_detail {
             font-size: 16px;
             color: #404145;

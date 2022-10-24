@@ -20,6 +20,10 @@ import Register from "./pages/Register/Register";
 import VerifyAuth from "./guard/VerifyAuth";
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 import { createBrowserHistory } from "history";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AdminTemplate from "./templates/Admin/AdminTemplate";
 //
 export const history = createBrowserHistory({ window });
 
@@ -35,9 +39,10 @@ root.render(
           {/* <Route index element={<UserDetail />} /> */}
           {/* <Route path="profile" element={<UserDetail />} /> */}
           <Route path="*" element={<Navigate to="" />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+
         <Route
           path=""
           element={
@@ -48,8 +53,10 @@ root.render(
         >
           <Route path="profile" element={<UserDetail />}></Route>
         </Route>
+        <Route path="admin" element={<AdminTemplate />}></Route>
       </Routes>
     </HistoryRouter>
+    <ToastContainer />
   </Provider>
 );
 

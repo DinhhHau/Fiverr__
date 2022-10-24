@@ -24,6 +24,15 @@
       .left {
         display: flex;
         align-items: center;
+        button {
+          border: none;
+          background: none;
+          font-size: 20px;
+          margin-right: 15px;
+        }
+        .mobile_menu_icon {
+          display: none;
+        }
         .logo {
           margin-right: 40px;
         }
