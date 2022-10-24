@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { history } from "../../index";
 import {
   ACCESS_TOKEN,
@@ -44,6 +45,8 @@ export const registerApi = (user: ThongTinNguoiDung1) => {
     try {
       const result = await http.post(`/auth/signup`, user);
       console.log(result);
+      toast.success("Đăng kí tài khoản thành công !");
+      history.push(`/login`);
     } catch (err: any) {
       console.log(err);
       alert(err.response.data.content);

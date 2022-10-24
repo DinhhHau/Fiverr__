@@ -24,11 +24,91 @@
       .left {
         display: flex;
         align-items: center;
-        button {
+        .nav_icon {
           border: none;
           background: none;
           font-size: 20px;
           margin-right: 15px;
+          display: none;
+        }
+        .offcanvas {
+          .offcanvas-header {
+            .gap-3 {
+              width: 60%;
+              .btn-success {
+                padding: 12px 24px;
+                background-color: #1dbf73;
+                color: #fff;
+                border-radius: 4px;
+                text-transform: uppercase;
+                width: 150px;
+                text-align: center;
+                border: none;
+              }
+              h6 {
+                color: #404145;
+                font-size: 25px !important;
+                font-weight: 600;
+                margin-bottom: 0;
+              }
+              p {
+                color: #95979d;
+                font-size: 16px;
+              }
+            }
+            .btn-close {
+            }
+          }
+          .offcanvas-body {
+            .nav_item {
+              .nav_item_ul {
+                padding: 8px 6px;
+                a {
+                  color: #62646a;
+                  font-size: 24px;
+                  font-weight: 600;
+                  margin-bottom: 16px;
+                  padding-bottom: 20px;
+                  border-bottom: 1px solid #e4e5e7;
+                }
+              }
+            }
+            .dropdown {
+              border-bottom: 1px solid #e4e5e7;
+
+              .dropdown-toggle {
+                width: 100%;
+                background: none;
+                color: #62646a;
+                font-size: 24px;
+                font-weight: 600;
+                margin-bottom: 16px;
+                padding-bottom: 20px;
+                position: relative;
+              }
+              .dropdown-menu {
+                width: 100%;
+                border: none;
+                transform: translate3d(0px, 165px, 0px) !important;
+                li {
+                  a {
+                    color: #95979d !important;
+                    font-weight: 600;
+                  }
+                }
+                .tW6GKQA {
+                  padding: 0 16px;
+                  margin-top: 4px;
+                  margin-bottom: 4px;
+                  .Wb8wmFx {
+                    width: 100%;
+                    height: 1px;
+                    background-color: #e4e5e7;
+                  }
+                }
+              }
+            }
+          }
         }
         .mobile_menu_icon {
           display: none;
