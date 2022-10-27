@@ -59,13 +59,18 @@ export const loginApi = (userLogin: DangNhapView) => {
     try {
       const result = await http.post(`/auth/signin`, userLogin);
       console.log(result);
+      // lấy token
       setCookie(ACCESS_TOKEN, result.data.content.token, 30);
       setStore(ACCESS_TOKEN, result.data.content.token);
-      //
+      // lấy id
       setCookie(ID_LOGIN, result.data.content.user.id, 30);
       setStore(ID_LOGIN, result.data.content.user.id);
       //
-      history.push("/profile");
+      if (result.data.content.user.role === "ADMIN") {
+        history.push("/admin");
+      } else {
+        history.push("/profile");
+      }
       //
       dispatch(getProfileApi());
     } catch (err: any) {
