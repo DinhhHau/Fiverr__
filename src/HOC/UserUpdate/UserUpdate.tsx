@@ -47,7 +47,7 @@ const UserUpdate = (props, ref) => {
       const payload = values;
       dispatch(updateProfile(payload))
         .then((res) => {
-          toast.success("Updated Profile Successfully !");
+          toast.success("Cập nhật thông tin thành công !");
           handleClose();
         })
         .catch((err) => {

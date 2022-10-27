@@ -1,2 +1,50 @@
 @import "../../base/base";
 @import "../../themes/variables";
+
+.ant-layout-sider {
+  background: #e5e5e5;
+}
+.ant-layout {
+  background: white;
+}
+.ant-layout-header {
+  background: #f6f6f6;
+}
+.ant-layout-sider-children {
+  overflow: hidden;
+}
+.anticon[tabindex] {
+  margin-right: 20px;
+}
+.trigger:hover {
+  color: #1890ff;
+}
+.text-dark {
+  color: #555555 !important;
+  display: block;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 0;
+  position: relative;
+  text-decoration: none;
+  &:hover {
+    color: #4272d7 !important;
+  }
+  &:focus {
+    color: #4272d7 !important;
+  }
+  &:active {
+    color: #4272d7 !important;
+  }
+}
+
+.ant-layout-sider-collapsed {
+  flex: 0 0 100px !important;
+  max-width: 130px !important;
+  min-width: 130px !important;
+  width: 130px !important;
+  .text-dark {
+    font-size: 10px;
+    font-weight: 500;
+  }
+}

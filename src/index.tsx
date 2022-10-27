@@ -24,6 +24,10 @@ import { createBrowserHistory } from "history";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminTemplate from "./templates/Admin/AdminTemplate";
+import ManageUser from "./pages/AdminPages/ManageUser/ManageUser";
+import ManageJob from "./pages/AdminPages/ManageJob/ManageJob";
+import ManageJobType from "./pages/AdminPages/ManageJobType/ManageJobType";
+import ManageService from "./pages/AdminPages/ManageService/ManageService";
 //
 export const history = createBrowserHistory({ window });
 
@@ -34,15 +38,13 @@ root.render(
   <Provider store={store}>
     <HistoryRouter history={history}>
       <Routes>
+        {/*  */}
         <Route path="" element={<HeaderHomeTemplate />}>
           <Route index element={<Index />} />
-          {/* <Route index element={<UserDetail />} /> */}
-          {/* <Route path="profile" element={<UserDetail />} /> */}
           <Route path="*" element={<Navigate to="" />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
-
         <Route
           path=""
           element={
@@ -53,7 +55,14 @@ root.render(
         >
           <Route path="profile" element={<UserDetail />}></Route>
         </Route>
-        <Route path="admin" element={<AdminTemplate />}></Route>
+        {/*  */}
+        <Route path="admin" element={<AdminTemplate />}>
+          <Route index element={<ManageUser />} />
+          <Route path="qlnd" element={<ManageUser />} />
+          <Route path="qlcv" element={<ManageJob />} />
+          <Route path="qllcv" element={<ManageJobType />} />
+          <Route path="qldv" element={<ManageService />} />
+        </Route>
       </Routes>
     </HistoryRouter>
     <ToastContainer />

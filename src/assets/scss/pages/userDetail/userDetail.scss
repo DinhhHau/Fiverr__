@@ -232,6 +232,17 @@
                   color: #b2b2b2;
                 }
               }
+              .ul {
+                display: flex;
+                flex-direction: column;
+                margin-top: 10px;
+                .li {
+                  display: flex;
+                  gap: 10px;
+                  align-items: center;
+                  margin-bottom: 5px;
+                }
+              }
             }
           }
         }

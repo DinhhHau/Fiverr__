@@ -1,4 +1,3 @@
-import axios from "axios";
 import _ from "lodash";
 import React, { useRef } from "react";
 import { useEffect } from "react";
@@ -12,7 +11,8 @@ import {
 import { delCVThueApi, getCongViecApi } from "../../redux/reducers/jobReducer";
 import { ToastContainer, toast } from "react-toastify";
 import { getProfileApi, updateAvatar } from "../../redux/reducers/userReducer";
-
+import { GoogleOutlined, PlusOutlined } from "@ant-design/icons";
+import { FaFacebook, FaGithub, FaTwitter } from "react-icons/fa";
 type Props = {};
 //
 const img: string = require("../../assets/img/signup.jpg");
@@ -192,7 +192,42 @@ export default function UserDetail({}: Props) {
                   <div className="inner_row">
                     <h3>Linked Accounts</h3>
                   </div>
-                  <p className="lorem"> mô tả thông tin api ở dây</p>
+                  <ul className="ul">
+                    <li className="li">
+                      <FaFacebook />
+                      <a href="#" className="btn-connect">
+                        Facebook
+                      </a>
+                    </li>
+                    <li className="li">
+                      <GoogleOutlined />
+                      <a href="#" className="btn-connect cl-gg">
+                        Google
+                      </a>
+                    </li>
+                    <li className="li">
+                      <FaGithub />
+                      <a href="#" className="btn-connect">
+                        Github
+                      </a>
+                    </li>
+                    <li className="li">
+                      <FaTwitter />
+                      <a className="btn-connect">Twitter</a>
+                    </li>
+                    <li className="li">
+                      <PlusOutlined />
+                      <a href="#" className="btn-connect">
+                        Dirbble
+                      </a>
+                    </li>
+                    <li className="li">
+                      <PlusOutlined />
+                      <a href="#" className="btn-connect">
+                        Stack Overflow
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
