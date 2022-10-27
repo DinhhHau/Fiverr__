@@ -28,6 +28,7 @@ import ManageUser from "./pages/AdminPages/ManageUser/ManageUser";
 import ManageJob from "./pages/AdminPages/ManageJob/ManageJob";
 import ManageJobType from "./pages/AdminPages/ManageJobType/ManageJobType";
 import ManageService from "./pages/AdminPages/ManageService/ManageService";
+import InfoProfile from "./pages/UserDetail/InfoProfile";
 //
 export const history = createBrowserHistory({ window });
 
