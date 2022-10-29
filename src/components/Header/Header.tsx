@@ -5,11 +5,6 @@ import CustomLogo from "../../assets/CustomLogo/CustomLogo";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import { FaBars } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
-import JobModel, {
-  DsChiTietLoai,
-  DsNhomChiTietLoai,
-} from "../../redux/models/JobModel";
-
 //
 type Props = {
   fill?: string;
@@ -24,7 +19,7 @@ export default function Header({}: Props) {
   // console.log(userLogin);
   //
   const renderItem = () => {
-    if (userLogin == null) {
+    if (Object.keys(userLogin).length === 0) {
       return <NavLink to={"/login"}>Sign in</NavLink>;
     } else {
       return (
@@ -49,7 +44,7 @@ export default function Header({}: Props) {
     }
   };
   const renderItem2 = () => {
-    if (userLogin == null) {
+    if (Object.keys(userLogin).length === 0) {
       return (
         <li
           className="join"
@@ -74,7 +69,7 @@ export default function Header({}: Props) {
     }
   };
   const renderItemNav = () => {
-    if (userLogin == null) {
+    if (Object.keys(userLogin).length === 0) {
       return (
         <NavLink className="btn btn-success w-100" to={"/login"}>
           Sign in

@@ -1,19 +1,41 @@
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Layout, Menu } from "antd";
-import React, { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { Layout, message } from "antd";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import CustomLogo from "../../assets/CustomLogo/CustomLogo";
+import UserUpdate from "../../HOC/UserUpdate/UserUpdate";
+import { AppDispatch, RootState } from "../../redux/configStore";
+import { getProfileApi, signOutAction } from "../../redux/reducers/userReducer";
+import {
+  ACCESS_TOKEN,
+  clearStore,
+  getStore,
+  ID_LOGIN,
+  ROLE_lOGIN,
+  USER_LOGIN,
+} from "../../util/setting";
+import { history } from "../../index";
+import { toast } from "react-toastify";
 
 const { Header, Sider, Content } = Layout;
 type Props = {};
 export default function AdminTemplate({}: Props) {
   const [collapsed, setCollapsed] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
+  const refUpdateUserDialog = useRef<any>(null);
+  const { userLogin } = useSelector((state: RootState) => state.userReducer);
+  const navigate = useNavigate();
+  //
+  useEffect(() => {
+    dispatch(getProfileApi());
+  }, []);
+  //
+  let role = getStore(ROLE_lOGIN);
+  if (role !== "ADMIN" && role !== "admin") {
+    alert(" Tài Khoản chưa đủ quyền truy cập Admin !");
+    return <Navigate to="/login" />;
+  }
 
   return (
     <Layout>
@@ -75,20 +97,44 @@ export default function AdminTemplate({}: Props) {
               aria-expanded="false"
             >
               <img
-                style={{ width: 60, height: 60 }}
-                src="./img/avt.jpg"
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: "50%",
+                  padding: 10,
+                }}
+                src={userLogin?.avatar}
                 alt="avatar"
               />
-              <span className="mx-2">Admin</span>
+              <span className="mx-2">{userLogin?.name}</span>
             </div>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <ul className="dropdown-menu p-0" aria-labelledby="dropdownMenu2">
               <li>
-                <button className="dropdown-item" type="button">
+                <UserUpdate ref={refUpdateUserDialog} />
+                <button
+                  className="dropdown-item"
+                  type="button"
+                  onClick={() => {
+                    navigate("/profile");
+                    // refUpdateUserDialog.current.open();
+                  }}
+                >
                   Cập Nhập Thông Tin
                 </button>
               </li>
               <li>
-                <button className="dropdown-item" type="button">
+                <button
+                  className="dropdown-item"
+                  type="button"
+                  onClick={() => {
+                    clearStore(ACCESS_TOKEN);
+                    clearStore(USER_LOGIN);
+                    clearStore(ID_LOGIN);
+                    clearStore(ROLE_lOGIN);
+                    dispatch(signOutAction(userLogin));
+                    history.push("/");
+                  }}
+                >
                   Đăng Xuất
                 </button>
               </li>

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { history } from "../../index";
 import {
@@ -7,6 +7,7 @@ import {
   getStoreJson,
   http,
   ID_LOGIN,
+  ROLE_lOGIN,
   setCookie,
   setStore,
   setStoreJson,
@@ -16,31 +17,52 @@ import { AppDispatch } from "../configStore";
 import {
   DangNhapView,
   ThongTinNguoiDung,
-  ThongTinNguoiDung1,
+  ThongTinNguoiDungDangKi,
+  ThongTinNguoiDungUpdate,
 } from "../models/AuthModel";
+import { getUserApi } from "./adminReducer";
 
 const initialState: any = {
-  userLogin: getStoreJson(USER_LOGIN),
-  //   userRegister: {},
+  userLogin: {
+    id: "",
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    birthday: "",
+    gender: false,
+    role: "",
+    skill: [],
+    certification: [],
+  },
+  role: "",
 };
 
 const userReducer = createSlice({
   name: "userReducer",
   initialState,
   reducers: {
-    getProfileAction: (state, action) => {
+    getProfileAction: (state, action: PayloadAction<ThongTinNguoiDung[]>) => {
       state.userLogin = action.payload;
+    },
+    signOutAction: (state, action) => {
+      state.userLogin = {};
+      toast.success("Đăng xuất thành công !");
+    },
+    getRoleAction: (state, action) => {
+      state.role = action.payload;
     },
   },
 });
 
-export const { getProfileAction } = userReducer.actions;
+export const { getProfileAction, signOutAction, getRoleAction } =
+  userReducer.actions;
 
 export default userReducer.reducer;
 
 // -------------------------- action api ----------------------- //
 //register
-export const registerApi = (user: ThongTinNguoiDung1) => {
+export const registerApi = (user: ThongTinNguoiDungDangKi) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.post(`/auth/signup`, user);
@@ -59,14 +81,19 @@ export const loginApi = (userLogin: DangNhapView) => {
     try {
       const result = await http.post(`/auth/signin`, userLogin);
       console.log(result);
-      // lấy token
+      // set token
       setCookie(ACCESS_TOKEN, result.data.content.token, 30);
       setStore(ACCESS_TOKEN, result.data.content.token);
-      // lấy id
+      // set id
       setCookie(ID_LOGIN, result.data.content.user.id, 30);
       setStore(ID_LOGIN, result.data.content.user.id);
+      // set role
+      setCookie(ROLE_lOGIN, result.data.content.user.role, 30);
+      setStore(ROLE_lOGIN, result.data.content.user.role);
       //
-      if (result.data.content.user.role === "ADMIN") {
+      if (getStore(ROLE_lOGIN) === "ADMIN") {
+        history.push("/admin");
+      } else if (getStore(ROLE_lOGIN) === "admin") {
         history.push("/admin");
       } else {
         history.push("/profile");
@@ -84,7 +111,7 @@ export const getProfileApi = (id_login = getStore(ID_LOGIN)) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.get(`/users/${id_login}`);
-      console.log(result);
+      // console.log(result);
       const action = getProfileAction(result.data.content);
       dispatch(action);
       setStoreJson(USER_LOGIN, result.data.content);
@@ -94,7 +121,7 @@ export const getProfileApi = (id_login = getStore(ID_LOGIN)) => {
   };
 };
 // update profile
-export const updateProfile = (data) => {
+export const updateProfile = (data: ThongTinNguoiDungUpdate) => {
   return async (dispatch: AppDispatch) => {
     try {
       http

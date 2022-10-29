@@ -29,6 +29,8 @@ import ManageJob from "./pages/AdminPages/ManageJob/ManageJob";
 import ManageJobType from "./pages/AdminPages/ManageJobType/ManageJobType";
 import ManageService from "./pages/AdminPages/ManageService/ManageService";
 import InfoProfile from "./pages/UserDetail/InfoProfile";
+import VerifyAdmin from "./guard/VerifyAdmin";
+import CustomAdmin from "./assets/CustomLogo/CustomAdmin";
 //
 export const history = createBrowserHistory({ window });
 
@@ -58,12 +60,13 @@ root.render(
         </Route>
         {/*  */}
         <Route path="admin" element={<AdminTemplate />}>
-          <Route index element={<ManageUser />} />
+          <Route index element={<CustomAdmin />} />
           <Route path="qlnd" element={<ManageUser />} />
           <Route path="qlcv" element={<ManageJob />} />
           <Route path="qllcv" element={<ManageJobType />} />
           <Route path="qldv" element={<ManageService />} />
         </Route>
+        {/*  */}
       </Routes>
     </HistoryRouter>
     <ToastContainer />

@@ -39,7 +39,7 @@ export default function GigsProfile({}: Props) {
         </div>
       </div>
       <div className="gigs_card_bottom">
-        {congViecDaThue.map(
+        {congViecDaThue?.map(
           (congViecThue: ThueCongViecViewModel, index: number) => {
             return (
               <div className="gigs_card" key={index}>
@@ -47,13 +47,13 @@ export default function GigsProfile({}: Props) {
                   <div className="gigs_card_img">
                     <img
                       className="w-100"
-                      src={congViecThue.congViec.hinhAnh}
+                      src={congViecThue.congViec?.hinhAnh}
                       alt="..."
                     />
                   </div>
                   <div className="gigs_card_content">
-                    <h1>{congViecThue.congViec.tenCongViec}</h1>
-                    <p>{congViecThue.congViec.moTaNgan}</p>
+                    <h1>{congViecThue.congViec?.tenCongViec}</h1>
+                    <p>{congViecThue.congViec?.moTaNgan}</p>
                     <div className="d-flex justify-content-between danhgia">
                       <div className="left">
                         <i className="fa-solid fa-star" />

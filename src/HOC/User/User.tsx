@@ -22,43 +22,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { getProfileApi, updateProfile } from "../../redux/reducers/userReducer";
 import { ToastContainer, toast } from "react-toastify";
+import {
+  getUserApi,
+  updateUser,
+  userIdApi,
+} from "../../redux/reducers/adminReducer";
+import { getStore, ROLE_lOGIN } from "../../util/setting";
 
-const UserUpdate = (props, ref) => {
+const User = (Props, ref) => {
   const dispatch: AppDispatch = useDispatch();
-  const { userLogin } = useSelector((state: RootState) => state.userReducer);
+  const { user } = useSelector((state: RootState) => state.adminReducer);
   //
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   //
   const frm = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      id: "",
-      email: "",
-      name: "",
-      phone: "",
-      birthday: "",
-      certification: [],
-      skill: [],
-      gender: false,
+      id: user?.id,
+      email: user?.email,
+      name: user?.name,
+      phone: user?.phone,
+      birthday: user?.birthday,
+      certification: user?.certification,
+      skill: user?.skill,
+      gender: user?.gender,
+      role: user?.role,
     },
-
-    onSubmit: (values: any) => {
-      const payload = values;
-      dispatch(updateProfile(payload))
-        .then((res) => {
-          toast.success("Cập nhật thông tin thành công !");
-          handleClose();
-        })
-        .catch((err) => {
-          toast.error("Error");
-        });
+    onSubmit: (values) => {
+      //   console.log(values);
+      dispatch(updateUser(values));
+      dispatch(getProfileApi());
     },
   });
   //
   useImperativeHandle(ref, () => ({
     open: (data?) => {
-      frm.setValues(userLogin);
+      frm.setValues(user);
+      console.log(data);
       setOpen(true);
     },
     close: () => setOpen(false),
@@ -81,7 +83,7 @@ const UserUpdate = (props, ref) => {
       aria-labelledby="responsive-dialog-title"
     >
       <DialogTitle className="dialogTitle" id="responsive-dialog-title">
-        Update User
+        THÔNG TIN NGƯỜI DÙNG
       </DialogTitle>
       <DialogContent className="dialogContent">
         <form className="form" onSubmit={frm.handleSubmit}>
@@ -134,45 +136,59 @@ const UserUpdate = (props, ref) => {
                 label="Birthday"
               />
             </Grid>
-
             <Grid item xs={12} md={12} mt={1}>
-              <FormControl>
-                <FormLabel id="demo-row-radio-buttons-group-label">
-                  Gender
-                </FormLabel>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                >
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio checked={frm.values.gender} />}
-                    label="Male"
-                    onChange={(e, checked) => {
-                      frm.setFieldValue("gender", checked);
-                    }}
-                    id="male"
-                    name="gender"
-                  />
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio checked={!frm.values.gender} />}
-                    label="Female"
-                    onChange={(e, checked) => {
-                      frm.setFieldValue("gender", !checked);
-                    }}
-                    name="gender"
-                    id="female"
-                  />
-                </RadioGroup>
-              </FormControl>
+              <Grid item xs={12} md={6} mt={1}>
+                <FormControl>
+                  <FormLabel id="demo-row-radio-buttons-group-label">
+                    Gender
+                  </FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                  >
+                    <FormControlLabel
+                      value="male"
+                      control={<Radio checked={frm.values.gender} />}
+                      label="Male"
+                      onChange={(e, checked) => {
+                        frm.setFieldValue("gender", checked);
+                      }}
+                      id="male"
+                      name="gender"
+                    />
+                    <FormControlLabel
+                      value="female"
+                      control={<Radio checked={!frm.values.gender} />}
+                      label="Female"
+                      onChange={(e, checked) => {
+                        frm.setFieldValue("gender", !checked);
+                      }}
+                      name="gender"
+                      id="female"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} md={6} mt={1}>
+                <TextField
+                  fullWidth
+                  id="role"
+                  name="role"
+                  type="text"
+                  value={frm.values.role}
+                  onChange={frm.handleChange}
+                  onBlur={frm.handleBlur}
+                  label="Role"
+                />
+              </Grid>
             </Grid>
             <Grid item xs={12} md={6} mt={1}>
               <Autocomplete
                 multiple
                 id="certification"
-                options={userLogin?.certification}
+                options={user?.certification}
                 freeSolo
                 value={frm.values.certification}
                 renderInput={(params) => (
@@ -188,7 +204,7 @@ const UserUpdate = (props, ref) => {
               <Autocomplete
                 multiple
                 id="skill"
-                options={userLogin?.skill}
+                options={user?.skill}
                 freeSolo
                 value={frm.values.skill}
                 renderInput={(params) => (
@@ -201,13 +217,18 @@ const UserUpdate = (props, ref) => {
               />
             </Grid>
           </Grid>
-
           <DialogActions className="dialogActions">
             <Button autoFocus onClick={handleClose} className="btn_cancel">
-              Cancel
+              HUỶ
             </Button>
-            <Button type="submit" autoFocus className="btn_save">
-              Save
+            <Button
+              type="submit"
+              onClick={handleClose}
+              autoFocus
+              className="btn_save"
+              style={{ background: "#17a2b8" }}
+            >
+              Sửa
             </Button>
           </DialogActions>
         </form>
@@ -216,4 +237,4 @@ const UserUpdate = (props, ref) => {
   );
 };
 
-export default forwardRef(UserUpdate);
+export default forwardRef(User);

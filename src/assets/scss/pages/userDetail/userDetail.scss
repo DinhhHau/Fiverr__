@@ -46,6 +46,14 @@
                   margin-right: 4px;
                 }
               }
+              .dropdown {
+                .dropdown-toggle {
+                  position: absolute;
+                  background: none;
+                  border: none;
+                  left: 15px;
+                }
+              }
             }
             .info_profile {
               .info_profile_image {
@@ -185,6 +193,7 @@
               .inner_row {
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
                 h3 {
                   margin: 0;
                   padding: 0;

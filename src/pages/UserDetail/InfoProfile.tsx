@@ -6,9 +6,21 @@ import UserUpdate from "../../HOC/UserUpdate/UserUpdate";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import { getCongViecApi } from "../../redux/reducers/jobReducer";
 import { ToastContainer, toast } from "react-toastify";
-import { getProfileApi, updateAvatar } from "../../redux/reducers/userReducer";
+import {
+  getProfileApi,
+  signOutAction,
+  updateAvatar,
+} from "../../redux/reducers/userReducer";
 import { GoogleOutlined, PlusOutlined } from "@ant-design/icons";
 import { FaFacebook, FaGithub, FaTwitter } from "react-icons/fa";
+import {
+  ACCESS_TOKEN,
+  clearStore,
+  ID_LOGIN,
+  ROLE_lOGIN,
+  USER_LOGIN,
+} from "../../util/setting";
+import { history } from "../../index";
 type Props = {};
 
 export default function InfoProfile({}: Props) {
@@ -34,6 +46,36 @@ export default function InfoProfile({}: Props) {
           <div className="onl">
             <div className="user_online">
               <i className="dot">·</i>Online
+            </div>
+            <div className="dropdown">
+              <button
+                className="dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul
+                className="dropdown-menu p-0"
+                aria-labelledby="dropdownMenuButton1"
+              >
+                <li>
+                  <button
+                    className="dropdown-item"
+                    type="button"
+                    onClick={() => {
+                      clearStore(ACCESS_TOKEN);
+                      clearStore(USER_LOGIN);
+                      clearStore(ID_LOGIN);
+                      clearStore(ROLE_lOGIN);
+                      dispatch(signOutAction(userLogin));
+                      history.push("/");
+                    }}
+                  >
+                    Đăng Xuất
+                  </button>
+                </li>
+              </ul>
             </div>
           </div>
           <div className="info_profile">
@@ -66,7 +108,12 @@ export default function InfoProfile({}: Props) {
                       className="w-100 avatar"
                     />
                   ) : (
-                    <p className="text my-0 text-center">{userLogin?.name}</p>
+                    <p
+                      className="text my-0 text-center"
+                      style={{ fontSize: 16 }}
+                    >
+                      {userLogin?.name}
+                    </p>
                   )}
                 </div>
               </label>
@@ -113,6 +160,14 @@ export default function InfoProfile({}: Props) {
           <div className="inner_item">
             <div className="inner_row">
               <h3>Description</h3>
+              <button
+                className="edit"
+                onClick={() => {
+                  refUpdateUserDialog.current.open();
+                }}
+              >
+                <i className="fa-solid fa-pen icon" />
+              </button>
             </div>
             <div className="d-flex align-items-center gap-5">
               <h6>Name:</h6>
@@ -141,9 +196,17 @@ export default function InfoProfile({}: Props) {
           <div className="inner_item">
             <div className="inner_row">
               <h3>Skills</h3>
+              <button
+                className="edit"
+                onClick={() => {
+                  refUpdateUserDialog.current.open();
+                }}
+              >
+                <i className="fa-solid fa-pen icon" />
+              </button>
             </div>
             <div className="d-flex flex-row flex-wrap">
-              {userLogin?.skill.map((item: string, index: number) => {
+              {userLogin?.skill?.map((item: string, index: number) => {
                 return (
                   <p className="lorem mx-1" key={index}>
                     {item}
@@ -155,15 +218,31 @@ export default function InfoProfile({}: Props) {
           <div className="inner_item">
             <div className="inner_row">
               <h3>Education</h3>
+              <button
+                className="edit"
+                onClick={() => {
+                  refUpdateUserDialog.current.open();
+                }}
+              >
+                <i className="fa-solid fa-pen icon" />
+              </button>
             </div>
             <p className="lorem"> CYBERSOFT</p>
           </div>
           <div className="inner_item">
             <div className="inner_row">
               <h3>Certification</h3>
+              <button
+                className="edit"
+                onClick={() => {
+                  refUpdateUserDialog.current.open();
+                }}
+              >
+                <i className="fa-solid fa-pen icon" />
+              </button>
             </div>
             <div className="d-flex flex-row flex-wrap">
-              {userLogin?.certification.map((item: string, index: number) => {
+              {userLogin?.certification?.map((item: string, index: number) => {
                 return (
                   <p className="lorem mx-1" key={index}>
                     {item}
