@@ -136,53 +136,50 @@ const User = (Props, ref) => {
                 label="Birthday"
               />
             </Grid>
-            <Grid item xs={12} md={12} mt={1}>
-              <Grid item xs={12} md={6} mt={1}>
-                <FormControl>
-                  <FormLabel id="demo-row-radio-buttons-group-label">
-                    Gender
-                  </FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                  >
-                    <FormControlLabel
-                      value="male"
-                      control={<Radio checked={frm.values.gender} />}
-                      label="Male"
-                      onChange={(e, checked) => {
-                        frm.setFieldValue("gender", checked);
-                      }}
-                      id="male"
-                      name="gender"
-                    />
-                    <FormControlLabel
-                      value="female"
-                      control={<Radio checked={!frm.values.gender} />}
-                      label="Female"
-                      onChange={(e, checked) => {
-                        frm.setFieldValue("gender", !checked);
-                      }}
-                      name="gender"
-                      id="female"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} md={6} mt={1}>
-                <TextField
-                  fullWidth
-                  id="role"
-                  name="role"
-                  type="text"
-                  value={frm.values.role}
-                  onChange={frm.handleChange}
-                  onBlur={frm.handleBlur}
-                  label="Role"
-                />
-              </Grid>
+            <Grid item xs={12} md={6} mt={1}>
+              <FormControl>
+                <FormLabel id="demo-row-radio-buttons-group-label">
+                  Gender
+                </FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio checked={frm.values.gender} />}
+                    label="Male"
+                    onChange={(e, checked) => {
+                      frm.setFieldValue("gender", checked);
+                    }}
+                    id="male"
+                    name="gender"
+                  />
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio checked={!frm.values.gender} />}
+                    label="Female"
+                    onChange={(e, checked) => {
+                      frm.setFieldValue("gender", !checked);
+                    }}
+                    name="gender"
+                    id="female"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6} mt={1}>
+              <TextField
+                fullWidth
+                id="role"
+                name="role"
+                type="text"
+                value={frm.values.role}
+                onChange={frm.handleChange}
+                onBlur={frm.handleBlur}
+                label="Role"
+              />
             </Grid>
             <Grid item xs={12} md={6} mt={1}>
               <Autocomplete
