@@ -2,10 +2,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { http } from "../../util/setting";
 import { AppDispatch } from "../configStore";
-import JobModel, { ThueCongViecViewModel } from "../models/JobModel";
+import JobModel, {
+  CongViecViewModel,
+  ThueCongViecViewModel,
+} from "../models/JobModel";
 
 const initialState: any = {
   arrLoaiCV: [],
+  allCongViec: [],
   congViecDaThue: [],
 };
 
@@ -22,15 +26,25 @@ const jobReducer = createSlice({
     ) => {
       state.congViecDaThue = action.payload;
     },
+    getAllCongViecAction: (
+      state,
+      action: PayloadAction<CongViecViewModel[]>
+    ) => {
+      state.allCongViec = action.payload;
+    },
   },
 });
 
-export const { getAllMenuLoaiCvAction, getAllCongViecDaThueAction } =
-  jobReducer.actions;
+export const {
+  getAllMenuLoaiCvAction,
+  getAllCongViecDaThueAction,
+  getAllCongViecAction,
+} = jobReducer.actions;
 
 export default jobReducer.reducer;
 
 // -------------------------- action api ----------------------- //
+//
 export const getMenuLoaiCv = () => {
   return async (dispatch: AppDispatch) => {
     try {
@@ -67,6 +81,19 @@ export const delCVThueApi = (id: number) => {
     } catch (err) {
       console.log(err);
       toast.success("Error");
+    }
+  };
+};
+// Danh sách công việc
+export const getAllCongViecApi = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get(`/cong-viec`);
+      let allCongViec: CongViecViewModel[] = result.data.content;
+      const action = getAllCongViecAction(allCongViec);
+      dispatch(action);
+    } catch (err) {
+      console.log(err);
     }
   };
 };

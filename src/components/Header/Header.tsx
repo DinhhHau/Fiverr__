@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import CustomLogo from "../../assets/CustomLogo/CustomLogo";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import { FaBars } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
+import { getProfileApi } from "../../redux/reducers/userReducer";
 //
 type Props = {
   fill?: string;
@@ -12,6 +13,8 @@ type Props = {
 const logo: string = require("../../assets/img/logo.png");
 //
 export default function Header({}: Props) {
+  const dispatch: AppDispatch = useDispatch();
+
   const [Mobile, setMobile] = useState(false);
   //
   const navigate = useNavigate();
@@ -101,6 +104,9 @@ export default function Header({}: Props) {
       );
     }
   };
+  useEffect(() => {
+    dispatch(getProfileApi());
+  }, []);
   //
   return (
     <header className="header">

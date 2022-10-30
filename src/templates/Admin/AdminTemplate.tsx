@@ -17,6 +17,7 @@ import {
 } from "../../util/setting";
 import { history } from "../../index";
 import { toast } from "react-toastify";
+import { getAllCongViecApi } from "../../redux/reducers/jobReducer";
 
 const { Header, Sider, Content } = Layout;
 type Props = {};
@@ -30,6 +31,9 @@ export default function AdminTemplate({}: Props) {
   useEffect(() => {
     dispatch(getProfileApi());
   }, []);
+  useEffect(() => {
+    dispatch(getAllCongViecApi());
+  }, []);
   //
   let role = getStore(ROLE_lOGIN);
   if (role !== "ADMIN" && role !== "admin") {
@@ -42,10 +46,10 @@ export default function AdminTemplate({}: Props) {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="ant-layout-sider-children">
           <div className="d-flex flex-column">
-            <div className="title mt-3 ">
+            <div className="title mt-3 mx-3">
               <h4>Dashboard</h4>
             </div>
-            <ul className="ul mt-3">
+            <ul className="ul mt-3 d-block">
               <li className="li mt-5 mx-3">
                 <NavLink
                   className="text-dark active"
@@ -68,6 +72,33 @@ export default function AdminTemplate({}: Props) {
               <li className="li mt-5 mx-3">
                 <NavLink className="text-dark" to="/admin/qldv">
                   Quản lí dịch vụ
+                </NavLink>
+              </li>
+            </ul>
+            {/* icon */}
+            <ul className="ul mt-3 text-center d-none">
+              <li className="li mt-5 mx-3">
+                <NavLink
+                  className="text-dark active"
+                  to="/admin/qlnd"
+                  aria-current="page"
+                >
+                  <i className="fa-solid fa-user icon" />
+                </NavLink>
+              </li>
+              <li className="li mt-5 mx-3">
+                <NavLink className="text-dark" to="/admin/qlcv">
+                  <i className="fa-solid fa-briefcase icon" />
+                </NavLink>
+              </li>
+              <li className="li mt-5 mx-3">
+                <NavLink className="text-dark" to="/admin/qllcv">
+                  <i className="fa-solid fa-folder-open icon" />
+                </NavLink>
+              </li>
+              <li className="li mt-5 mx-3">
+                <NavLink className="text-dark" to="/admin/qldv">
+                  <i className="fa-solid fa-square-poll-vertical icon" />
                 </NavLink>
               </li>
             </ul>

@@ -8,6 +8,8 @@ import { AppDispatch, RootState } from "../../../redux/configStore";
 import {
   delUserApi,
   getUserApi,
+  getUserSearch,
+  searchUserApi,
   userIdApi,
 } from "../../../redux/reducers/adminReducer";
 import { setStore } from "../../../util/setting";
@@ -39,16 +41,6 @@ export default function ManageUser({}: Props) {
       dataIndex: "name",
       key: "name",
     },
-    // {
-    //   title: "Gender",
-    //   dataIndex: "gender",
-    //   key: "gender",
-    // },
-    // {
-    //   title: "Phone",
-    //   key: "phone",
-    //   dataIndex: "phone",
-    // },
     {
       title: "Role",
       key: "role",
@@ -96,13 +88,13 @@ export default function ManageUser({}: Props) {
           <User ref={refUserDialog} id={id} />
           <Button
             onClick={() => {
-              //console.log(id);
+              // console.log(id);
               setStore("id_user", id);
-              refUserDialog.current.open(id);
+              refUserDialog.current.open();
               dispatch(userIdApi(id));
             }}
           >
-            Xem thông tin & Sửa
+            View & Edit
           </Button>
           <Button
             type="primary"
@@ -130,7 +122,20 @@ export default function ManageUser({}: Props) {
   return (
     <>
       <AddAdmin />
-      <Input placeholder="Tìm..." type="text" className="inp_search mb-3" />
+      <Input
+        placeholder="Tìm kiếm thông tin người dùng ..."
+        type="text"
+        className="inp_search mb-3"
+        onChange={(e) => {
+          let key = e.target.value;
+          console.log(key);
+          if (key) {
+            dispatch(searchUserApi(key));
+          } else {
+            dispatch(getUserApi());
+          }
+        }}
+      />
       <Table columns={columns} dataSource={allUser} />
     </>
   );

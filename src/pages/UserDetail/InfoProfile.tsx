@@ -93,7 +93,7 @@ export default function InfoProfile({}: Props) {
                     const file = _.head(e.target.files);
                     dispatch(updateAvatar(file))
                       .then((res) => {
-                        toast.success("Updated Avatar Successfully !");
+                        toast.success("Cập nhật avatar thành công !");
                       })
                       .catch((err) => {
                         toast.success("Error");

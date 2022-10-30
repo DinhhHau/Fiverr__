@@ -71,7 +71,7 @@ export const registerApi = (user: ThongTinNguoiDungDangKi) => {
       history.push(`/login`);
     } catch (err: any) {
       console.log(err);
-      alert(err.response.data.content);
+      toast.error(err.response.data.content);
     }
   };
 };
@@ -99,10 +99,11 @@ export const loginApi = (userLogin: DangNhapView) => {
         history.push("/profile");
       }
       //
+      toast.success("Đăng nhập tài khoản thành công !");
       dispatch(getProfileApi());
     } catch (err: any) {
       console.log(err);
-      alert(err.response.data.content);
+      toast.error(err.response.data.content);
     }
   };
 };

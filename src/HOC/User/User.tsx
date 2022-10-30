@@ -24,7 +24,7 @@ import { getProfileApi, updateProfile } from "../../redux/reducers/userReducer";
 import { ToastContainer, toast } from "react-toastify";
 import {
   getUserApi,
-  updateUser,
+  updateUserApi,
   userIdApi,
 } from "../../redux/reducers/adminReducer";
 import { getStore, ROLE_lOGIN } from "../../util/setting";
@@ -52,7 +52,8 @@ const User = (Props, ref) => {
     },
     onSubmit: (values) => {
       //   console.log(values);
-      dispatch(updateUser(values));
+      toast.success("Cập nhật thông tin thành công !");
+      dispatch(updateUserApi(values));
       dispatch(getProfileApi());
     },
   });

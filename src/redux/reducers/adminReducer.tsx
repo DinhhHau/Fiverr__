@@ -35,10 +35,14 @@ const adminReducer = createSlice({
     getUserAction: (state, action) => {
       state.user = action.payload;
     },
+    getUserSearch: (state, aciton) => {
+      state.allUser = aciton.payload;
+    },
   },
 });
 
-export const { getAllUser, getUserAction } = adminReducer.actions;
+export const { getAllUser, getUserAction, getUserSearch } =
+  adminReducer.actions;
 
 export default adminReducer.reducer;
 
@@ -94,12 +98,33 @@ export const delUserApi = (id: number) => {
   };
 };
 // sửa thông tin user
-export const updateUser = (data: ThongTinNguoiDungUpdate) => {
+export const updateUserApi = (data: ThongTinNguoiDungUpdate) => {
   return async (dispatch: AppDispatch) => {
     try {
       http
         .put(`/users/${getStore("id_user")}`, data)
         .finally(() => dispatch(getProfileApi()));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+// tìm user
+export const searchUserApi = (key: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get(`/users/search/${key}`);
+      console.log(result);
+      let data = result.data.content;
+      let newData = [...data].map((e, index) => {
+        return (e = {
+          ...e,
+          certification: JSON.parse(e.certification),
+          skill: JSON.parse(e.skill),
+        });
+      });
+      // console.log(newData);
+      dispatch(getUserSearch(newData));
     } catch (err) {
       console.log(err);
     }
