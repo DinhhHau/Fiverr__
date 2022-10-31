@@ -37,7 +37,8 @@ export default function AdminTemplate({}: Props) {
   //
   let role = getStore(ROLE_lOGIN);
   if (role !== "ADMIN" && role !== "admin") {
-    alert(" Tài Khoản chưa đủ quyền truy cập Admin !");
+    // alert(" Tài Khoản chưa đủ quyền truy cập Admin !");
+    toast.warning("Tài Khoản chưa đủ quyền truy cập Admin  !");
     return <Navigate to="/login" />;
   }
 

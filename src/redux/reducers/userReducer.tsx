@@ -24,16 +24,16 @@ import { getUserApi } from "./adminReducer";
 
 const initialState: any = {
   userLogin: {
-    id: "",
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-    birthday: "",
-    gender: false,
-    role: "",
-    skill: [],
-    certification: [],
+    // id: "",
+    // name: "",
+    // email: "",
+    // password: "",
+    // phone: "",
+    // birthday: "",
+    // gender: false,
+    // role: "",
+    // skill: [],
+    // certification: [],
   },
   role: "",
 };
