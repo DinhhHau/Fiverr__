@@ -118,7 +118,9 @@ export default function AdminTemplate({}: Props) {
                 onClick: () => setCollapsed(!collapsed),
               }
             )}
-            <CustomLogo />
+            <NavLink to={"/"}>
+              <CustomLogo />
+            </NavLink>
           </div>
           <div className="dropdown d-flex justify-content-between align-items-center">
             <div

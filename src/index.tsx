@@ -31,6 +31,8 @@ import ManageService from "./pages/AdminPages/ManageService/ManageService";
 import InfoProfile from "./pages/UserDetail/InfoProfile";
 import VerifyAdmin from "./guard/VerifyAdmin";
 import CustomAdmin from "./assets/CustomLogo/CustomAdmin";
+import Categories from "./pages/Categories/Catagories";
+import Result from "./pages/Result/Result";
 //
 export const history = createBrowserHistory({ window });
 
@@ -47,6 +49,12 @@ root.render(
           <Route path="*" element={<Navigate to="" />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="/categories">
+            <Route path=":id" element={<Categories />}></Route>
+          </Route>
+          <Route path="/result">
+            <Route path=":name" element={<Result />}></Route>
+          </Route>
         </Route>
         <Route
           path=""

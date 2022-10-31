@@ -5,4 +5,3 @@ export interface ThemAdmin {
   phone: string;
   role: string;
 }
-<i className="fa-solid fa-user icon" />;

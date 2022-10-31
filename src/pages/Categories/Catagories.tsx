@@ -1,24 +1,25 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { ServiceCard } from "../../components/ServiceCard/ServiceCard";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import { CongViecChiTiet } from "../../redux/models/JobModel";
-import { getResultApi } from "../../redux/reducers/jobReducer";
+import { getCategoryApi } from "../../redux/reducers/jobReducer";
+
 type Props = {};
 
-export default function Result({}: Props) {
-  const { arrResult } = useSelector((state: RootState) => state.jobReducer);
+export default function Categories({}: Props) {
+  const { arrCategory } = useSelector((state: RootState) => state.jobReducer);
   const dispatch: AppDispatch = useDispatch();
   const params: any = useParams();
 
   useEffect(() => {
-    let { name } = params;
-    dispatch(getResultApi(name));
-  }, [params.name]);
+    let { id } = params;
+    dispatch(getCategoryApi(id));
+  }, [params.id]);
 
   const renderService = () => {
-    return arrResult.map((service: CongViecChiTiet, index: number) => {
+    return arrCategory.map((service: CongViecChiTiet, index: number) => {
       return (
         <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4" key={index}>
           <ServiceCard service={service} />
@@ -28,14 +29,46 @@ export default function Result({}: Props) {
   };
 
   return (
-    <section className="result">
+    <section className="categories">
       <div className="container">
-        <div className="result-title">
-          <span>Results for "{params.name}"</span>
+        <div className="categories-link">
+          <ul className="d-flex algin-items-center gap-2">
+            <li>
+              <NavLink to="/home">Fiverr</NavLink>
+              <span className="XQskgrQ chevron-icon-right" aria-hidden="true">
+                <svg
+                  width={16}
+                  height={16}
+                  viewBox="0 0 8 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentFill"
+                >
+                  <path d="m.772 1.19-.619.62a.375.375 0 0 0 0 .53L5.8 8 .153 13.66a.375.375 0 0 0 0 .53l.62.62a.375.375 0 0 0 .53 0l6.544-6.545a.375.375 0 0 0 0-.53L1.302 1.19a.375.375 0 0 0-.53 0Z" />
+                </svg>
+              </span>
+            </li>
+            <li>
+              <NavLink to="/">{arrCategory[0]?.tenLoaiCongViec}</NavLink>
+              <span className="XQskgrQ chevron-icon-right" aria-hidden="true">
+                <svg
+                  width={16}
+                  height={16}
+                  viewBox="0 0 8 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentFill"
+                >
+                  <path d="m.772 1.19-.619.62a.375.375 0 0 0 0 .53L5.8 8 .153 13.66a.375.375 0 0 0 0 .53l.62.62a.375.375 0 0 0 .53 0l6.544-6.545a.375.375 0 0 0 0-.53L1.302 1.19a.375.375 0 0 0-.53 0Z" />
+                </svg>
+              </span>
+            </li>
+          </ul>
         </div>
-        <div className="result-topbar row justify-content-between">
-          <div className="result-topbar-dropdown col-lg-6  d-flex gap-2">
-            <div className="result-topbar-dropdown-filter">
+        <div className="categories-title">
+          <span>{arrCategory[0]?.tenChiTietLoai}</span>
+        </div>
+        <div className="categories-topbar row justify-content-between">
+          <div className="categories-topbar-dropdown col-lg-6  d-flex gap-2">
+            <div className="categories-topbar-dropdown-filter">
               <button
                 className="dropdown-toggle"
                 data-bs-toggle="dropdown"
@@ -74,7 +107,7 @@ export default function Result({}: Props) {
                 </li>
               </ul>
             </div>
-            <div className="result-topbar-dropdown-filter">
+            <div className="categories-topbar-dropdown-filter">
               <button
                 className="dropdown-toggle"
                 data-bs-toggle="dropdown"
@@ -113,7 +146,7 @@ export default function Result({}: Props) {
                 </li>
               </ul>
             </div>
-            <div className="result-topbar-dropdown-filter">
+            <div className="categories-topbar-dropdown-filter">
               <button
                 className="dropdown-toggle"
                 data-bs-toggle="dropdown"
@@ -152,7 +185,7 @@ export default function Result({}: Props) {
                 </li>
               </ul>
             </div>
-            <div className="result-topbar-dropdown-filter">
+            <div className="categories-topbar-dropdown-filter">
               <button
                 className="dropdown-toggle"
                 data-bs-toggle="dropdown"
@@ -192,7 +225,7 @@ export default function Result({}: Props) {
               </ul>
             </div>
           </div>
-          <div className="result-topbar-toggle col-lg-6 d-flex justify-content-end gap-5 align-items-center">
+          <div className="categories-topbar-toggle justify-content-end col-lg-6 d-flex gap-5 align-items-center">
             <div className="toggle d-flex align-items-center">
               <label className="switch">
                 <input type="checkbox" />
@@ -216,10 +249,10 @@ export default function Result({}: Props) {
             </div>
           </div>
         </div>
-        <div className="result-sort py-3 d-flex justify-content-between align-items-center">
-          <div className="number-of-result">
+        <div className="categories-sort py-3 d-flex justify-content-between align-items-center">
+          <div className="number-of-categories">
             <span className="pre-title">
-              {arrResult.length} services available
+              {arrCategory.length} services available
             </span>
           </div>
           <div className="sort-by">
@@ -231,7 +264,7 @@ export default function Result({}: Props) {
             </select>
           </div>
         </div>
-        <div className="result-services">
+        <div className="categories-services">
           <div className="row">{renderService()}</div>
         </div>
       </div>
