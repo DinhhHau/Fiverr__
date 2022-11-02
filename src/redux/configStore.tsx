@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import adminReducer from "./reducers/adminReducer";
+import binhLuanReducer from "./reducers/binhLuanReducer";
 import jobReducer from "./reducers/jobReducer";
 import modalReducer from "./reducers/modalReducer";
 
@@ -11,6 +12,7 @@ export const store = configureStore({
     userReducer: userReducer,
     adminReducer: adminReducer,
     modalReducer: modalReducer,
+    binhLuanReducer: binhLuanReducer,
   },
 });
 

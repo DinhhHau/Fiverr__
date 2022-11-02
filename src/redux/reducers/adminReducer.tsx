@@ -4,12 +4,15 @@ import Swal from "sweetalert2";
 import { getStore, http } from "../../util/setting";
 import { AppDispatch } from "../configStore";
 import { ThemAdmin } from "../models/AdminModel";
-import { ThongTinNguoiDung, ThongTinNguoiDungUpdate } from "../models/AuthModel";
+import {
+  ThongTinNguoiDung,
+  ThongTinNguoiDungUpdate,
+} from "../models/AuthModel";
 import { getProfileApi } from "./userReducer";
 
 const initialState: any = {
   allUser: [],
-  allService:[],
+  allService: [],
   allJobType: [],
   user: {
     id: "",
@@ -46,8 +49,13 @@ const adminReducer = createSlice({
   },
 });
 
-export const { getAllUser, getAllServiceHire, getAllJobType,getUserAction,getUserSearch } =
-  adminReducer.actions;
+export const {
+  getAllUser,
+  getAllServiceHire,
+  getAllJobType,
+  getUserAction,
+  getUserSearch,
+} = adminReducer.actions;
 
 export default adminReducer.reducer;
 

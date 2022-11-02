@@ -2,6 +2,7 @@ import _ from "lodash";
 import React, { useRef } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import { ThueCongViecViewModel } from "../../redux/models/JobModel";
 import { delCVThueApi, getCongViecApi } from "../../redux/reducers/jobReducer";
@@ -73,7 +74,11 @@ export default function GigsProfile({}: Props) {
                   </div>
                 </div>
                 <div className="btn_edit">
-                  <button className="viewdetail">View detail</button>
+                  <button className="viewdetail">
+                    <NavLink to={`/jobDetail/${congViecThue.congViec?.id}`}>
+                      View detail
+                    </NavLink>
+                  </button>
                   <div className="right">
                     <button className="edit">Edit</button>
                     <button

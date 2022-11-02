@@ -24,6 +24,14 @@ export interface ThueCongViecViewModel {
   congViec: CongViecViewModel;
 }
 
+export interface ThueCongViec {
+  id: number;
+  maCongViec: number;
+  maNguoiThue: number;
+  ngayThue: string;
+  hoanThanh: boolean;
+}
+
 export interface CongViecViewModel {
   id: number;
   tenCongViec: string;

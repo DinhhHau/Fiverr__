@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { swap } from "formik";
 import { toast } from "react-toastify";
 import { history } from "../../index";
+import Swal from "sweetalert2";
 import {
   ACCESS_TOKEN,
   getStore,
@@ -20,6 +22,7 @@ import {
   ThongTinNguoiDungDangKi,
   ThongTinNguoiDungUpdate,
 } from "../models/AuthModel";
+import { ThueCongViec } from "../models/JobModel";
 import { getUserApi } from "./adminReducer";
 
 const initialState: any = {
@@ -146,6 +149,21 @@ export const updateAvatar = (file) => {
           }
         )
         .finally(() => dispatch(getProfileApi()));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+//
+export const rentJobApi = (rentJob: ThueCongViec) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.post("/thue-cong-viec", rentJob);
+      console.log(result);
+      Swal.fire({
+        icon: "success",
+        title: "Thêm thành công !",
+      });
     } catch (err) {
       console.log(err);
     }

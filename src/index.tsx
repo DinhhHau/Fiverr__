@@ -33,6 +33,7 @@ import VerifyAdmin from "./guard/VerifyAdmin";
 import CustomAdmin from "./assets/CustomLogo/CustomAdmin";
 import Categories from "./pages/Categories/Catagories";
 import Result from "./pages/Result/Result";
+import JobDetail from "./pages/JobDetail/JobDetail";
 //
 export const history = createBrowserHistory({ window });
 
@@ -54,6 +55,9 @@ root.render(
           </Route>
           <Route path="/result">
             <Route path=":name" element={<Result />}></Route>
+          </Route>
+          <Route path="/jobdetail">
+            <Route path=":id" element={<JobDetail />}></Route>
           </Route>
         </Route>
         <Route

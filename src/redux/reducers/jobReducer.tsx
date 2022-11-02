@@ -14,6 +14,26 @@ const initialState: any = {
   congViecDaThue: [],
   arrCategory: [],
   arrResult: [],
+  detailJob: {
+    id: 0,
+    congViec: {
+      id: 0,
+      tenCongViec: "",
+      giaTien: 0,
+      nguoiTao: 0,
+      hinhAnh: "",
+      moTa: "",
+      maChiTietLoaiCongViec: 0,
+      moTaNgan: "",
+      saoCongViec: 0,
+      danhGia: 0,
+    },
+    tenChiTietLoai: "",
+    tenNhomChiTietLoai: "",
+    tenNguoiTao: "",
+    tenLoaiCongViec: "",
+    avatar: "",
+  },
 };
 
 const jobReducer = createSlice({
@@ -35,6 +55,9 @@ const jobReducer = createSlice({
     ) => {
       state.allCongViec = action.payload;
     },
+    getDetailJob: (state, action: PayloadAction<CongViecChiTiet>) => {
+      state.detailJob = action.payload;
+    },
     getCategory: (state, action: PayloadAction<CongViecChiTiet[]>) => {
       state.arrCategory = action.payload;
     },
@@ -50,6 +73,7 @@ export const {
   getAllCongViecAction,
   getCategory,
   getResult,
+  getDetailJob,
 } = jobReducer.actions;
 
 export default jobReducer.reducer;
@@ -96,6 +120,19 @@ export const delCVThueApi = (id: number) => {
   };
 };
 //
+export const getDetailJobApi = (id: string | number) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get(`/cong-viec/lay-cong-viec-chi-tiet/${id}`);
+      const jobArray: CongViecChiTiet[] = result.data.content;
+      const job: CongViecChiTiet = jobArray[0];
+      dispatch(getDetailJob(job));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+//
 export const getCategoryApi = (id: String | number) => {
   return async (dispatch: AppDispatch) => {
     try {
@@ -109,7 +146,7 @@ export const getCategoryApi = (id: String | number) => {
     }
   };
 };
-//
+// trang kết quả seacrh
 export const getResultApi = (name: String) => {
   return async (dispatch: AppDispatch) => {
     try {
@@ -149,3 +186,4 @@ export const delCongViecApi = (id: number) => {
     }
   };
 };
+// thêm ảnh công viêc
