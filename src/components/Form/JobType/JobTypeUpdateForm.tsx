@@ -46,42 +46,44 @@ export default function JobTypeUpdateForm({ id, jobType }: Props, ref) {
   });
 
   return (
-    <form className="form" onSubmit={frm.handleSubmit}>
-      <Grid spacing={1} container mt={1}>
-        <Grid item xs={12} md={6} mt={1}>
-          <TextField
-            fullWidth
-            disabled
-            id="id"
-            name="id"
-            type="text"
-            label="ID"
-            value={frm.values.id}
-            onChange={frm.handleChange}
-            onBlur={frm.handleBlur}
-          />
+    <>
+      <form className="form" onSubmit={frm.handleSubmit}>
+        <Grid spacing={1} container mt={1}>
+          <Grid item xs={12} md={6} mt={1}>
+            <TextField
+              fullWidth
+              disabled
+              id="id"
+              name="id"
+              type="text"
+              label="ID"
+              value={frm.values.id}
+              onChange={frm.handleChange}
+              onBlur={frm.handleBlur}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} mt={1}>
+            <TextField
+              fullWidth
+              name="jobType"
+              type="text"
+              value={frm.values.jobType}
+              onChange={frm.handleChange}
+              onBlur={frm.handleBlur}
+              label="JobType"
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={6} mt={1}>
-          <TextField
-            fullWidth
-            name="jobType"
-            type="text"
-            value={frm.values.jobType}
-            onChange={frm.handleChange}
-            onBlur={frm.handleBlur}
-            label="JobType"
-          />
-        </Grid>
-      </Grid>
 
-      <DialogActions className="dialogActions">
-        <Button onClick={handleClose} autoFocus className="btn_cancel">
-          Cancel
-        </Button>
-        <Button type="submit" autoFocus className="btn_save">
-          Save
-        </Button>
-      </DialogActions>
-    </form>
+        <DialogActions className="dialogActions">
+          <Button data-bs-dismiss="modal" autoFocus className="btn_cancel">
+            Cancel
+          </Button>
+          <Button type="submit" autoFocus className="btn_save">
+            Save
+          </Button>
+        </DialogActions>
+      </form>
+    </>
   );
 }

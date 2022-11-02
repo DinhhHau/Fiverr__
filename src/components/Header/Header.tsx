@@ -1,30 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import CustomLogo from "../../assets/CustomLogo/CustomLogo";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import { FaBars } from "react-icons/fa";
-import { ImCross } from "react-icons/im";
-import JobModel, {
-  DsChiTietLoai,
-  DsNhomChiTietLoai,
-} from "../../redux/models/JobModel";
-
+import { getProfileApi } from "../../redux/reducers/userReducer";
+import { history } from "../../index";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
 //
 type Props = {
   fill?: string;
 };
 const logo: string = require("../../assets/img/logo.png");
+library.add(fas);
 //
 export default function Header({}: Props) {
-  const [Mobile, setMobile] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
+  const resultParamRef = useRef("");
   //
   const navigate = useNavigate();
   const { userLogin } = useSelector((state: RootState) => state.userReducer);
   // console.log(userLogin);
   //
   const renderItem = () => {
-    if (userLogin == null) {
+    if (Object.keys(userLogin).length === 0) {
       return <NavLink to={"/login"}>Sign in</NavLink>;
     } else {
       return (
@@ -49,7 +50,7 @@ export default function Header({}: Props) {
     }
   };
   const renderItem2 = () => {
-    if (userLogin == null) {
+    if (Object.keys(userLogin).length === 0) {
       return (
         <li
           className="join"
@@ -74,7 +75,7 @@ export default function Header({}: Props) {
     }
   };
   const renderItemNav = () => {
-    if (userLogin == null) {
+    if (Object.keys(userLogin).length === 0) {
       return (
         <NavLink className="btn btn-success w-100" to={"/login"}>
           Sign in
@@ -106,18 +107,21 @@ export default function Header({}: Props) {
       );
     }
   };
+  useEffect(() => {
+    dispatch(getProfileApi());
+  }, []);
+  //
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    const param = resultParamRef.current;
+    navigate(`/result/${param}`);
+  };
   //
   return (
     <header className="header">
       <div className="header_wrapper">
         <div className="header_row">
           <div className="left">
-            {/* <button
-              className="mobile_menu_icon btn_nav"
-              onClick={() => setMobile(!Mobile)}
-            >
-              {Mobile ? <ImCross /> : <FaBars />}
-            </button> */}
             <div className="d-flex">
               <div>
                 <button
@@ -209,13 +213,15 @@ export default function Header({}: Props) {
               </NavLink>
             </div>
             <div className="header_search">
-              <form className="search_form">
+              <form className="search_form" onSubmit={handelSubmit}>
                 <div className="search">
                   <span>
                     <input
+                      name="resultParam"
                       type="search"
                       className="inp"
                       placeholder="Find Services"
+                      // ref={resultParamRef}
                     />
                   </span>
                 </div>
@@ -226,13 +232,17 @@ export default function Header({}: Props) {
           <div className="right">
             <nav className="header_navbar">
               <ul className="ul">
-                <li className="li_1" style={{ color: "#1bdf73" }}>
-                  Fiverr Pro
-                </li>
+                <li className="li_1 li_fiverr">Fiverr Business</li>
                 <li className="li_1">Explore</li>
-                <li className="li_1">Messages</li>
-                <li className="li_1">List</li>
-                <li className="li_1">Orders</li>
+                <li className="li_1">
+                  <FontAwesomeIcon
+                    icon={["fas", "globe"]}
+                    className="fa mx-1"
+                  />
+                  English
+                </li>
+                <li className="li_1">US$ USD</li>
+                <li className="li_1">Become a Seller</li>
                 <li>{renderItem()}</li>
                 {renderItem2()}
               </ul>

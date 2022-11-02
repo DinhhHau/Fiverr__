@@ -37,4 +37,14 @@ export interface CongViecViewModel {
   saoCongViec: number;
 }
 
+export interface CongViecChiTiet {
+  id: number;
+  congViec: CongViecViewModel;
+  tenLoaiCongViec: string;
+  tenNhomChiTietLoai: string;
+  tenChiTietLoai: string;
+  tenNguoiTao: string;
+  avatar: string;
+}
+
 export default JobModel;

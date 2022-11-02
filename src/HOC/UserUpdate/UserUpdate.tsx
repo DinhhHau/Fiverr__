@@ -30,7 +30,7 @@ const UserUpdate = (props, ref) => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-
+  //
   const frm = useFormik({
     initialValues: {
       id: "",
@@ -51,7 +51,7 @@ const UserUpdate = (props, ref) => {
           handleClose();
         })
         .catch((err) => {
-          toast.success("Error");
+          toast.error("Error");
         });
     },
   });

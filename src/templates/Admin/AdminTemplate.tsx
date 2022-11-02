@@ -1,29 +1,56 @@
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Layout, Menu } from "antd";
-import React, { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { Layout, message } from "antd";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import CustomLogo from "../../assets/CustomLogo/CustomLogo";
+import UserUpdate from "../../HOC/UserUpdate/UserUpdate";
+import { AppDispatch, RootState } from "../../redux/configStore";
+import { getProfileApi, signOutAction } from "../../redux/reducers/userReducer";
+import {
+  ACCESS_TOKEN,
+  clearStore,
+  getStore,
+  ID_LOGIN,
+  ROLE_lOGIN,
+  USER_LOGIN,
+} from "../../util/setting";
+import { history } from "../../index";
+import { toast } from "react-toastify";
+import { getAllCongViecApi } from "../../redux/reducers/jobReducer";
 
 const { Header, Sider, Content } = Layout;
 type Props = {};
 export default function AdminTemplate({}: Props) {
   const [collapsed, setCollapsed] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
+  const refUpdateUserDialog = useRef<any>(null);
+  const { userLogin } = useSelector((state: RootState) => state.userReducer);
+  const navigate = useNavigate();
+  //
+  useEffect(() => {
+    dispatch(getProfileApi());
+  }, []);
+  useEffect(() => {
+    dispatch(getAllCongViecApi());
+  }, []);
+  //
+  let role = getStore(ROLE_lOGIN);
+  if (role !== "ADMIN" && role !== "admin") {
+    // alert(" Tài Khoản chưa đủ quyền truy cập Admin !");
+    toast.warning("Tài Khoản chưa đủ quyền truy cập Admin  !");
+    return <Navigate to="/login" />;
+  }
 
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="ant-layout-sider-children">
           <div className="d-flex flex-column">
-            <div className="title mt-3 ">
+            <div className="title mt-3 mx-3">
               <h4>Dashboard</h4>
             </div>
-            <ul className="ul mt-3">
+            <ul className="ul mt-3 d-block">
               <li className="li mt-5 mx-3">
                 <NavLink
                   className="text-dark active"
@@ -49,6 +76,33 @@ export default function AdminTemplate({}: Props) {
                 </NavLink>
               </li>
             </ul>
+            {/* icon */}
+            <ul className="ul mt-3 text-center d-none">
+              <li className="li mt-5 mx-3">
+                <NavLink
+                  className="text-dark active"
+                  to="/admin/qlnd"
+                  aria-current="page"
+                >
+                  <i className="fa-solid fa-user icon" />
+                </NavLink>
+              </li>
+              <li className="li mt-5 mx-3">
+                <NavLink className="text-dark" to="/admin/qlcv">
+                  <i className="fa-solid fa-briefcase icon" />
+                </NavLink>
+              </li>
+              <li className="li mt-5 mx-3">
+                <NavLink className="text-dark" to="/admin/qllcv">
+                  <i className="fa-solid fa-folder-open icon" />
+                </NavLink>
+              </li>
+              <li className="li mt-5 mx-3">
+                <NavLink className="text-dark" to="/admin/qldv">
+                  <i className="fa-solid fa-square-poll-vertical icon" />
+                </NavLink>
+              </li>
+            </ul>
           </div>
         </div>
       </Sider>
@@ -65,7 +119,9 @@ export default function AdminTemplate({}: Props) {
                 onClick: () => setCollapsed(!collapsed),
               }
             )}
-            <CustomLogo />
+            <NavLink to={"/"}>
+              <CustomLogo />
+            </NavLink>
           </div>
           <div className="dropdown d-flex justify-content-between align-items-center">
             <div
@@ -75,20 +131,44 @@ export default function AdminTemplate({}: Props) {
               aria-expanded="false"
             >
               <img
-                style={{ width: 60, height: 60 }}
-                src="./img/avt.jpg"
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: "50%",
+                  padding: 10,
+                }}
+                src={userLogin?.avatar}
                 alt="avatar"
               />
-              <span className="mx-2">Admin</span>
+              <span className="mx-2">{userLogin?.name}</span>
             </div>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <ul className="dropdown-menu p-0" aria-labelledby="dropdownMenu2">
               <li>
-                <button className="dropdown-item" type="button">
+                <UserUpdate ref={refUpdateUserDialog} />
+                <button
+                  className="dropdown-item"
+                  type="button"
+                  onClick={() => {
+                    navigate("/profile");
+                    // refUpdateUserDialog.current.open();
+                  }}
+                >
                   Cập Nhập Thông Tin
                 </button>
               </li>
               <li>
-                <button className="dropdown-item" type="button">
+                <button
+                  className="dropdown-item"
+                  type="button"
+                  onClick={() => {
+                    clearStore(ACCESS_TOKEN);
+                    clearStore(USER_LOGIN);
+                    clearStore(ID_LOGIN);
+                    clearStore(ROLE_lOGIN);
+                    dispatch(signOutAction(userLogin));
+                    history.push("/");
+                  }}
+                >
                   Đăng Xuất
                 </button>
               </li>

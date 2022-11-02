@@ -74,7 +74,7 @@ import {
         </Grid>
   
         <DialogActions className="dialogActions">
-          <Button onClick={handleClose} autoFocus className="btn_cancel">
+          <Button data-bs-dismiss="modal" autoFocus className="btn_cancel">
             Cancel
           </Button>
           <Button type="submit" autoFocus className="btn_save">
@@ -84,4 +84,3 @@ import {
       </form>
     );
   }
-  

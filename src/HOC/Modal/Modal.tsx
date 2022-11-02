@@ -53,20 +53,26 @@ const Modal = (props, ref) => {
   //
 
   return (
-    <Dialog
-      className="dialog"
-      fullScreen={fullScreen}
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="responsive-dialog-title"
+    <div
+      className="modal fade"
+      id="modalId"
+      tabIndex={-1}
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      role="dialog"
+      aria-labelledby="modalTitleId"
+      aria-hidden="true"
     >
-      <DialogTitle className="dialogTitle" id="responsive-dialog-title">
-        Job Type
-      </DialogTitle>
-      <DialogContent className="dialogContent">
-        {Component}
-      </DialogContent>
-    </Dialog>
+      <div
+        className="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+        role="document"
+      >
+        <div className="modal-content">
+          
+          <div className="modal-body">{Component}</div>
+        </div>
+      </div>
+    </div>
   );
 };
 

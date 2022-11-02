@@ -51,6 +51,7 @@ export const config = {
   ACCESS_TOKEN: "access_token",
   USER_LOGIN: "userLogin",
   ID_LOGIN: "id_login",
+  ROLE_lOGIN: "role_login",
 };
 
 export const {
@@ -60,9 +61,11 @@ export const {
   getStore,
   setStoreJson,
   getStoreJson,
+  clearStore,
   ACCESS_TOKEN,
   USER_LOGIN,
   ID_LOGIN,
+  ROLE_lOGIN,
 } = config;
 
 /**Cấu hình request cho tất cả api cũng như response cho tất cả kết quả từ api trả về */
@@ -131,4 +134,9 @@ http.interceptors.response.use(
  * 500: Lỗi xảy ra tại sever ( Nguyên nhân có thể fondtend gửi dữ liệu không hợp lệ => backend trong quá trình xử lý code gây ra lỗi
         hoặc do backend code bị lỗi => Eror in sever)
         
+
+// localStorage.removeItem("access_token");
+// localStorage.removeItem("userLogin");
+// localStorage.removeItem("role_login");
+// localStorage.removeItem("id_login");
  */

@@ -25,34 +25,37 @@ export default function CategoriesMenu({}: Props) {
     <section className="CategoriesMenu">
       <div className="categoriesmenu_wrapper">
         <nav className="categoriesmenu_row">
-          <ul className="categoriesmenu_ul ">
+          <div className="categoriesmenu_ul ">
             {arrLoaiCV.map((job: JobModel, index: number) => {
               return (
-                <li className="categoriesmenu_li" key={index}>
+                <div className="categoriesmenu_li" key={index}>
                   <a className="links" href="#">
                     {job.tenLoaiCongViec}
                   </a>
-                  <ul
+                  <div
                     className={`categoriesmenu_li_jobdetail categoriesmenu_li_jobdetail_${job.id}`}
                   >
                     {/* <ul className="categoriesmenu_li_jobdetail"> */}
                     {job.dsNhomChiTietLoai?.map(
                       (detail: DsNhomChiTietLoai, index: number) => {
                         return (
-                          <div className="container-fluid mb-3" key={index}>
-                            <p className="categoriesmenu_li_jobdetail_detail">
+                          <div
+                            className="container-fluid d-flex flex-column"
+                            key={index}
+                          >
+                            <p className="categoriesmenu_li_jobdetail_detail container">
                               {detail.tenNhom}
                             </p>
                             {detail.dsChiTietLoai?.map(
                               (job: DsChiTietLoai, index: number) => {
                                 return (
-                                  <a
-                                    className="categoriesmenu_li_jobdetail_detail_job"
-                                    href="#"
+                                  <NavLink
+                                    className="categoriesmenu_li_jobdetail_detail_job container"
+                                    to={`/categories/${job.id}`}
                                     key={index}
                                   >
                                     {job.tenChiTiet}
-                                  </a>
+                                  </NavLink>
                                 );
                               }
                             )}
@@ -60,11 +63,11 @@ export default function CategoriesMenu({}: Props) {
                         );
                       }
                     )}
-                  </ul>
-                </li>
+                  </div>
+                </div>
               );
             })}
-          </ul>
+          </div>
         </nav>
       </div>
     </section>

@@ -2,28 +2,28 @@ import { Button, Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ServiceUpdateForm from "../../../components/Form/Service/ServiceUpdateForm";
+import Modal from "../../../HOC/Modal/Modal";
 import UserUpdate from "../../../HOC/UserUpdate/UserUpdate";
 import { AppDispatch, RootState } from "../../../redux/configStore";
 import { deleteApi, getUserApi } from "../../../redux/reducers/adminReducer";
+import { setComponent } from "../../../redux/reducers/modalReducer";
 import { http } from "../../../util/setting";
 
-interface DataType {
-  key: string | number;
+export interface ServiceType {
   id: number;
   maCongViec: number;
   maNguoiThue: number;
   ngayThue: string;
-  hoanhThanh: boolean;
+  hoanThanh: boolean;
 }
 
 type Props = {};
 
 export default function ManageService({}: Props) {
   const [allService, setAllService] = useState<any>([]);
-
-  const refUpdate = useRef<any>(null);
   const dispatch: AppDispatch = useDispatch();
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<ServiceType> = [
     {
       title: "ID",
       dataIndex: "id",
@@ -61,11 +61,12 @@ export default function ManageService({}: Props) {
       key: "x",
       render: (value, service) => (
         <div className="d-flex gap-3">
-          <Button>Xem thông tin chi tiết</Button>
-          <UserUpdate ref={refUpdate} />
+          <Modal />
           <Button
+            data-bs-toggle="modal"
+            data-bs-target="#modalId"
             onClick={() => {
-              refUpdate.current.open();
+              dispatch(setComponent(<ServiceUpdateForm service={service} />));
             }}
             type="primary"
           >

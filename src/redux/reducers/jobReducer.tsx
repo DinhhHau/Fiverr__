@@ -2,11 +2,18 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { http } from "../../util/setting";
 import { AppDispatch } from "../configStore";
-import JobModel, { ThueCongViecViewModel } from "../models/JobModel";
+import JobModel, {
+  CongViecChiTiet,
+  CongViecViewModel,
+  ThueCongViecViewModel,
+} from "../models/JobModel";
 
 const initialState: any = {
   arrLoaiCV: [],
+  allCongViec: [],
   congViecDaThue: [],
+  arrCategory: [],
+  arrResult: [],
 };
 
 const jobReducer = createSlice({
@@ -22,15 +29,33 @@ const jobReducer = createSlice({
     ) => {
       state.congViecDaThue = action.payload;
     },
+    getAllCongViecAction: (
+      state,
+      action: PayloadAction<CongViecViewModel[]>
+    ) => {
+      state.allCongViec = action.payload;
+    },
+    getCategory: (state, action: PayloadAction<CongViecChiTiet[]>) => {
+      state.arrCategory = action.payload;
+    },
+    getResult: (state, action: PayloadAction<CongViecChiTiet[]>) => {
+      state.arrResult = action.payload;
+    },
   },
 });
 
-export const { getAllMenuLoaiCvAction, getAllCongViecDaThueAction } =
-  jobReducer.actions;
+export const {
+  getAllMenuLoaiCvAction,
+  getAllCongViecDaThueAction,
+  getAllCongViecAction,
+  getCategory,
+  getResult,
+} = jobReducer.actions;
 
 export default jobReducer.reducer;
 
 // -------------------------- action api ----------------------- //
+//
 export const getMenuLoaiCv = () => {
   return async (dispatch: AppDispatch) => {
     try {
@@ -67,6 +92,48 @@ export const delCVThueApi = (id: number) => {
     } catch (err) {
       console.log(err);
       toast.success("Error");
+    }
+  };
+};
+// Danh sách công việc
+export const getAllCongViecApi = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get(`/cong-viec`);
+      let allCongViec: CongViecViewModel[] = result.data.content;
+      const action = getAllCongViecAction(allCongViec);
+      dispatch(action);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+//
+export const getCategoryApi = (id: String | number) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get(
+        `/cong-viec/lay-cong-viec-theo-chi-tiet-loai/${id}`
+      );
+      const arrCategory: CongViecChiTiet[] = result.data.content;
+      dispatch(getCategory(arrCategory));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+//
+export const getResultApi = (name: String) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get(
+        `/cong-viec/lay-danh-sach-cong-viec-theo-ten/${name}`
+      );
+      const arrResult: CongViecChiTiet[] = result.data.content;
+      dispatch(getResult(arrResult));
+    } catch (err) {
+      console.log(err);
     }
   };
 };

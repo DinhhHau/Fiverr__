@@ -51,8 +51,10 @@ export default function ManageJobType({}: Props) {
         <div className="d-flex gap-3">
           <Button
             type="primary"
+            data-bs-toggle="modal"
+            data-bs-target="#modalId"
             onClick={() => {
-              refUpdate.current.open();
+            
               dispatch(
                 setComponent(
                   <JobTypeUpdateForm
@@ -89,10 +91,11 @@ export default function ManageJobType({}: Props) {
     <>
       <Modal ref={refUpdate} />
       <Button
-        style={{ textAlign: "right",marginBottom:"20px" }}
+        style={{ textAlign: "right", marginBottom: "20px" }}
         type="primary"
+        data-bs-toggle="modal"
+        data-bs-target="#modalId"
         onClick={() => {
-          refUpdate.current.open();
           dispatch(setComponent(<AddJobTypeForm />));
         }}
       >

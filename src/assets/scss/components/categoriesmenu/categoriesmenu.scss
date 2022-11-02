@@ -11,7 +11,6 @@
       }
     }
     &_row {
-      position: relative;
       width: 100%;
       background-color: #fff;
       box-sizing: border-box;
@@ -26,15 +25,16 @@
       justify-content: space-between;
       margin: 0 auto;
       padding: 0;
+      flex-wrap: wrap;
       overflow: hidden;
       .categoriesmenu_li {
         .links {
+          position: relative;
           color: #62646a;
           display: block;
           font-size: 16px;
           line-height: 24px;
           padding: 8px 0;
-          position: relative;
           text-decoration: none;
           width: max-content;
           &::after {
@@ -62,28 +62,15 @@
             color: #1dbf73;
           }
         }
-        // .categoriesmenu_li_jobdetail_3 {
-        //   // right: 530px;
-        // }
-        // .categoriesmenu_li_jobdetail_4 {
-        //   right: 300px;
-        // }
-        // .categoriesmenu_li_jobdetail_5 {
-        //   right: 30px;
-        // }
         .categoriesmenu_li_jobdetail {
           display: none;
-
           background-color: #fff;
           position: absolute;
-          width: max-content;
-          width: 100%;
-          left: 0;
           padding: 20px 30px;
           border: 1px solid #e4e5e7;
           box-shadow: 0px 1px 3px #dadbdd;
-          z-index: 999;
-          text-align: center;
+          z-index: 1001;
+          text-align: left;
           .categoriesmenu_li_jobdetail_detail {
             font-size: 16px;
             color: #404145;
@@ -94,9 +81,12 @@
           .categoriesmenu_li_jobdetail_detail_job {
             font-size: 16px;
             color: #62646a;
-            padding: 6px 0;
-            margin: 0;
+            padding: 0;
+            margin: 0 0 5px 0;
             font-weight: 300;
+            &:hover {
+              color: #1dbf73;
+            }
           }
         }
         &:hover .categoriesmenu_li_jobdetail {
@@ -106,3 +96,13 @@
     }
   }
 }
+
+// .categoriesmenu_li_jobdetail_3 {
+//   // right: 530px;
+// }
+// .categoriesmenu_li_jobdetail_4 {
+//   right: 300px;
+// }
+// .categoriesmenu_li_jobdetail_5 {
+//   right: 30px;
+// }

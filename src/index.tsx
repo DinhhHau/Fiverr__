@@ -29,6 +29,10 @@ import ManageJob from "./pages/AdminPages/ManageJob/ManageJob";
 import ManageJobType from "./pages/AdminPages/ManageJobType/ManageJobType";
 import ManageService from "./pages/AdminPages/ManageService/ManageService";
 import InfoProfile from "./pages/UserDetail/InfoProfile";
+import VerifyAdmin from "./guard/VerifyAdmin";
+import CustomAdmin from "./assets/CustomLogo/CustomAdmin";
+import Categories from "./pages/Categories/Catagories";
+import Result from "./pages/Result/Result";
 //
 export const history = createBrowserHistory({ window });
 
@@ -45,6 +49,12 @@ root.render(
           <Route path="*" element={<Navigate to="" />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="/categories">
+            <Route path=":id" element={<Categories />}></Route>
+          </Route>
+          <Route path="/result">
+            <Route path=":name" element={<Result />}></Route>
+          </Route>
         </Route>
         <Route
           path=""
@@ -58,12 +68,13 @@ root.render(
         </Route>
         {/*  */}
         <Route path="admin" element={<AdminTemplate />}>
-          <Route index element={<ManageUser />} />
+          <Route index element={<CustomAdmin />} />
           <Route path="qlnd" element={<ManageUser />} />
           <Route path="qlcv" element={<ManageJob />} />
           <Route path="qllcv" element={<ManageJobType />} />
           <Route path="qldv" element={<ManageService />} />
         </Route>
+        {/*  */}
       </Routes>
     </HistoryRouter>
     <ToastContainer />

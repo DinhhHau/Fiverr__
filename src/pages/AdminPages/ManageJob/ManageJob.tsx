@@ -1,90 +1,83 @@
-import { Space, Table, Tag } from "antd";
+import { Button, Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/configStore";
+import { getAllCongViecApi } from "../../../redux/reducers/jobReducer";
 
 type Props = {};
 
 interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
+  id: number;
+  tenCongViec: string;
+  danhGia: number;
+  giaTien: number;
+  nguoiTao: number;
+  hinhAnh: string;
+  moTa: string;
+  maChiTietLoaiCongViec: number;
+  moTaNgan: string;
+  saoCongViec: number;
 }
 
 const columns: ColumnsType<DataType> = [
   {
+    title: "ID",
+    dataIndex: "id",
+    key: "id",
+  },
+  {
     title: "Name",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => <a>{text}</a>,
+    dataIndex: "tenCongViec",
+    key: "tenCongViec",
+    width: 200,
+    render: (text) => <p className="mt-0">{text}</p>,
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
+    title: "Image",
+    dataIndex: "hinhAnh",
+    key: "hinhAnh",
+    render: (url) => <img src={url} width="70px" height="70px" alt="..." />,
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
+    title: "Mô Tả",
+    dataIndex: "moTaNgan",
+    key: "moTaNgan",
   },
   {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: "Đánh Giá",
+    dataIndex: "danhGia",
+    key: "danhGia",
+  },
+  {
+    title: "Giá Tiền",
+    dataIndex: "giaTien",
+    key: "giaTien",
   },
   {
     title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </Space>
+    dataIndex: "action",
+    key: "x",
+    render: (_, { id }) => (
+      <div className="d-flex gap-3">
+        {/* <User ref={refUserDialog} id={id} /> */}
+        <Button onClick={() => {}}>Xem thông tin & Sửa</Button>
+        <Button type="primary" danger onClick={() => {}}>
+          DEL
+        </Button>
+      </div>
     ),
-  },
-];
-
-const data: DataType[] = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
   },
 ];
 
 export default function ManageJob({}: Props) {
-  return <Table columns={columns} dataSource={data} />;
+  const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllCongViecApi());
+  }, []);
+  const { allCongViec } = useSelector((state: RootState) => state.jobReducer);
+  // console.log(allCongViec);
+
+  return <Table columns={columns} dataSource={allCongViec} />;
 }
