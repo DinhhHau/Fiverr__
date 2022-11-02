@@ -67,7 +67,7 @@ export default function AddJob() {
                   id="tenCongViec"
                   name="tenCongViec"
                   type="text"
-                  label="Name"
+                  label="Name Job"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
