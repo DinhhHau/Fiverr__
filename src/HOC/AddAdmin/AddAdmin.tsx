@@ -45,7 +45,7 @@ export default function AddAdmin() {
   return (
     <div className="mb-3">
       <Button variant="outlined" onClick={handleClickOpen}>
-        Thêm quản trị viên
+        Add New Admin
       </Button>
       <Dialog
         className="dialog_admin"
@@ -53,9 +53,7 @@ export default function AddAdmin() {
         onClose={handleClose}
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle className="dialogTitle_admin">
-          THÊM QUẢN TRỊ VIÊN
-        </DialogTitle>
+        <DialogTitle className="dialogTitle_admin">ADD NEW ADMIN</DialogTitle>
         <DialogContent className="dialogContent_admin">
           <form className="form" onSubmit={form.handleSubmit}>
             <Grid spacing={1} container mt={1}>
@@ -77,7 +75,7 @@ export default function AddAdmin() {
                   id="name"
                   name="name"
                   type="text"
-                  label="Tên quản trị"
+                  label="Name"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -88,7 +86,7 @@ export default function AddAdmin() {
                   id="password"
                   name="password"
                   type="text"
-                  label=" Mật khẩu"
+                  label=" Password"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -99,7 +97,7 @@ export default function AddAdmin() {
                   id="phone"
                   name="phone"
                   type="text"
-                  label="Số điện thoại"
+                  label="Phone"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -107,10 +105,10 @@ export default function AddAdmin() {
             </Grid>
             <DialogActions className="dialogActions_admin">
               <Button type="submit" className="btn_add">
-                Thêm
+                Save
               </Button>
               <Button onClick={handleClose} autoFocus className="btn_cancel">
-                Huỷ
+                Cancel
               </Button>
             </DialogActions>
           </form>

@@ -9,6 +9,7 @@ import { history } from "../../index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { timeout } from "../../util/setting";
 //
 type Props = {
   fill?: string;
@@ -111,8 +112,9 @@ export default function Header({}: Props) {
     dispatch(getProfileApi());
   }, []);
   //
-  const handelSubmit = (e) => {
+  const handelSubmit = async (e) => {
     e.preventDefault();
+    await timeout(1000);
     navigate(`/result/${param}`);
   };
   const handelChange = (e) => {

@@ -48,6 +48,9 @@ export const config = {
   clearStore: (name: string) => {
     localStorage.removeItem(name);
   },
+  timeout: (delay: number) => {
+    return new Promise((res) => setTimeout(res, delay));
+  },
   ACCESS_TOKEN: "access_token",
   USER_LOGIN: "userLogin",
   ID_LOGIN: "id_login",
@@ -62,6 +65,7 @@ export const {
   setStoreJson,
   getStoreJson,
   clearStore,
+  timeout,
   ACCESS_TOKEN,
   USER_LOGIN,
   ID_LOGIN,

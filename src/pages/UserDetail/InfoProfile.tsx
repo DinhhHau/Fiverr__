@@ -78,6 +78,7 @@ export default function InfoProfile({}: Props) {
               </ul>
             </div>
           </div>
+
           <div className="info_profile">
             <div className="info_profile_image">
               <label className="info_label">

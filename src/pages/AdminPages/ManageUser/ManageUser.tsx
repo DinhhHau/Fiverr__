@@ -127,7 +127,7 @@ export default function ManageUser({}: Props) {
         type="text"
         className="inp_search mb-3"
         onChange={(e) => {
-          let key = e.target.value;
+          let key = e.target.value.trim().toLowerCase();
           console.log(key);
           if (key) {
             dispatch(searchUserApi(key));

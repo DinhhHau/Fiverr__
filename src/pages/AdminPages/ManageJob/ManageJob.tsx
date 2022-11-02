@@ -46,18 +46,18 @@ export default function ManageJob({}: Props) {
       render: (url) => <img src={url} width="70px" height="70px" alt="..." />,
     },
     {
-      title: "Mô Tả",
+      title: "Discription",
       dataIndex: "moTaNgan",
       key: "moTaNgan",
     },
     {
-      title: "Giá Tiền",
+      title: "Price",
       dataIndex: "giaTien",
       key: "giaTien",
       render: (text) => <p className="mt-0">$ {text}</p>,
     },
     {
-      title: "Đánh Giá",
+      title: "Rate",
       dataIndex: "danhGia",
       key: "danhGia",
       render: (text) => <p className="mt-0">{text}</p>,

@@ -57,22 +57,22 @@ export default function AdminTemplate({}: Props) {
                   to="/admin/qlnd"
                   aria-current="page"
                 >
-                  Quản lí người dùng
+                  Manage User
                 </NavLink>
               </li>
               <li className="li mt-5 mx-3">
                 <NavLink className="text-dark" to="/admin/qlcv">
-                  Quản lí công việc
+                  Manage Job
                 </NavLink>
               </li>
               <li className="li mt-5 mx-3">
                 <NavLink className="text-dark" to="/admin/qllcv">
-                  Quản lí loại công việc
+                  Manage JobType
                 </NavLink>
               </li>
               <li className="li mt-5 mx-3">
                 <NavLink className="text-dark" to="/admin/qldv">
-                  Quản lí dịch vụ
+                  Manage Service
                 </NavLink>
               </li>
             </ul>

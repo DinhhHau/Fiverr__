@@ -50,7 +50,7 @@ export default function AddJob() {
   return (
     <div className="mb-3">
       <Button variant="outlined" onClick={handleClickOpen}>
-        Thêm Công Việc
+        ADD New Job
       </Button>
       <Dialog
         className="dialog_admin"
@@ -58,7 +58,7 @@ export default function AddJob() {
         onClose={handleClose}
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle className="dialogTitle_admin">THÊM CÔNG VIỆC</DialogTitle>
+        <DialogTitle className="dialogTitle_admin">ADD NEW JOB</DialogTitle>
         <DialogContent className="dialogContent_admin">
           <form className="form" onSubmit={form.handleSubmit}>
             <Grid spacing={1} container mt={1}>
@@ -68,7 +68,7 @@ export default function AddJob() {
                   id="tenCongViec"
                   name="tenCongViec"
                   type="text"
-                  label="Tên công việc"
+                  label="Name"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -80,7 +80,7 @@ export default function AddJob() {
                   id="danhGia"
                   name="danhGia"
                   type="text"
-                  label="Đánh giá"
+                  label="Rate"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -91,7 +91,7 @@ export default function AddJob() {
                   id="giaTien"
                   name="giaTien"
                   type="text"
-                  label="Giá tiền"
+                  label="Price"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -101,7 +101,7 @@ export default function AddJob() {
                   fullWidth
                   id="hinhAnh"
                   name="hinhAnh"
-                  type="text"
+                  type="file"
                   label="Image"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
@@ -113,7 +113,7 @@ export default function AddJob() {
                   id="moTa"
                   name="moTa"
                   type="text"
-                  label="Mô tả"
+                  label="Discription"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -124,7 +124,7 @@ export default function AddJob() {
                   id="moTaNgan"
                   name="moTaNgan"
                   type="text"
-                  label="Mô tả ngắn"
+                  label="Short Discription"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -135,7 +135,7 @@ export default function AddJob() {
                   id="maChiTietLoaiCongViec"
                   name="maChiTietLoaiCongViec"
                   type="text"
-                  label="Mã chi tiết"
+                  label="Detail code"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -146,7 +146,7 @@ export default function AddJob() {
                   id="saoCongViec"
                   name="saoCongViec"
                   type="text"
-                  label="Sao công việc"
+                  label="Star Ratting"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
