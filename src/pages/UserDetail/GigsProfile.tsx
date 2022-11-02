@@ -75,7 +75,10 @@ export default function GigsProfile({}: Props) {
                 </div>
                 <div className="btn_edit">
                   <button className="viewdetail">
-                    <NavLink to={`/jobDetail/${congViecThue.congViec?.id}`}>
+                    <NavLink
+                      to={`/jobDetail/${congViecThue.congViec?.id}`}
+                      className="text-light"
+                    >
                       View detail
                     </NavLink>
                   </button>
