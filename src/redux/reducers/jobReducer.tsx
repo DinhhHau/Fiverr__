@@ -10,7 +10,6 @@ import JobModel, {
 
 const initialState: any = {
   arrLoaiCV: [],
-  allCongViec: [],
   congViecDaThue: [],
   arrCategory: [],
   arrResult: [],
@@ -49,12 +48,6 @@ const jobReducer = createSlice({
     ) => {
       state.congViecDaThue = action.payload;
     },
-    getAllCongViecAction: (
-      state,
-      action: PayloadAction<CongViecViewModel[]>
-    ) => {
-      state.allCongViec = action.payload;
-    },
     getDetailJob: (state, action: PayloadAction<CongViecChiTiet>) => {
       state.detailJob = action.payload;
     },
@@ -70,7 +63,6 @@ const jobReducer = createSlice({
 export const {
   getAllMenuLoaiCvAction,
   getAllCongViecDaThueAction,
-  getAllCongViecAction,
   getCategory,
   getResult,
   getDetailJob,
@@ -160,30 +152,3 @@ export const getResultApi = (name: String) => {
     }
   };
 };
-// Danh sách công việc
-export const getAllCongViecApi = () => {
-  return async (dispatch: AppDispatch) => {
-    try {
-      const result = await http.get(`/cong-viec`);
-      let allCongViec: CongViecViewModel[] = result.data.content;
-      const action = getAllCongViecAction(allCongViec);
-      dispatch(action);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-};
-// Xoá công việc
-export const delCongViecApi = (id: number) => {
-  return async (dispatch: AppDispatch) => {
-    try {
-      const result = await http.delete(`/cong-viec/${id}`);
-      toast.success(result.data.message);
-      dispatch(getAllCongViecApi());
-    } catch (err) {
-      console.log(err);
-      toast.success("Error");
-    }
-  };
-};
-// thêm ảnh công viêc

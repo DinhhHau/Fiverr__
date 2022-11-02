@@ -154,10 +154,10 @@ export default function AddJob() {
             </Grid>
             <DialogActions className="dialogActions_admin">
               <Button type="submit" className="btn_add">
-                Thêm
+                Save
               </Button>
               <Button onClick={handleClose} autoFocus className="btn_cancel">
-                Huỷ
+                Cancel
               </Button>
             </DialogActions>
           </form>

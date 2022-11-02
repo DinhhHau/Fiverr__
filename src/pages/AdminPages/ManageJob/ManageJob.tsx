@@ -7,7 +7,7 @@ import { AppDispatch, RootState } from "../../../redux/configStore";
 import {
   delCongViecApi,
   getAllCongViecApi,
-} from "../../../redux/reducers/jobReducer";
+} from "../../../redux/reducers/adminReducer";
 
 interface DataType {
   id: number;
@@ -89,7 +89,7 @@ export default function ManageJob({}: Props) {
   useEffect(() => {
     dispatch(getAllCongViecApi());
   }, []);
-  const { allCongViec } = useSelector((state: RootState) => state.jobReducer);
+  const { allCongViec } = useSelector((state: RootState) => state.adminReducer);
   // console.log(allCongViec);
 
   return (

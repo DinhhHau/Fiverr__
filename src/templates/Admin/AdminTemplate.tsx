@@ -17,7 +17,7 @@ import {
 } from "../../util/setting";
 import { history } from "../../index";
 import { toast } from "react-toastify";
-import { getAllCongViecApi } from "../../redux/reducers/jobReducer";
+import { getAllCongViecApi } from "../../redux/reducers/adminReducer";
 
 const { Header, Sider, Content } = Layout;
 type Props = {};
