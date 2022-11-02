@@ -8,7 +8,7 @@ import {
   ThongTinNguoiDung,
   ThongTinNguoiDungUpdate,
 } from "../models/AuthModel";
-import { CongViecViewModel } from "../models/JobModel";
+import { CongViecViewModel, ThemCongViecViewModel } from "../models/JobModel";
 import { getProfileApi } from "./userReducer";
 
 const initialState: any = {
@@ -100,7 +100,7 @@ export const registerAdminApi = (user: ThemAdmin) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.post("/users", user);
-      console.log(result);
+      // console.log(result);
       toast.success("Thêm quản trị thành công !");
       dispatch(getUserApi());
     } catch (err: any) {
@@ -166,6 +166,19 @@ export const getAllCongViecApi = () => {
       dispatch(action);
     } catch (err) {
       console.log(err);
+    }
+  };
+};
+// thêm công việc
+export const addJobApi = (job: ThemCongViecViewModel) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.post(`/cong-viec`, job);
+      console.log(result);
+      toast.success("Thêm công việc thành công!");
+      dispatch(getAllCongViecApi());
+    } catch (err: any) {
+      toast.error(err.response.data.content);
     }
   };
 };

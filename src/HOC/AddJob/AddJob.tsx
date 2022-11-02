@@ -8,7 +8,7 @@ import { Grid, Input, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/configStore";
-import { registerAdminApi } from "../../redux/reducers/adminReducer";
+import { addJobApi, registerAdminApi } from "../../redux/reducers/adminReducer";
 import { toast } from "react-toastify";
 import _ from "lodash";
 import { updateAvatar } from "../../redux/reducers/userReducer";
@@ -38,12 +38,11 @@ export default function AddJob() {
     },
     onSubmit: (values) => {
       console.log(values);
-      //   const payload = values;
-      //   dispatch(registerAdminApi(payload))
-      //     .then((res) => {
-      //       handleClose();
-      //     })
-      //     .catch((err) => {});
+      dispatch(addJobApi(values))
+        .then((res) => {
+          handleClose();
+        })
+        .catch((err) => {});
     },
   });
 
@@ -101,7 +100,7 @@ export default function AddJob() {
                   fullWidth
                   id="hinhAnh"
                   name="hinhAnh"
-                  type="file"
+                  type="text"
                   label="Image"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}

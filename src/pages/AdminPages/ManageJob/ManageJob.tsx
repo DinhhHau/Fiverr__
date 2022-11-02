@@ -51,10 +51,10 @@ export default function ManageJob({}: Props) {
       key: "moTaNgan",
     },
     {
-      title: "Price",
+      title: "$Price",
       dataIndex: "giaTien",
       key: "giaTien",
-      render: (text) => <p className="mt-0">$ {text}</p>,
+      render: (text) => <p className="mt-0">{text}</p>,
     },
     {
       title: "Rate",

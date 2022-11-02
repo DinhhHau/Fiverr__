@@ -45,6 +45,17 @@ export interface CongViecViewModel {
   saoCongViec: number;
 }
 
+export interface ThemCongViecViewModel {
+  tenCongViec: string;
+  danhGia: string;
+  giaTien: string;
+  hinhAnh: string;
+  moTa: string;
+  maChiTietLoaiCongViec: string;
+  moTaNgan: string;
+  saoCongViec: string;
+}
+
 export interface CongViecChiTiet {
   id: number;
   congViec: CongViecViewModel;
