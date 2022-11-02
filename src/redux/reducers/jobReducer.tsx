@@ -95,19 +95,6 @@ export const delCVThueApi = (id: number) => {
     }
   };
 };
-// Danh sách công việc
-export const getAllCongViecApi = () => {
-  return async (dispatch: AppDispatch) => {
-    try {
-      const result = await http.get(`/cong-viec`);
-      let allCongViec: CongViecViewModel[] = result.data.content;
-      const action = getAllCongViecAction(allCongViec);
-      dispatch(action);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-};
 //
 export const getCategoryApi = (id: String | number) => {
   return async (dispatch: AppDispatch) => {
@@ -122,7 +109,6 @@ export const getCategoryApi = (id: String | number) => {
     }
   };
 };
-
 //
 export const getResultApi = (name: String) => {
   return async (dispatch: AppDispatch) => {
@@ -134,6 +120,32 @@ export const getResultApi = (name: String) => {
       dispatch(getResult(arrResult));
     } catch (err) {
       console.log(err);
+    }
+  };
+};
+// Danh sách công việc
+export const getAllCongViecApi = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get(`/cong-viec`);
+      let allCongViec: CongViecViewModel[] = result.data.content;
+      const action = getAllCongViecAction(allCongViec);
+      dispatch(action);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+// Xoá công việc
+export const delCongViecApi = (id: number) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.delete(`/cong-viec/${id}`);
+      toast.success(result.data.message);
+      dispatch(getAllCongViecApi());
+    } catch (err) {
+      console.log(err);
+      toast.success("Error");
     }
   };
 };

@@ -18,7 +18,7 @@ library.add(fas);
 //
 export default function Header({}: Props) {
   const dispatch: AppDispatch = useDispatch();
-  const resultParamRef = useRef("");
+  const [param, setParam] = useState("");
   //
   const navigate = useNavigate();
   const { userLogin } = useSelector((state: RootState) => state.userReducer);
@@ -113,8 +113,10 @@ export default function Header({}: Props) {
   //
   const handelSubmit = (e) => {
     e.preventDefault();
-    const param = resultParamRef.current;
     navigate(`/result/${param}`);
+  };
+  const handelChange = (e) => {
+    setParam(e.target.value);
   };
   //
   return (
@@ -221,7 +223,7 @@ export default function Header({}: Props) {
                       type="search"
                       className="inp"
                       placeholder="Find Services"
-                      // ref={resultParamRef}
+                      onChange={handelChange}
                     />
                   </span>
                 </div>
