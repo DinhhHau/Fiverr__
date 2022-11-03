@@ -120,7 +120,7 @@ export default function AdminTemplate({}: Props) {
               }
             )}
             <NavLink to={"/"}>
-              <CustomLogo />
+              <CustomLogo color={"#404145"}/>
             </NavLink>
           </div>
           <div className="dropdown d-flex justify-content-between align-items-center">
