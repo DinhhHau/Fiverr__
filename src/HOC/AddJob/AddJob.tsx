@@ -11,18 +11,17 @@ import { useState } from "react";
 import { AppDispatch } from "../../redux/configStore";
 import { addJobApi } from "../../redux/reducers/adminReducer";
 import _, { method, rest, result } from "lodash";
-import { http } from "../../util/setting";
-import { toast } from "react-toastify";
-import { updateAvatar } from "../../redux/reducers/userReducer";
-import axios from "axios";
-
 export default function AddJob() {
   const dispatch: AppDispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [img, setImg] = useState("");
 
+  //
   const handleClickOpen = () => {
     setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const handleChangeImage = (e) => {
@@ -30,10 +29,6 @@ export default function AddJob() {
     if (e.target.files) {
       setImg(e.target.files[0]);
     }
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
   //
   const form = useFormik({
@@ -107,15 +102,17 @@ export default function AddJob() {
                 />
               </Grid>
               <Grid item xs={12} md={6} mt={1}>
-                <input
-                  // fullWidth
-                  id="hinhAnh"
-                  name="hinhAnh"
-                  type="file"
-                  // label="Image"
-                  onChange={handleChangeImage}
-                  onBlur={form.handleBlur}
-                />
+                <Button variant="contained" component="label">
+                  Upload Image
+                  <input
+                    hidden
+                    id="hinhAnh"
+                    name="hinhAnh"
+                    type="file"
+                    onChange={handleChangeImage}
+                    onBlur={form.handleBlur}
+                  />
+                </Button>
               </Grid>
               <Grid item xs={12} md={6} mt={1}>
                 <TextField

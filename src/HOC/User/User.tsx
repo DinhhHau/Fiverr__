@@ -79,7 +79,7 @@ const User = (Props, ref) => {
       aria-labelledby="responsive-dialog-title"
     >
       <DialogTitle className="dialogTitle" id="responsive-dialog-title">
-        THÔNG TIN NGƯỜI DÙNG
+        UPDATE USER
       </DialogTitle>
       <DialogContent className="dialogContent">
         <form className="form" onSubmit={frm.handleSubmit}>
@@ -166,16 +166,6 @@ const User = (Props, ref) => {
               </FormControl>
             </Grid>
             <Grid item xs={12} md={6} mt={1}>
-              {/* <TextField
-                fullWidth
-                id="role"
-                name="role"
-                type="text"
-                value={frm.values.role}
-                onChange={frm.handleChange}
-                onBlur={frm.handleBlur}
-                label="Role"
-              /> */}
               <TextField
                 fullWidth
                 id="role"
@@ -223,7 +213,7 @@ const User = (Props, ref) => {
           </Grid>
           <DialogActions className="dialogActions">
             <Button autoFocus onClick={handleClose} className="btn_cancel">
-              HUỶ
+              CANCEL
             </Button>
             <Button
               type="submit"
@@ -232,7 +222,7 @@ const User = (Props, ref) => {
               className="btn_save"
               style={{ background: "#17a2b8" }}
             >
-              Sửa
+              SAVE
             </Button>
           </DialogActions>
         </form>

@@ -28,13 +28,24 @@ const initialState: any = {
     skill: [],
     gender: false,
   },
+  job: {
+    tenCongViec: "",
+    danhGia: "",
+    giaTien: "",
+    nguoiTao: "",
+    hinhAnh: "",
+    moTa: "",
+    maChiTietLoaiCongViec: "",
+    moTaNgan: "",
+    saoCongViec: "",
+  },
 };
 
 const adminReducer = createSlice({
   name: "adminReducer",
   initialState,
   reducers: {
-    getAllUser: (state, action) => {
+    getAllUser: (state, action: PayloadAction<ThongTinNguoiDung[]>) => {
       state.allUser = action.payload;
     },
     getAllCongViecAction: (
@@ -43,16 +54,22 @@ const adminReducer = createSlice({
     ) => {
       state.allCongViec = action.payload;
     },
+    getJobAction: (state, action: PayloadAction<CongViecViewModel>) => {
+      state.job = action.payload;
+    },
     getAllServiceHire: (state, action) => {
       state.allServiceHire = action.payload;
     },
     getAllJobType: (state, action) => {
       state.allJobType = action.payload;
     },
-    getUserAction: (state, action) => {
+    getUserAction: (state, action: PayloadAction<ThongTinNguoiDungUpdate>) => {
       state.user = action.payload;
     },
-    getUserSearch: (state, aciton) => {
+    getUserSearch: (
+      state,
+      aciton: PayloadAction<ThongTinNguoiDungUpdate[]>
+    ) => {
       state.allUser = aciton.payload;
     },
   },
@@ -61,6 +78,7 @@ const adminReducer = createSlice({
 export const {
   getAllUser,
   getAllCongViecAction,
+  getJobAction,
   getAllServiceHire,
   getAllJobType,
   getUserAction,
@@ -122,7 +140,7 @@ export const delUserApi = (id: number) => {
     }
   };
 };
-// cập nhật user
+// sửa user
 export const updateUserApi = (data: ThongTinNguoiDungUpdate) => {
   return async (dispatch: AppDispatch) => {
     try {
@@ -170,6 +188,17 @@ export const getAllCongViecApi = () => {
     }
   };
 };
+// xem thông tin công việc
+export const getJobApi = (id: number) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get(`/cong-viec/${id}`);
+      dispatch(getJobAction(result.data.content));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
 // thêm công việc
 export const addJobApi = (job: ThemCongViecViewModel, file: any) => {
   return async (dispatch: AppDispatch) => {
@@ -189,7 +218,6 @@ export const addJobApi = (job: ThemCongViecViewModel, file: any) => {
     }
   };
 };
-
 // xoá công việc
 export const delCongViecApi = (id: number) => {
   return async (dispatch: AppDispatch) => {
@@ -204,9 +232,21 @@ export const delCongViecApi = (id: number) => {
   };
 };
 // sửa công việc
-export const updateCongViecApi = (data: ThemCongViecViewModel) => {
+export const updateJobApi = (jobUpdate: ThemCongViecViewModel, file: any) => {
   return async (dispatch: AppDispatch) => {
+    const result = await http.put(
+      `/cong-viec/${getStore("id_job")}`,
+      jobUpdate
+    );
     try {
+      let data = new FormData();
+      data.append("formFile", file);
+      const avatar = await http.post(
+        `/cong-viec/upload-hinh-cong-viec/${getStore("id_job")}`,
+        data
+      );
+      message.success(result.data.message);
+      dispatch(getAllCongViecApi());
     } catch (err) {
       console.log(err);
     }
