@@ -16,18 +16,13 @@ import {
   Autocomplete,
   Chip,
 } from "@mui/material";
-import { useState, useImperativeHandle, forwardRef, useEffect } from "react";
+import { useState, useImperativeHandle, forwardRef } from "react";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { getProfileApi, updateProfile } from "../../redux/reducers/userReducer";
-import { ToastContainer, toast } from "react-toastify";
-import {
-  getUserApi,
-  updateUserApi,
-  userIdApi,
-} from "../../redux/reducers/adminReducer";
-import { getStore, ROLE_lOGIN } from "../../util/setting";
+import { getProfileApi } from "../../redux/reducers/userReducer";
+import { toast } from "react-toastify";
+import { updateUserApi } from "../../redux/reducers/adminReducer";
 
 const User = (Props, ref) => {
   const dispatch: AppDispatch = useDispatch();
@@ -171,12 +166,23 @@ const User = (Props, ref) => {
               </FormControl>
             </Grid>
             <Grid item xs={12} md={6} mt={1}>
+              {/* <TextField
+                fullWidth
+                id="role"
+                name="role"
+                type="text"
+                value={frm.values.role}
+                onChange={frm.handleChange}
+                onBlur={frm.handleBlur}
+                label="Role"
+              /> */}
               <TextField
                 fullWidth
                 id="role"
                 name="role"
                 type="text"
                 value={frm.values.role}
+                // value={frm.values.role.toUpperCase()}
                 onChange={frm.handleChange}
                 onBlur={frm.handleBlur}
                 label="Role"

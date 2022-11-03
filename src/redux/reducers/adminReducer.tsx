@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { message } from "antd";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { getStore, http } from "../../util/setting";
@@ -170,24 +171,31 @@ export const getAllCongViecApi = () => {
   };
 };
 // thêm công việc
-export const addJobApi = (job: ThemCongViecViewModel) => {
+export const addJobApi = (job: ThemCongViecViewModel, file: any) => {
   return async (dispatch: AppDispatch) => {
+    const result = await http.post(`/cong-viec`, job);
     try {
-      const result = await http.post(`/cong-viec`, job);
+      let data = new FormData();
+      data.append("formFile", file);
+      const avatar = await http.post(
+        `/cong-viec/upload-hinh-cong-viec/${result.data.content.id}`,
+        data
+      );
       console.log(result);
-      toast.success("Thêm công việc thành công!");
+      message.success("Thêm công việc thành công!");
       dispatch(getAllCongViecApi());
     } catch (err: any) {
       toast.error(err.response.data.content);
     }
   };
 };
-// Xoá công việc
+
+// xoá công việc
 export const delCongViecApi = (id: number) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.delete(`/cong-viec/${id}`);
-      toast.success(result.data.message);
+      message.success(result.data.message);
       dispatch(getAllCongViecApi());
     } catch (err) {
       console.log(err);
@@ -195,7 +203,15 @@ export const delCongViecApi = (id: number) => {
     }
   };
 };
-// thêm ảnh công viêc
+// sửa công việc
+export const updateCongViecApi = (data: ThemCongViecViewModel) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
 
 // -------------------------------  manageJobType ------------------------------ //
 // danh sách jobtype

@@ -70,7 +70,13 @@ export default function ManageJob({}: Props) {
       render: (_, { id }) => (
         <div className="d-flex gap-3">
           {/* <User ref={refUserDialog} id={id} /> */}
-          <Button onClick={() => {}}>Edit</Button>
+          <Button
+            onClick={() => {
+              console.log(id);
+            }}
+          >
+            Edit
+          </Button>
           <Button
             type="primary"
             danger
