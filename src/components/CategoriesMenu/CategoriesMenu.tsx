@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import JobModel, {
   DsChiTietLoai,
@@ -11,6 +11,8 @@ import { getMenuLoaiCv } from "../../redux/reducers/jobReducer";
 type Props = {};
 
 export default function CategoriesMenu({}: Props) {
+  const location = useLocation()
+  const [scrollPosition, setScrollPosition] = useState(0)
   //
   const { arrLoaiCV } = useSelector((state: RootState) => state.jobReducer);
   // console.log(arrLoaiCV);
@@ -21,8 +23,21 @@ export default function CategoriesMenu({}: Props) {
     dispatch(actionApi);
   }, []);
 
+  useEffect(() => {
+    const updatePosition = () => {
+      if (location.pathname === '/') {
+        setScrollPosition(window.pageYOffset)
+      } else if (location.pathname !== "/"){
+        setScrollPosition(0)
+      }
+    }
+    window.addEventListener('scroll', updatePosition)
+    updatePosition()
+    return () => window.removeEventListener('scroll', updatePosition)
+  }, [location.pathname])
+
   return (
-    <section className="CategoriesMenu">
+    <section className={(scrollPosition > 0 || location.pathname !== "/") ? "CategoriesMenu" : "CategoriesMenu CategoriesMenu-active" }>
       <div className="categoriesmenu_wrapper">
         <nav className="categoriesmenu_row">
           <div className="categoriesmenu_ul ">

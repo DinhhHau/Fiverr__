@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ReactCarousel from "../../components/ReactCarousel/ReactCarousel";
 import SlickCarousel from "../../components/SlickCarousel/SlickCarousel";
 import Slider from "../../components/Slider/Slider";
 import VideoModal from "../../components/Video/VideoModal";
+import { AppDispatch } from "../../redux/configStore";
+import { timeout } from "../../util/setting";
 type Props = {};
 
 export default function Index({}: Props) {
+  const dispatch: AppDispatch = useDispatch();
+  const [param, setParam] = useState("");
+  const navigate = useNavigate();
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+    await timeout(1000);
+    navigate(`/result/${param}`);
+  };
+  const handelChange = (e) => {
+    setParam(e.target.value);
+  };
   return (
     <>
       <section className="carousel-slider">
@@ -19,13 +34,14 @@ export default function Index({}: Props) {
                 Find the perfect <i> freelance </i> services for your business
               </h1>
 
-              <form className="d-flex" role="search">
+              <form className="d-flex" role="search" onSubmit={handelSubmit}>
                 <input
                   className="form-control"
                   type="search"
                   name="searchInputCarousel"
                   placeholder='Try "building mobile app"'
                   aria-label="Search"
+                  onChange={handelChange}
                 />
                 <button className="btn btn-success" type="submit">
                   Search

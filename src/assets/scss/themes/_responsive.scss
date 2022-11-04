@@ -65,6 +65,14 @@
     a {
     font-size: 12px;
   }
+  //admin
+
+  .ant-layout-sider-collapsed {
+    display: none;
+  }
+  .ant-layout-content {
+    overflow: scroll;
+  }
 }
 
 //end 992px
@@ -214,6 +222,10 @@
   }
   .header .header_wrapper .header_row .right {
     display: none;
+  }
+  //menu
+  .CategoriesMenu {
+    border: none;
   }
   //footer
   .footer .footer_warpper .footer_row .footer_bottom {

@@ -1,5 +1,15 @@
 .CategoriesMenu {
+  transition: all 0.5s ease;
   border-bottom: 1px solid #e4e5e7;
+  background-color: white;
+  position: fixed;
+  top: 81px;
+  left: 0;
+  right: 0;
+  z-index: 990;
+  @media screen and (max-width: 576px) {
+    border: none;
+  }
   .categoriesmenu {
     &_wrapper {
       width: 100%;
@@ -96,7 +106,11 @@
     }
   }
 }
-
+.CategoriesMenu-active {
+  transition: all 0.5s ease;
+  background-color: transparent;
+  display: none;
+}
 // .categoriesmenu_li_jobdetail_3 {
 //   // right: 530px;
 // }

@@ -51,13 +51,13 @@ export interface CongViecViewModel {
 
 export interface ThemCongViecViewModel {
   tenCongViec: string;
-  danhGia: string;
-  giaTien: string;
+  danhGia: number;
+  giaTien: number;
   hinhAnh: string;
   moTa: string;
-  maChiTietLoaiCongViec: string;
+  maChiTietLoaiCongViec: number;
   moTaNgan: string;
-  saoCongViec: string;
+  saoCongViec: number;
 }
 
 export interface CongViecChiTiet {

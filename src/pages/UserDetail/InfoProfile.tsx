@@ -21,6 +21,7 @@ import {
   USER_LOGIN,
 } from "../../util/setting";
 import { history } from "../../index";
+import { message } from "antd";
 type Props = {};
 
 export default function InfoProfile({}: Props) {
@@ -94,7 +95,7 @@ export default function InfoProfile({}: Props) {
                     const file = _.head(e.target.files);
                     dispatch(updateAvatar(file))
                       .then((res) => {
-                        toast.success("Cập nhật avatar thành công !");
+                        message.success("Cập nhật avatar thành công !");
                       })
                       .catch((err) => {
                         toast.success("Error");

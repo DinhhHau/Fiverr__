@@ -7,39 +7,45 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Grid, Input, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { AppDispatch } from "../../redux/configStore";
-import { addJobApi, registerAdminApi } from "../../redux/reducers/adminReducer";
-import { toast } from "react-toastify";
-import _ from "lodash";
-import { updateAvatar } from "../../redux/reducers/userReducer";
-
+import { addJobApi } from "../../redux/reducers/adminReducer";
+import _, { method, rest, result } from "lodash";
 export default function AddJob() {
   const dispatch: AppDispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const [img, setImg] = useState("");
 
+  //
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleChangeImage = (e) => {
+    console.log(e.target.files[0]);
+    if (e.target.files) {
+      setImg(e.target.files[0]);
+    }
   };
   //
   const form = useFormik({
     initialValues: {
       tenCongViec: "",
-      danhGia: "",
-      giaTien: "",
+      danhGia: 0,
+      giaTien: 0,
       hinhAnh: "",
       moTa: "",
-      maChiTietLoaiCongViec: "",
+      maChiTietLoaiCongViec: 0,
       moTaNgan: "",
-      saoCongViec: "",
+      saoCongViec: 0,
     },
     onSubmit: (values) => {
       console.log(values);
-      dispatch(addJobApi(values))
-        .then((res) => {
+      dispatch(addJobApi(values, img))
+        .then(() => {
           handleClose();
         })
         .catch((err) => {});
@@ -96,15 +102,17 @@ export default function AddJob() {
                 />
               </Grid>
               <Grid item xs={12} md={6} mt={1}>
-                <TextField
-                  fullWidth
-                  id="hinhAnh"
-                  name="hinhAnh"
-                  type="text"
-                  label="Image"
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                />
+                <Button variant="contained" component="label">
+                  Upload Image
+                  <input
+                    hidden
+                    id="hinhAnh"
+                    name="hinhAnh"
+                    type="file"
+                    onChange={handleChangeImage}
+                    onBlur={form.handleBlur}
+                  />
+                </Button>
               </Grid>
               <Grid item xs={12} md={6} mt={1}>
                 <TextField

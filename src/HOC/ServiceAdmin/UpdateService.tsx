@@ -144,7 +144,6 @@ const UpdateService = ({ service }: Props, ref) => {
                           control={<Radio color="success" />}
                           label="Complete"
                           name="hoanThanh"
-                          checked
                         />
                         <FormControlLabel
                           color="success"
@@ -168,7 +167,7 @@ const UpdateService = ({ service }: Props, ref) => {
                           control={<Radio color="success" />}
                           label="Incomplete"
                           name="hoanThanh"
-                          checked
+                          defaultChecked
                         />
                       </>
                     )}

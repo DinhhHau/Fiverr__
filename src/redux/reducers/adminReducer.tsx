@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { message } from "antd";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { getStore, http } from "../../util/setting";
@@ -32,13 +33,24 @@ const initialState: any = {
     skill: [],
     gender: false,
   },
+  job: {
+    tenCongViec: "",
+    danhGia: "",
+    giaTien: "",
+    nguoiTao: "",
+    hinhAnh: "",
+    moTa: "",
+    maChiTietLoaiCongViec: "",
+    moTaNgan: "",
+    saoCongViec: "",
+  },
 };
 
 const adminReducer = createSlice({
   name: "adminReducer",
   initialState,
   reducers: {
-    getAllUser: (state, action) => {
+    getAllUser: (state, action: PayloadAction<ThongTinNguoiDung[]>) => {
       state.allUser = action.payload;
     },
     getAllCongViecAction: (
@@ -47,16 +59,22 @@ const adminReducer = createSlice({
     ) => {
       state.allCongViec = action.payload;
     },
+    getJobAction: (state, action: PayloadAction<CongViecViewModel>) => {
+      state.job = action.payload;
+    },
     getAllServiceHire: (state, action) => {
       state.allServiceHire = action.payload;
     },
     getAllJobType: (state, action) => {
       state.allJobType = action.payload;
     },
-    getUserAction: (state, action) => {
+    getUserAction: (state, action: PayloadAction<ThongTinNguoiDungUpdate>) => {
       state.user = action.payload;
     },
-    getUserSearch: (state, aciton) => {
+    getUserSearch: (
+      state,
+      aciton: PayloadAction<ThongTinNguoiDungUpdate[]>
+    ) => {
       state.allUser = aciton.payload;
     },
   },
@@ -65,6 +83,7 @@ const adminReducer = createSlice({
 export const {
   getAllUser,
   getAllCongViecAction,
+  getJobAction,
   getAllServiceHire,
   getAllJobType,
   getUserAction,
@@ -126,7 +145,7 @@ export const delUserApi = (id: number) => {
     }
   };
 };
-// cập nhật user
+// sửa user
 export const updateUserApi = (data: ThongTinNguoiDungUpdate) => {
   return async (dispatch: AppDispatch) => {
     try {
@@ -142,7 +161,8 @@ export const updateUserApi = (data: ThongTinNguoiDungUpdate) => {
 export const searchUserApi = (key: string) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const result = await http.get(`/users/search/${key}`);
+      let seacrchKey = encodeURI(key);
+      const result = await http.get(`/users/search/${seacrchKey}`);
       console.log(result);
       let data = result.data.content;
       let newData = [...data].map((e, index) => {
@@ -174,25 +194,42 @@ export const getAllCongViecApi = () => {
     }
   };
 };
-// thêm công việc
-export const addJobApi = (job: ThemCongViecViewModel) => {
+// xem thông tin công việc
+export const getJobApi = (id: number) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const result = await http.post(`/cong-viec`, job);
+      const result = await http.get(`/cong-viec/${id}`);
+      dispatch(getJobAction(result.data.content));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+// thêm công việc
+export const addJobApi = (job: ThemCongViecViewModel, file: any) => {
+  return async (dispatch: AppDispatch) => {
+    const result = await http.post(`/cong-viec`, job);
+    try {
+      let data = new FormData();
+      data.append("formFile", file);
+      const avatar = await http.post(
+        `/cong-viec/upload-hinh-cong-viec/${result.data.content.id}`,
+        data
+      );
       console.log(result);
-      toast.success("Thêm công việc thành công!");
+      message.success("Thêm công việc thành công!");
       dispatch(getAllCongViecApi());
     } catch (err: any) {
       toast.error(err.response.data.content);
     }
   };
 };
-// Xoá công việc
+// xoá công việc
 export const delCongViecApi = (id: number) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.delete(`/cong-viec/${id}`);
-      toast.success(result.data.message);
+      message.success(result.data.message);
       dispatch(getAllCongViecApi());
     } catch (err) {
       console.log(err);
@@ -200,7 +237,27 @@ export const delCongViecApi = (id: number) => {
     }
   };
 };
-// thêm ảnh công viêc
+// sửa công việc
+export const updateJobApi = (jobUpdate: ThemCongViecViewModel, file: any) => {
+  return async (dispatch: AppDispatch) => {
+    const result = await http.put(
+      `/cong-viec/${getStore("id_job")}`,
+      jobUpdate
+    );
+    try {
+      let data = new FormData();
+      data.append("formFile", file);
+      const avatar = await http.post(
+        `/cong-viec/upload-hinh-cong-viec/${getStore("id_job")}`,
+        data
+      );
+      message.success(result.data.message);
+      dispatch(getAllCongViecApi());
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
 
 // -------------------------------  manageJobType ------------------------------ //
 // danh sách jobtype

@@ -1,13 +1,17 @@
+import { current } from "@reduxjs/toolkit";
 import { Button, Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddJob from "../../../HOC/AddJob/AddJob";
+import JobUpdate from "../../../HOC/JobUpdate/JobUpdate";
 import { AppDispatch, RootState } from "../../../redux/configStore";
 import {
   delCongViecApi,
   getAllCongViecApi,
+  getJobApi,
 } from "../../../redux/reducers/adminReducer";
+import { setStore } from "../../../util/setting";
 
 interface DataType {
   id: number;
@@ -25,6 +29,7 @@ interface DataType {
 type Props = {};
 
 export default function ManageJob({}: Props) {
+  const refJobDialog = useRef<any>(null);
   const dispatch: AppDispatch = useDispatch();
   const columns: ColumnsType<DataType> = [
     {
@@ -69,8 +74,17 @@ export default function ManageJob({}: Props) {
       key: "x",
       render: (_, { id }) => (
         <div className="d-flex gap-3">
-          {/* <User ref={refUserDialog} id={id} /> */}
-          <Button onClick={() => {}}>Edit</Button>
+          <JobUpdate ref={refJobDialog} id={id} />
+          <Button
+            onClick={() => {
+              // console.log(id);
+              setStore("id_job", id);
+              refJobDialog.current.open();
+              dispatch(getJobApi(id));
+            }}
+          >
+            Edit
+          </Button>
           <Button
             type="primary"
             danger
