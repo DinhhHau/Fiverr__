@@ -84,7 +84,7 @@ export default function Header({}: Props) {
       );
     } else {
       return (
-        <NavLink to={"/profile"}>
+        <div>
           {userLogin?.avatar ? (
             <figure className="mb-0 d-flex">
               <img
@@ -104,7 +104,7 @@ export default function Header({}: Props) {
               <p>{userLogin?.email}</p>
             </div>
           )}
-        </NavLink>
+        </div>
       );
     }
   };

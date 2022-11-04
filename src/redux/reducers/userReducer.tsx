@@ -166,6 +166,8 @@ export const rentJobApi = (rentJob: ThueCongViec) => {
       //   title: "Thêm thành công !",
       // });
       message.success("Thêm thành công !");
+      dispatch(getProfileApi());
+      history.push(`/profile`);
     } catch (err) {
       console.log(err);
     }
