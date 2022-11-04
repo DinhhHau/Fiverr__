@@ -242,12 +242,10 @@ export const updateJobApi = (jobUpdate: ThemCongViecViewModel, file: any) => {
     try {
       let data = new FormData();
       data.append("formFile", file);
-      const avatar = await http.post(
-        `/cong-viec/upload-hinh-cong-viec/${getStore("id_job")}`,
-        data
-      );
-      message.success(result.data.message);
-      dispatch(getAllCongViecApi());
+      const avatar = await http
+        .post(`/cong-viec/upload-hinh-cong-viec/${getStore("id_job")}`, data)
+        .finally(() => dispatch(getAllCongViecApi()));
+      // message.success(result.data.message);
     } catch (err) {
       console.log(err);
     }
