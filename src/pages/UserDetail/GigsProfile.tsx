@@ -83,7 +83,6 @@ export default function GigsProfile({}: Props) {
                     </NavLink>
                   </button>
                   <div className="right">
-                    <button className="edit">Edit</button>
                     <button
                       className="delete"
                       onClick={() => {

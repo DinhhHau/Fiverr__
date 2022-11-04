@@ -161,10 +161,11 @@ export const rentJobApi = (rentJob: ThueCongViec) => {
     try {
       const result = await http.post("/thue-cong-viec", rentJob);
       console.log(result);
-      Swal.fire({
-        icon: "success",
-        title: "Thêm thành công !",
-      });
+      // Swal.fire({
+      //   icon: "success",
+      //   title: "Thêm thành công !",
+      // });
+      message.success("Thêm thành công !");
     } catch (err) {
       console.log(err);
     }
