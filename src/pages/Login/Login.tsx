@@ -51,7 +51,7 @@ export default function Login({}: Props) {
         <div className="signin-content">
           <div className="signin-image">
             <figure>
-              <img src={signin} alt="sing up image" />
+              <img src={signin} alt="sing up image" className="w-100" />
             </figure>
           </div>
           <div className="signin-form">
