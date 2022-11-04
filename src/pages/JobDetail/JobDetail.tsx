@@ -28,21 +28,6 @@ export default function JobDetail({}: Props) {
 
   const dispatch: AppDispatch = useDispatch();
   const params: any = useParams();
-  const [comment, setComment] = useState<BinhLuan>({
-    id: 0,
-    ngayBinhLuan: "",
-    maCongViec: detailJob.id,
-    maNguoiBinhLuan: 0,
-    noiDung: "",
-    saoBinhLuan: 2,
-  });
-  const [rentJob, setRentJob] = useState<ThueCongViec>({
-    id: 0,
-    maCongViec: 0,
-    maNguoiThue: 0,
-    ngayThue: "",
-    hoanThanh: false,
-  });
 
   const current = new Date();
   const today = `${current.getDate()}/${
@@ -50,6 +35,7 @@ export default function JobDetail({}: Props) {
   }/${current.getFullYear()}`;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     let { id } = params;
     dispatch(getDetailJobApi(id));
     dispatch(getJobCommentApi(id));
@@ -143,14 +129,14 @@ export default function JobDetail({}: Props) {
         });
         navigate("/login");
       } else {
-        setComment({
+        const comment = {
           id: 0,
+          ngayBinhLuan: today,
           maCongViec: detailJob.id,
           maNguoiBinhLuan: userLogin.id,
-          ngayBinhLuan: today,
           noiDung: value.noiDung,
           saoBinhLuan: rating,
-        });
+        };
         postCommentApi(comment);
       }
     },

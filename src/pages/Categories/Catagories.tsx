@@ -14,6 +14,7 @@ export default function Categories({}: Props) {
   const params: any = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     let { id } = params;
     dispatch(getCategoryApi(id));
   }, [params.id]);

@@ -1,38 +1,24 @@
-import { Button, Space, Table, Tag } from "antd";
+import { Table, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AddJobTypeForm from "../../../components/Form/JobType/AddJobTypeForm";
-import JobTypeUpdateForm from "../../../components/Form/JobType/JobTypeUpdateForm";
-import Modal from "../../../HOC/Modal/Modal";
+import AddJobType from "../../../HOC/JobTypeAdmin/AddJobType";
+import UpdateJobType from "../../../HOC/JobTypeAdmin/UpdateJobType";
 import { AppDispatch, RootState } from "../../../redux/configStore";
+import { LoaiCongViec } from "../../../redux/models/JobModel";
 import {
-  deleteApi,
+  delJobTypeApi,
+  delUserApi,
   getJobTypeApi,
   getUserApi,
 } from "../../../redux/reducers/adminReducer";
-import { setComponent } from "../../../redux/reducers/modalReducer";
-import { http } from "../../../util/setting";
-
-interface DataType {
-  id: number;
-  tenLoaiCongViec: string;
-}
 
 type Props = {};
 
 export default function ManageJobType({}: Props) {
-  const [allJobType, setAllJobType] = useState<any>([]);
-  const refUpdate = useRef<any>(null);
-  const fetchApi = async () => {
-    try {
-      const result = await http.get(`/loai-cong-viec`);
-      setAllJobType(result.data.content);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const columns: ColumnsType<DataType> = [
+  const { allJobType } = useSelector((state: RootState) => state.adminReducer);
+  const refUpdateForm = useRef<any>(null);
+  const columns: ColumnsType<LoaiCongViec> = [
     {
       title: "ID",
       dataIndex: "id",
@@ -47,32 +33,22 @@ export default function ManageJobType({}: Props) {
       title: "Action",
       dataIndex: "action",
       key: "x",
-      render: (value, service) => (
+      render: (value, jobtype) => (
         <div className="d-flex gap-3">
+          <UpdateJobType jobtype={jobtype} ref={refUpdateForm} />
           <Button
             type="primary"
-            data-bs-toggle="modal"
-            data-bs-target="#modalId"
             onClick={() => {
-            
-              dispatch(
-                setComponent(
-                  <JobTypeUpdateForm
-                    id={service.id}
-                    jobType={service.tenLoaiCongViec}
-                  />
-                )
-              );
+              refUpdateForm.current.open();
             }}
           >
-            Thông tin chi tiết và sửa
+            View & Edit
           </Button>
-          <Modal ref={refUpdate} />
           <Button
             type="primary"
             danger
             onClick={() => {
-              const action = deleteApi("/loai-cong-viec/", service.id);
+              const action = delJobTypeApi(jobtype.id);
               dispatch(action);
             }}
           >
@@ -85,22 +61,11 @@ export default function ManageJobType({}: Props) {
 
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
-    fetchApi();
-  }, [allJobType.tenLoaiCongViec]);
+    dispatch(getJobTypeApi());
+  }, []);
   return (
     <>
-      <Modal ref={refUpdate} />
-      <Button
-        style={{ textAlign: "right", marginBottom: "20px" }}
-        type="primary"
-        data-bs-toggle="modal"
-        data-bs-target="#modalId"
-        onClick={() => {
-          dispatch(setComponent(<AddJobTypeForm />));
-        }}
-      >
-        Add New Jobtype
-      </Button>
+      <AddJobType />
       <Table columns={columns} dataSource={allJobType} />
     </>
   );

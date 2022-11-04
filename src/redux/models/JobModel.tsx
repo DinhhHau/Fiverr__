@@ -16,6 +16,10 @@ export interface DsChiTietLoai {
   id: number;
   tenChiTiet: string;
 }
+export interface LoaiCongViec {
+  id: number;
+  tenLoaiCongViec: string;
+}
 
 export interface ThueCongViecViewModel {
   id: number;

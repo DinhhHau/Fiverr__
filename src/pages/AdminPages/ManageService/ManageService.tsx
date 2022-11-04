@@ -2,28 +2,27 @@ import { Button, Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ServiceUpdateForm from "../../../components/Form/Service/ServiceUpdateForm";
-import Modal from "../../../HOC/Modal/Modal";
+
+import AddService from "../../../HOC/ServiceAdmin/AddService";
+import UpdateService from "../../../HOC/ServiceAdmin/UpdateService";
 import UserUpdate from "../../../HOC/UserUpdate/UserUpdate";
 import { AppDispatch, RootState } from "../../../redux/configStore";
-import { deleteApi, getUserApi } from "../../../redux/reducers/adminReducer";
-import { setComponent } from "../../../redux/reducers/modalReducer";
-import { http } from "../../../util/setting";
-
-export interface ServiceType {
-  id: number;
-  maCongViec: number;
-  maNguoiThue: number;
-  ngayThue: string;
-  hoanThanh: boolean;
-}
+import { ThueCongViec } from "../../../redux/models/JobModel";
+import {
+  delServiceHireApi,
+  getServiceHireApi,
+  getUserApi,
+} from "../../../redux/reducers/adminReducer";
 
 type Props = {};
 
 export default function ManageService({}: Props) {
-  const [allService, setAllService] = useState<any>([]);
+  const { allServiceHire } = useSelector(
+    (state: RootState) => state.adminReducer
+  );
+  const refUpdateForm = useRef<any>(null);
   const dispatch: AppDispatch = useDispatch();
-  const columns: ColumnsType<ServiceType> = [
+  const columns: ColumnsType<ThueCongViec> = [
     {
       title: "ID",
       dataIndex: "id",
@@ -61,23 +60,20 @@ export default function ManageService({}: Props) {
       key: "x",
       render: (value, service) => (
         <div className="d-flex gap-3">
-          <Modal />
+          <UpdateService service={service} ref={refUpdateForm} />
           <Button
-            data-bs-toggle="modal"
-            data-bs-target="#modalId"
             onClick={() => {
-              dispatch(setComponent(<ServiceUpdateForm service={service} />));
+              refUpdateForm.current.open();
             }}
             type="primary"
           >
-            Sửa
+            View & Edit
           </Button>
           <Button
             type="primary"
             danger
             onClick={() => {
-              console.log(value);
-              const action = deleteApi("/thue-cong-viec/", service.id);
+              const action = delServiceHireApi(service.id);
               dispatch(action);
             }}
           >
@@ -87,17 +83,15 @@ export default function ManageService({}: Props) {
       ),
     },
   ];
-  const fetchApi = async () => {
-    try {
-      const result = await http.get(`/thue-cong-viec`);
-      setAllService(result.data.content);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
   useEffect(() => {
-    fetchApi();
+    dispatch(getServiceHireApi());
   }, []);
 
-  return <Table columns={columns} dataSource={allService} />;
+  return (
+    <>
+      <AddService />
+      <Table columns={columns} dataSource={allServiceHire} />
+    </>
+  );
 }

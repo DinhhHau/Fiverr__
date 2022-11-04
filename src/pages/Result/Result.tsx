@@ -13,6 +13,7 @@ export default function Result({}: Props) {
   const params: any = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     let { name } = params;
     dispatch(getResultApi(name));
   }, [params.name]);

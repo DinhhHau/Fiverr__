@@ -8,12 +8,17 @@ import {
   ThongTinNguoiDung,
   ThongTinNguoiDungUpdate,
 } from "../models/AuthModel";
-import { CongViecViewModel, ThemCongViecViewModel } from "../models/JobModel";
+import {
+  CongViecViewModel,
+  LoaiCongViec,
+  ThemCongViecViewModel,
+  ThueCongViec,
+} from "../models/JobModel";
 import { getProfileApi } from "./userReducer";
 
 const initialState: any = {
   allUser: [],
-  allService: [],
+  allServiceHire: [],
   allCongViec: [],
   allJobType: [],
   user: {
@@ -155,7 +160,7 @@ export const searchUserApi = (key: string) => {
   };
 };
 
-// -------------------------------  manageJobType ------------------------------ //
+// -------------------------------  manageJob ------------------------------ //
 // Danh sách công việc
 export const getAllCongViecApi = () => {
   return async (dispatch: AppDispatch) => {
@@ -210,14 +215,17 @@ export const getJobTypeApi = () => {
   };
 };
 // xoá
-export const deleteApi = (url: string, id) => {
+export const delJobTypeApi = (id: number) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const result = await http.delete(url + id);
+      const result = await http.delete(`/loai-cong-viec/${id}`);
+
       Swal.fire({
         icon: "success",
         title: result.data.message,
       });
+
+      dispatch(getJobTypeApi());
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -227,14 +235,15 @@ export const deleteApi = (url: string, id) => {
   };
 };
 // cập nhật
-export const updateApi = (url: string, id, data) => {
+export const updateJobTypeApi = (id: number, data: LoaiCongViec) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const result = await http.put(url + id, data);
+      const result = await http.put(`/loai-cong-viec/${id}`, data);
       Swal.fire({
         icon: "success",
         title: result.data.message,
       });
+      dispatch(getJobTypeApi());
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -244,14 +253,87 @@ export const updateApi = (url: string, id, data) => {
   };
 };
 // thêm
-export const addApi = (url: string, data) => {
+export const addJobTypeApi = (data: LoaiCongViec) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const result = await http.post(url, data);
+      const result = await http.post("/loai-cong-viec", data);
+
       Swal.fire({
         icon: "success",
         title: result.data.message,
       });
+      dispatch(getJobTypeApi());
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Can't add new data !",
+      });
+    }
+  };
+};
+
+
+// -------------------------------  Service ------------------------------ //
+
+export const getServiceHireApi = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get(`/thue-cong-viec`);
+      dispatch(getAllServiceHire(result.data.content));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+// xoá
+export const delServiceHireApi = (id: number) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.delete(`/thue-cong-viec/${id}`);
+
+      Swal.fire({
+        icon: "success",
+        title: result.data.message,
+      });
+
+      dispatch(getServiceHireApi());
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Delete fail",
+      });
+    }
+  };
+};
+// cập nhật
+export const updateServiceHireApi = (id: number, data: ThueCongViec) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.put(`/thue-cong-viec/${id}`, data);
+      Swal.fire({
+        icon: "success",
+        title: result.data.message,
+      });
+      dispatch(getServiceHireApi());
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Update fail",
+      });
+    }
+  };
+};
+// thêm
+export const addServiceHireApi = (data: ThueCongViec) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.post("/thue-cong-viec", data);
+
+      Swal.fire({
+        icon: "success",
+        title: result.data.message,
+      });
+      dispatch(getServiceHireApi());
     } catch (err) {
       Swal.fire({
         icon: "error",
