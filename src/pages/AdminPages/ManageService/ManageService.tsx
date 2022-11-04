@@ -70,7 +70,7 @@ export default function ManageService({}: Props) {
             }}
             type="primary"
           >
-            Sửa
+            Edit
           </Button>
           <Button
             type="primary"

@@ -156,7 +156,8 @@ export const updateUserApi = (data: ThongTinNguoiDungUpdate) => {
 export const searchUserApi = (key: string) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const result = await http.get(`/users/search/${key}`);
+      let seacrchKey = encodeURI(key);
+      const result = await http.get(`/users/search/${seacrchKey}`);
       console.log(result);
       let data = result.data.content;
       let newData = [...data].map((e, index) => {

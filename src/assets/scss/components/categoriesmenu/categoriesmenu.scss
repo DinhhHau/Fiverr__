@@ -6,7 +6,10 @@
   top: 81px;
   left: 0;
   right: 0;
-  z-index: 10000;
+  z-index: 1000;
+  @media screen and (max-width: 576px) {
+    border: none;
+  }
   .categoriesmenu {
     &_wrapper {
       width: 100%;

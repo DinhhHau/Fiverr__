@@ -54,7 +54,6 @@ export default function ManageJobType({}: Props) {
             data-bs-toggle="modal"
             data-bs-target="#modalId"
             onClick={() => {
-            
               dispatch(
                 setComponent(
                   <JobTypeUpdateForm
@@ -65,7 +64,7 @@ export default function ManageJobType({}: Props) {
               );
             }}
           >
-            Thông tin chi tiết và sửa
+            Veiw & Edit
           </Button>
           <Modal ref={refUpdate} />
           <Button

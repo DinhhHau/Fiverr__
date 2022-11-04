@@ -65,6 +65,14 @@
     a {
     font-size: 12px;
   }
+  //admin
+
+  .ant-layout-sider-collapsed {
+    display: none;
+  }
+  .ant-layout-content {
+    overflow: scroll;
+  }
 }
 
 //end 992px

@@ -24,6 +24,7 @@ import {
 } from "../models/AuthModel";
 import { ThueCongViec } from "../models/JobModel";
 import { getUserApi } from "./adminReducer";
+import { message } from "antd";
 
 const initialState: any = {
   userLogin: {
