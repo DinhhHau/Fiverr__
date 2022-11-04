@@ -1,8 +1,15 @@
 export interface BinhLuan {
-  id: number | string;
-  maCongViec: number | string;
+  id: number;
+  maCongViec: number;
   maNguoiBinhLuan: number;
   ngayBinhLuan: string;
   noiDung: string;
   saoBinhLuan: number;
+}
+export interface BinhLuanCongViec {
+  ngayBinhLuan: string;
+  noiDung: string;
+  saoBinhLuan: number;
+  tenNguoiBinhLuan: string;
+  avatar: string;
 }

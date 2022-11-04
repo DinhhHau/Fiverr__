@@ -43,6 +43,7 @@ export default function AddService() {
     onSubmit: (values: any) => {
       const payload = values;
       dispatch(addServiceHireApi(payload));
+      setOpen(false);
     },
   });
 
@@ -127,9 +128,10 @@ export default function AddService() {
                   >
                     <FormControlLabel
                       value={true}
-                      control={<Radio color="success" />}
+                      control={<Radio color="success"  />}
                       label="Complete"
                       name="hoanThanh"
+
                     />
                     <FormControlLabel
                       color="success"

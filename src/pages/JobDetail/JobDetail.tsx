@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { Navigate, NavLink, useNavigate, useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../redux/configStore";
+import { BinhLuan, BinhLuanCongViec } from "../../redux/models/binhLuanModel";
 import {
   getJobCommentApi,
   postCommentApi,
@@ -10,10 +11,8 @@ import {
 import { Rate } from "antd";
 import { ACCESS_TOKEN, getStore } from "../../util/setting";
 import Swal from "sweetalert2";
-import { ThueCongViec } from "../../redux/models/JobModel";
-import { getDetailJobApi } from "../../redux/reducers/jobReducer";
 import { rentJobApi } from "../../redux/reducers/userReducer";
-import { BinhLuan } from "../../redux/models/binhLuanModel";
+import { getDetailJobApi } from "../../redux/reducers/jobReducer";
 type Props = {};
 
 export default function JobDetail({}: Props) {
@@ -28,7 +27,6 @@ export default function JobDetail({}: Props) {
 
   const dispatch: AppDispatch = useDispatch();
   const params: any = useParams();
-
   const current = new Date();
   const today = `${current.getDate()}/${
     current.getMonth() + 1
@@ -122,14 +120,14 @@ export default function JobDetail({}: Props) {
       noiDung: "",
     },
     onSubmit: (value: any) => {
-      if (!getStore(ACCESS_TOKEN)) {
+      if (userLogin === null) {
         Swal.fire({
           icon: "warning",
           title: "Đăng nhập để tiếp tục bình luận",
         });
         navigate("/login");
       } else {
-        const comment = {
+        const action = {
           id: 0,
           ngayBinhLuan: today,
           maCongViec: detailJob.id,
@@ -137,25 +135,25 @@ export default function JobDetail({}: Props) {
           noiDung: value.noiDung,
           saoBinhLuan: rating,
         };
-        postCommentApi(comment);
+        dispatch(postCommentApi(action));
       }
     },
   });
 
   const renderComment = () => {
-    return arrComment.map((comment: BinhLuan, index: number) => {
+    return arrComment.map((comment: BinhLuanCongViec, index: number) => {
       return (
         <li className="row py-4" key={index}>
-          <div className="reviewer-avatar col-1">
+          <div className="reviewer-avatar col-2">
             <img
-              src={detailJob.avatar}
-              alt="..."
-              className="rounded-circle w-100"
+              src={comment.avatar}
+              alt="user avatar"
+              className="rounded-circle"
             />
           </div>
-          <div className="reviewer-comment col-11">
+          <div className="reviewer-comment col-9">
             <div className="reviewer-name d-flex">
-              <h3>User name</h3>
+              <h3>{comment.tenNguoiBinhLuan}</h3>
               <span className="star">
                 <svg
                   width="16"
@@ -215,6 +213,11 @@ export default function JobDetail({}: Props) {
               </div>
             </div>
           </div>
+          <div className="reviewer-comment-del col-1">
+            <span>
+              <i className="fa-brands fa-xing"></i>
+            </span>
+          </div>
         </li>
       );
     });
@@ -225,22 +228,21 @@ export default function JobDetail({}: Props) {
   };
 
   const handleCheckOut = () => {
-    if (!getStore(ACCESS_TOKEN)) {
+    if (userLogin === null) {
       Swal.fire({
         icon: "warning",
         title: "Vui lòng đăng nhập để thuê công việc",
       });
       navigate("/login");
     } else {
-      const data = {
+      const rentJob = {
         id: 0,
         maCongViec: detailJob.id,
         maNguoiThue: userLogin.id,
         ngayThue: today,
         hoanThanh: false,
       };
-      dispatch(rentJobApi(data));
-      // console.log(data);
+      dispatch(rentJobApi(rentJob));
     }
   };
 
@@ -367,7 +369,7 @@ export default function JobDetail({}: Props) {
                 </form>
               </div>
               <div className="check-out-footer">
-                <button className="submit" onClick={handleCheckOut}>
+                <button className="submit">
                   Continue (US${detailJob.congViec?.giaTien})
                 </button>
                 <a href="#compare" className="compare">
@@ -671,14 +673,14 @@ export default function JobDetail({}: Props) {
               <div className="review-comment">
                 <ul className="review-comment-list">
                   <li className="row py-4">
-                    <div className="reviewer-avatar col-1">
+                    <div className="reviewer-avatar col-2">
                       <img
                         src={detailJob.avatar}
                         alt="..."
                         className="rounded-circle w-100"
                       />
                     </div>
-                    <div className="reviewer-comment col-11">
+                    <div className="reviewer-comment col-10">
                       <div className="reviewer-name d-flex">
                         <h3>idarethejeff</h3>
                         <span className="star">

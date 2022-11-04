@@ -178,3 +178,14 @@
     }
   }
 }
+@media screen and (max-width: 765px) {
+  .result{
+    padding-top: 50px;
+    &-topbar {
+      display:none;
+    }
+    &-title{
+      text-align: center;
+    }
+  }
+}

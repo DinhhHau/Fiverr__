@@ -4,9 +4,6 @@
 .categories {
   position: relative;
   padding-top: 34px;
-  max-width: 1320px;
-  margin: 0 auto;
-
   .dropdown-toggle::after {
     display: none;
   }
@@ -19,7 +16,7 @@
         color: #62646a;
         font-weight: 500;
         &:hover {
-          color: #1dbf73;
+          color: $primary-color;
         }
       }
       svg {
@@ -198,6 +195,16 @@
         justify-content: start !important;
         width: 100%;
       }
+    }
+  }
+}
+@media screen and (max-width: 765px) {
+  .categories {
+    &-topbar {
+      display:none;
+    }
+    &-title{
+      text-align: center;
     }
   }
 }

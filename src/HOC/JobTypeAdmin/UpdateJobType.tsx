@@ -91,7 +91,7 @@ const UpdateJobType = ({ jobtype }: Props, ref) => {
 
             <DialogActions className="dialogActions_admin">
               <Button type="submit" className="btn_add">
-                Add
+                Save
               </Button>
               <Button onClick={handleClose} autoFocus className="btn_cancel">
                 Cancel
