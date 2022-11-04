@@ -157,6 +157,9 @@
     display: none;
   }
   //menu
+  .CategoriesMenu {
+    top: 79px;
+  }
   .categoriesmenu_li {
     padding: 0 10px;
   }
@@ -227,6 +230,10 @@
   .CategoriesMenu {
     border: none;
   }
+  //
+  // .main_content .main_wrapper {
+  //   width: max-content;
+  // }
   //footer
   .footer .footer_warpper .footer_row .footer_bottom {
     justify-content: center;

@@ -306,7 +306,7 @@ export default function Register({}: Props) {
           </div>
           <div className="signup-image">
             <figure>
-              <img src={signup} />
+              <img src={signup} className="w-100" />
             </figure>
             <NavLink to="/login" className="signup-image-link">
               I am already member
