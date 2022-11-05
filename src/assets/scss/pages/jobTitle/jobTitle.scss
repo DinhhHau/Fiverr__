@@ -69,12 +69,12 @@
     }
     .content {
       display: flex;
-      flex-wrap: wrap;
+      // flex-wrap: wrap;
       overflow: hidden;
       justify-content: flex-start;
       align-items: center;
       height: 94px;
-      width: max-content;
+      // width: max-content;
       padding: 10px;
       margin-left: -10px;
       margin-right: -10px;
