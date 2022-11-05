@@ -11,8 +11,8 @@ import { getMenuLoaiCv } from "../../redux/reducers/jobReducer";
 type Props = {};
 
 export default function CategoriesMenu({}: Props) {
-  const location = useLocation()
-  const [scrollPosition, setScrollPosition] = useState(0)
+  const location = useLocation();
+  const [scrollPosition, setScrollPosition] = useState(0);
   //
   const { arrLoaiCV } = useSelector((state: RootState) => state.jobReducer);
   // console.log(arrLoaiCV);
@@ -25,28 +25,34 @@ export default function CategoriesMenu({}: Props) {
 
   useEffect(() => {
     const updatePosition = () => {
-      if (location.pathname === '/') {
-        setScrollPosition(window.pageYOffset)
-      } else if (location.pathname !== "/"){
-        setScrollPosition(0)
+      if (location.pathname === "/") {
+        setScrollPosition(window.pageYOffset);
+      } else if (location.pathname !== "/") {
+        setScrollPosition(0);
       }
-    }
-    window.addEventListener('scroll', updatePosition)
-    updatePosition()
-    return () => window.removeEventListener('scroll', updatePosition)
-  }, [location.pathname])
+    };
+    window.addEventListener("scroll", updatePosition);
+    updatePosition();
+    return () => window.removeEventListener("scroll", updatePosition);
+  }, [location.pathname]);
 
   return (
-    <section className={(scrollPosition > 0 || location.pathname !== "/") ? "CategoriesMenu" : "CategoriesMenu CategoriesMenu-active" }>
+    <section
+      className={
+        scrollPosition > 0 || location.pathname !== "/"
+          ? "CategoriesMenu"
+          : "CategoriesMenu CategoriesMenu-active"
+      }
+    >
       <div className="categoriesmenu_wrapper">
         <nav className="categoriesmenu_row">
           <div className="categoriesmenu_ul ">
             {arrLoaiCV.map((job: JobModel, index: number) => {
               return (
                 <div className="categoriesmenu_li" key={index}>
-                  <a className="links" href="#">
-                    {job.tenLoaiCongViec}
-                  </a>
+                  <NavLink className="links mb-0" to={`/title/${job.id}`}>
+                    <p className="mb-0">{job.tenLoaiCongViec}</p>
+                  </NavLink>
                   <div
                     className={`categoriesmenu_li_jobdetail categoriesmenu_li_jobdetail_${job.id}`}
                   >

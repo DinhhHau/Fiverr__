@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { http } from "../../util/setting";
 import { AppDispatch } from "../configStore";
+import { history } from "../../index";
 import JobModel, {
   CongViecChiTiet,
   CongViecViewModel,
@@ -33,6 +34,24 @@ const initialState: any = {
     tenLoaiCongViec: "",
     avatar: "",
   },
+  jobTitleDetail: {
+    id: 0,
+    tenLoaiCongViec: "",
+    dsNhomChiTietLoai: [
+      {
+        id: 0,
+        tenNhom: "",
+        hinhAnh: "",
+        maLoaiCongViec: 0,
+        dsChiTietLoai: [
+          {
+            id: 0,
+            tenChiTiet: "",
+          },
+        ],
+      },
+    ],
+  },
 };
 
 const jobReducer = createSlice({
@@ -57,6 +76,9 @@ const jobReducer = createSlice({
     getResult: (state, action: PayloadAction<CongViecChiTiet[]>) => {
       state.arrResult = action.payload;
     },
+    getJobTitleDetailAction: (state, action: PayloadAction<JobModel>) => {
+      state.jobTitleDetail = action.payload;
+    },
   },
 });
 
@@ -66,6 +88,7 @@ export const {
   getCategory,
   getResult,
   getDetailJob,
+  getJobTitleDetailAction,
 } = jobReducer.actions;
 
 export default jobReducer.reducer;
@@ -149,6 +172,21 @@ export const getResultApi = (name: String) => {
       dispatch(getResult(arrResult));
     } catch (err) {
       console.log(err);
+    }
+  };
+};
+//
+export const getJobTitleDetailApi = (id: String | number) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get(
+        `/cong-viec/lay-chi-tiet-loai-cong-viec/${id}`
+      );
+      // const jobTitleDetail: congViecModel = result.data.content;
+      dispatch(getJobTitleDetailAction(result.data.content[0]));
+    } catch (err) {
+      console.log(err);
+      history.push("/");
     }
   };
 };

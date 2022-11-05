@@ -34,6 +34,7 @@ import CustomAdmin from "./assets/CustomLogo/CustomAdmin";
 import Categories from "./pages/Categories/Catagories";
 import Result from "./pages/Result/Result";
 import JobDetail from "./pages/JobDetail/JobDetail";
+import JobTitle from "./pages/JobTitle/JobTitle";
 //
 export const history = createBrowserHistory({ window });
 
@@ -58,6 +59,10 @@ root.render(
           </Route>
           <Route path="/jobdetail">
             <Route path=":id" element={<JobDetail />}></Route>
+          </Route>
+          <Route path="/title">
+            <Route path=":id" element={<JobTitle />}></Route>
+            <Route path="*" element={<Navigate to={"/home"} />}></Route>
           </Route>
         </Route>
         <Route
