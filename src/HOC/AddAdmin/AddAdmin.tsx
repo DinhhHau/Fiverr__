@@ -40,9 +40,7 @@ export default function AddAdmin() {
         .required("  Password không được bỏ trống ")
         .min(6, " Password từ 6 - 32 ký tự ")
         .max(32, "pass từ 6 - 32 ký tự !"),
-      passwordConfirm: Yup.string()
-        .required("  PasswordConfirm không được bỏ trống ")
-        .oneOf([Yup.ref("password")], "  Password phải trùng nhau "),
+
       name: Yup.string()
         .matches(
           /[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/,
@@ -55,12 +53,10 @@ export default function AddAdmin() {
           "  Phone phải từ 03 05 07 08 09 và có 10 số "
         )
         .required(" Phone không được bỏ trống "),
-      birthday: Yup.string().required("Birthday không được bỏ trống"),
     }),
     onSubmit: (values) => {
-      // console.log(values);
-      const payload = values;
-      dispatch(registerAdminApi(payload))
+      console.log(values);
+      dispatch(registerAdminApi(values))
         .then((res) => {
           handleClose();
         })

@@ -116,6 +116,7 @@ export const userIdApi = (id: number) => {
 };
 // thêm admin
 export const registerAdminApi = (user: ThemAdmin) => {
+  console.log(user);
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.post("/users", user);
