@@ -42,7 +42,7 @@ Mật khẩu : 123123
 
     . Thêm, xoá, sửa thông tin người dùng
 
-    . Thêm quản trị
+    . Thêm, xoá công việc muốn thuê
 
 2.  Quản lí công việc
 
@@ -54,6 +54,6 @@ Mật khẩu : 123123
 
 ## Thành viên làm dự án Fiverr
 
-. Nguyễn Đình Hậu
+. Nguyễn Đình Hậu ( jobTitle, jobDetail, Categories , Login, Register, userDetail, Result , admin )
 
 . Nguyễn Văn Đức ( index )

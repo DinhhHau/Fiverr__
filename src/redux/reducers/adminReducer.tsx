@@ -229,7 +229,7 @@ export const delCongViecApi = (id: number) => {
       dispatch(getAllCongViecApi());
     } catch (err) {
       console.log(err);
-      toast.success("Error");
+      toast.error("Error");
     }
   };
 };
@@ -246,7 +246,6 @@ export const updateJobApi = (jobUpdate: ThemCongViecViewModel, file: any) => {
       const avatar = await http
         .post(`/cong-viec/upload-hinh-cong-viec/${getStore("id_job")}`, data)
         .finally(() => dispatch(getAllCongViecApi()));
-      // message.success(result.data.message);
     } catch (err) {
       console.log(err);
     }
@@ -270,15 +269,9 @@ export const deleteApi = (url: string, id) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.delete(url + id);
-      Swal.fire({
-        icon: "success",
-        title: result.data.message,
-      });
+      message.success(result.data.message);
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Delete fail",
-      });
+      message.error("Delete fail !");
     }
   };
 };
@@ -287,15 +280,9 @@ export const updateApi = (url: string, id, data) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.put(url + id, data);
-      Swal.fire({
-        icon: "success",
-        title: result.data.message,
-      });
+      message.success(result.data.message);
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Update fail",
-      });
+      message.error("Update fail !");
     }
   };
 };
@@ -303,16 +290,13 @@ export const updateApi = (url: string, id, data) => {
 export const addApi = (url: string, data) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const result = await http.post(url, data);
-      Swal.fire({
-        icon: "success",
-        title: result.data.message,
-      });
+      const result = await http
+        .post(url, data)
+        .finally(() => dispatch(getJobTypeApi()));
+      message.success(result.data.message);
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Can't add new data !",
-      });
+      message.error("Can't add new data !");
+      dispatch(getJobTypeApi());
     }
   };
 };
