@@ -26,6 +26,7 @@ export default function Index({}: Props) {
       <section className="carousel-slider">
         <Slider />
       </section>
+
       <section className="container slider-content">
         <div className="search">
           <div className="container">
@@ -91,6 +92,7 @@ export default function Index({}: Props) {
           </ul>
         </div>
       </section>
+
       <section className="subcategory-carousel">
         <div className="container">
           <h2>Popular professional services</h2>
@@ -99,6 +101,7 @@ export default function Index({}: Props) {
           </div>
         </div>
       </section>
+
       <section className="selling-proposition-wrapper">
         <div className="selling-proposition container">
           <div className="row align-items-center justify-content-between">
@@ -225,9 +228,11 @@ export default function Index({}: Props) {
           </div>
         </div>
       </section>
+
       <section className="testimonial">
         <SlickCarousel />
       </section>
+
       <section className="main-categories container">
         <h2 className="margin">Explore the marketplace</h2>
         <ul className="row justify-content-center">

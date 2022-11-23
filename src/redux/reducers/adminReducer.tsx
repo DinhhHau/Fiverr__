@@ -102,6 +102,7 @@ export const userIdApi = (id: number) => {
 };
 // thêm admin
 export const registerAdminApi = (user: ThemAdmin) => {
+  console.log(user);
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.post("/users", user);
@@ -196,11 +197,28 @@ export const delCongViecApi = (id: number) => {
       dispatch(getAllCongViecApi());
     } catch (err) {
       console.log(err);
-      toast.success("Error");
+      toast.error("Error");
     }
   };
 };
-// thêm ảnh công viêc
+// sửa công việc
+export const updateJobApi = (jobUpdate: ThemCongViecViewModel, file: any) => {
+  return async (dispatch: AppDispatch) => {
+    const result = await http.put(
+      `/cong-viec/${getStore("id_job")}`,
+      jobUpdate
+    );
+    try {
+      let data = new FormData();
+      data.append("formFile", file);
+      const avatar = await http
+        .post(`/cong-viec/upload-hinh-cong-viec/${getStore("id_job")}`, data)
+        .finally(() => dispatch(getAllCongViecApi()));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
 
 // -------------------------------  manageJobType ------------------------------ //
 // danh sách jobtype

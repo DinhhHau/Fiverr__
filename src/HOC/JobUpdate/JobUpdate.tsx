@@ -24,6 +24,7 @@ import { AppDispatch, RootState } from "../../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { updateJobApi } from "../../redux/reducers/adminReducer";
+import { message } from "antd";
 
 const JobUpdate = (props, ref) => {
   const dispatch: AppDispatch = useDispatch();
@@ -40,7 +41,6 @@ const JobUpdate = (props, ref) => {
   const handleClose = () => {
     setOpen(false);
   };
-
   const handleChangeImage = (e) => {
     console.log(e.target.files[0]);
     if (e.target.files) {
@@ -64,6 +64,7 @@ const JobUpdate = (props, ref) => {
     onSubmit: (values) => {
       console.log(values);
       dispatch(updateJobApi(values, img));
+      message.success("Cập nhật thành công !");
     },
   });
   //
@@ -196,10 +197,20 @@ const JobUpdate = (props, ref) => {
             </Grid>
           </Grid>
           <DialogActions className="dialogActions_admin">
-            <Button type="submit" onClick={handleClose} className="btn_add">
+            <Button
+              type="submit"
+              onClick={handleClose}
+              className="btn_add"
+              style={{ background: "#1dbf73", color: "#fff" }}
+            >
               Save
             </Button>
-            <Button onClick={handleClose} autoFocus className="btn_cancel">
+            <Button
+              onClick={handleClose}
+              autoFocus
+              className="btn_cancel"
+              style={{ background: "#e14c4c", color: "#fff" }}
+            >
               Cancel
             </Button>
           </DialogActions>

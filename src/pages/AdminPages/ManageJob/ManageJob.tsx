@@ -9,7 +9,6 @@ import { AppDispatch, RootState } from "../../../redux/configStore";
 import {
   delCongViecApi,
   getAllCongViecApi,
-  getJobApi,
 } from "../../../redux/reducers/adminReducer";
 import { setStore } from "../../../util/setting";
 
@@ -80,7 +79,6 @@ export default function ManageJob({}: Props) {
               // console.log(id);
               setStore("id_job", id);
               refJobDialog.current.open();
-              dispatch(getJobApi(id));
             }}
           >
             Edit
