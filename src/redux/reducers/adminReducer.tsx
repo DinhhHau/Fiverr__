@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { message } from "antd";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { getStore, http } from "../../util/setting";
@@ -33,24 +32,13 @@ const initialState: any = {
     skill: [],
     gender: false,
   },
-  job: {
-    tenCongViec: "",
-    danhGia: "",
-    giaTien: "",
-    nguoiTao: "",
-    hinhAnh: "",
-    moTa: "",
-    maChiTietLoaiCongViec: "",
-    moTaNgan: "",
-    saoCongViec: "",
-  },
 };
 
 const adminReducer = createSlice({
   name: "adminReducer",
   initialState,
   reducers: {
-    getAllUser: (state, action: PayloadAction<ThongTinNguoiDung[]>) => {
+    getAllUser: (state, action) => {
       state.allUser = action.payload;
     },
     getAllCongViecAction: (
@@ -59,22 +47,16 @@ const adminReducer = createSlice({
     ) => {
       state.allCongViec = action.payload;
     },
-    getJobAction: (state, action: PayloadAction<CongViecViewModel>) => {
-      state.job = action.payload;
-    },
     getAllServiceHire: (state, action) => {
       state.allServiceHire = action.payload;
     },
     getAllJobType: (state, action) => {
       state.allJobType = action.payload;
     },
-    getUserAction: (state, action: PayloadAction<ThongTinNguoiDungUpdate>) => {
+    getUserAction: (state, action) => {
       state.user = action.payload;
     },
-    getUserSearch: (
-      state,
-      aciton: PayloadAction<ThongTinNguoiDungUpdate[]>
-    ) => {
+    getUserSearch: (state, aciton) => {
       state.allUser = aciton.payload;
     },
   },
@@ -83,7 +65,6 @@ const adminReducer = createSlice({
 export const {
   getAllUser,
   getAllCongViecAction,
-  getJobAction,
   getAllServiceHire,
   getAllJobType,
   getUserAction,
@@ -145,7 +126,7 @@ export const delUserApi = (id: number) => {
     }
   };
 };
-// sửa user
+// cập nhật user
 export const updateUserApi = (data: ThongTinNguoiDungUpdate) => {
   return async (dispatch: AppDispatch) => {
     try {
@@ -161,8 +142,7 @@ export const updateUserApi = (data: ThongTinNguoiDungUpdate) => {
 export const searchUserApi = (key: string) => {
   return async (dispatch: AppDispatch) => {
     try {
-      let seacrchKey = encodeURI(key);
-      const result = await http.get(`/users/search/${seacrchKey}`);
+      const result = await http.get(`/users/search/${key}`);
       console.log(result);
       let data = result.data.content;
       let newData = [...data].map((e, index) => {
@@ -194,42 +174,25 @@ export const getAllCongViecApi = () => {
     }
   };
 };
-// xem thông tin công việc
-export const getJobApi = (id: number) => {
-  return async (dispatch: AppDispatch) => {
-    try {
-      const result = await http.get(`/cong-viec/${id}`);
-      dispatch(getJobAction(result.data.content));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-};
 // thêm công việc
-export const addJobApi = (job: ThemCongViecViewModel, file: any) => {
+export const addJobApi = (job: ThemCongViecViewModel) => {
   return async (dispatch: AppDispatch) => {
-    const result = await http.post(`/cong-viec`, job);
     try {
-      let data = new FormData();
-      data.append("formFile", file);
-      const avatar = await http.post(
-        `/cong-viec/upload-hinh-cong-viec/${result.data.content.id}`,
-        data
-      );
+      const result = await http.post(`/cong-viec`, job);
       console.log(result);
-      message.success("Thêm công việc thành công!");
+      toast.success("Thêm công việc thành công!");
       dispatch(getAllCongViecApi());
     } catch (err: any) {
       toast.error(err.response.data.content);
     }
   };
 };
-// xoá công việc
+// Xoá công việc
 export const delCongViecApi = (id: number) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.delete(`/cong-viec/${id}`);
-      message.success(result.data.message);
+      toast.success(result.data.message);
       dispatch(getAllCongViecApi());
     } catch (err) {
       console.log(err);
@@ -237,27 +200,7 @@ export const delCongViecApi = (id: number) => {
     }
   };
 };
-// sửa công việc
-export const updateJobApi = (jobUpdate: ThemCongViecViewModel, file: any) => {
-  return async (dispatch: AppDispatch) => {
-    const result = await http.put(
-      `/cong-viec/${getStore("id_job")}`,
-      jobUpdate
-    );
-    try {
-      let data = new FormData();
-      data.append("formFile", file);
-      const avatar = await http.post(
-        `/cong-viec/upload-hinh-cong-viec/${getStore("id_job")}`,
-        data
-      );
-      message.success(result.data.message);
-      dispatch(getAllCongViecApi());
-    } catch (err) {
-      console.log(err);
-    }
-  };
-};
+// thêm ảnh công viêc
 
 // -------------------------------  manageJobType ------------------------------ //
 // danh sách jobtype
@@ -277,17 +220,11 @@ export const delJobTypeApi = (id: number) => {
     try {
       const result = await http.delete(`/loai-cong-viec/${id}`);
 
-      Swal.fire({
-        icon: "success",
-        title: result.data.message,
-      });
+      toast.success(result.data.message);
 
       dispatch(getJobTypeApi());
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Delete fail",
-      });
+      toast.error("Xóa không thành công");
     }
   };
 };
@@ -296,16 +233,10 @@ export const updateJobTypeApi = (id: number, data: LoaiCongViec) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.put(`/loai-cong-viec/${id}`, data);
-      Swal.fire({
-        icon: "success",
-        title: result.data.message,
-      });
+      toast.success(result.data.message);
       dispatch(getJobTypeApi());
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Update fail",
-      });
+      toast.error("Cập nhật không thành công");
     }
   };
 };
@@ -315,20 +246,13 @@ export const addJobTypeApi = (data: LoaiCongViec) => {
     try {
       const result = await http.post("/loai-cong-viec", data);
 
-      Swal.fire({
-        icon: "success",
-        title: result.data.message,
-      });
+      toast.success(result.data.message);
       dispatch(getJobTypeApi());
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Can't add new data !",
-      });
+      toast.error("Thêm mới không thành công !");
     }
   };
 };
-
 
 // -------------------------------  Service ------------------------------ //
 
@@ -348,17 +272,11 @@ export const delServiceHireApi = (id: number) => {
     try {
       const result = await http.delete(`/thue-cong-viec/${id}`);
 
-      Swal.fire({
-        icon: "success",
-        title: result.data.message,
-      });
+      toast.success(result.data.message);
 
       dispatch(getServiceHireApi());
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Delete fail",
-      });
+      toast.error("Xóa không thành công !");
     }
   };
 };
@@ -367,16 +285,11 @@ export const updateServiceHireApi = (id: number, data: ThueCongViec) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.put(`/thue-cong-viec/${id}`, data);
-      Swal.fire({
-        icon: "success",
-        title: result.data.message,
-      });
+      toast.success(result.data.message);
+
       dispatch(getServiceHireApi());
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Update fail",
-      });
+      toast.error("Cập nhật không thành công !");
     }
   };
 };
@@ -386,16 +299,11 @@ export const addServiceHireApi = (data: ThueCongViec) => {
     try {
       const result = await http.post("/thue-cong-viec", data);
 
-      Swal.fire({
-        icon: "success",
-        title: result.data.message,
-      });
+      toast.success(result.data.message);
+
       dispatch(getServiceHireApi());
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Can't add new data !",
-      });
+      toast.error("Thêm mới không thành công !");
     }
   };
 };
